@@ -15,11 +15,13 @@
     "url": "git@github.com:njl07/otp-manager.git"
   },
   "keywords": [
-    "otp",
-    "hotp",
-    "totp",
-    "google",
-    "authenticator"
+    "One-Time Password",
+    "HOTP",
+    "RFC 4226",
+    "TOTP",
+    "RFC 6238",
+    "Google",
+    "Authenticator"
   ],
   "author": {
     "name": "Nicolas Jessel",
