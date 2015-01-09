@@ -1,0 +1,40 @@
+{
+  "name": "otp-manager",
+  "version": "0.0.1",
+  "description": "HMAC-based (HOTP) and Time-based (TOTP) One-Time Password manager and works with Google Authenticator.",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "directories":{
+    "lib":"./lib",
+    "test":"./test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:njl07/otp-manager.git"
+  },
+  "keywords": [
+    "otp",
+    "hotp",
+    "totp",
+    "google",
+    "authenticator"
+  ],
+  "author": {
+    "name": "Nicolas Jessel",
+    "email": "akanass@icloud.com",
+    "url": "https://github.com/njl07"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/njl07/otp-manager/blob/master/LICENSE.md"
+  },
+  "bugs": {
+    "url": "https://github.com/njl07/otp-manager/issues"
+  },
+  "homepage": "https://github.com/njl07/otp-manager",
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}
