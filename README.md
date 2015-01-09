@@ -8,10 +8,21 @@
 
 One Time Password manager is fully compliant with [HOTP](http://tools.ietf.org/html/rfc4226) (counter based one time passwords) and [TOTP](http://tools.ietf.org/html/rfc6238) (time based one time passwords). It can be used in conjunction with the Google Authenticator which has free apps for iOS, Android and BlackBerry.
 
+* [Installation](#installation)
+* [Getting started](#getting-started)
+
 ## Installation
 
 Install module with: `npm install --save otp-manager`
 
 ```javascript
 var OTPManager = require('otp-manager');
+```
+## Getting started
+
+```javascript
+var OTPManager = require('otp-manager');
+
+// get HOTP object
+var HOTP = OTPManager.hotp;
 ```
