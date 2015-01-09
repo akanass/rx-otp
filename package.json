@@ -46,7 +46,9 @@
     "mocha-lcov-reporter": "0.0.1",
     "unit.js": "^1.1.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "underscore": "^1.7.0"
+  },
   "engines": {
     "node": ">=0.10.0"
   }

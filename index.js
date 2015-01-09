@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('./lib/OtpManager');
+module.exports = require('./lib/OTPManager');
