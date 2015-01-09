@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "binstring": "^0.2.1",
+    "thirty-two": "0.0.2",
     "underscore": "^1.7.0",
     "validator": "^3.27.0"
   },
