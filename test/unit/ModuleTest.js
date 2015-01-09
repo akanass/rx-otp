@@ -20,7 +20,7 @@ describe('- ModuleTest file', function()
         OTPManagerModule = null;
     });
 
-    // test node-signpass module
+    // test otp-manager module
     describe('- test otp-manager module', function()
     {
         // check if module is loaded
