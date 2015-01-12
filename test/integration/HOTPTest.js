@@ -51,5 +51,11 @@ describe('- HOTPTest integration file', function()
         {
             unit.assert.equal(HOTP.gen({hex: '3132333435363738393031323334353637383930'}, {counter:{hex:'0000000000000002'}}), '359152');
         });
+
+        it('- call `gen` with parameters: `key` => {string:\'12345678901234567890\'} and options ' +
+        '=>  {counter:{int:2}, codeDigits:10, addChecksum:false}', function()
+        {
+            unit.assert.equal(HOTP.gen({string: '12345678901234567890'}, {counter:{int:2}, codeDigits:10}), '0137359152');
+        });
     });
 });
