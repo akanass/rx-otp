@@ -47,10 +47,13 @@
     "unit.js": "^1.1.2"
   },
   "dependencies": {
+    "big-integer": "^1.4.1",
     "binstring": "^0.2.1",
+    "convert-base": "^0.1.0",
+    "joi": "^5.1.0",
+    "pad-component": "0.0.1",
     "thirty-two": "0.0.2",
-    "underscore": "^1.7.0",
-    "validator": "^3.27.0"
+    "underscore": "^1.7.0"
   },
   "engines": {
     "node": ">=0.10.0"
