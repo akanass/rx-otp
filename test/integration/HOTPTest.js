@@ -20,7 +20,7 @@ describe('- HOTPTest integration file', function()
         HOTP = null;
     });
 
-    describe('- HOTP Algorithm: Test Values', function()
+    describe('- HOTP Algorithm: Test Values (http://tools.ietf.org/html/rfc4226#page-32)', function()
     {
         it('- call `gen` with parameters: `key` => {string:\'12345678901234567890\'} and default options ' +
         '=>  {counter:{int:0}, codeDigits:6, addChecksum:false}', function()
@@ -53,9 +53,9 @@ describe('- HOTPTest integration file', function()
         });
 
         it('- call `gen` with parameters: `key` => {string:\'12345678901234567890\'} and options ' +
-        '=>  {counter:{int:2}, codeDigits:10, addChecksum:false}', function()
+        '=>  {counter:{int:7}, codeDigits:10, addChecksum:false}', function()
         {
-            unit.assert.equal(HOTP.gen({string: '12345678901234567890'}, {counter:{int:2}, codeDigits:10}), '0137359152');
+            unit.assert.equal(HOTP.gen({string: '12345678901234567890'}, {counter:{int:7}, codeDigits:10}), '0082162583');
         });
     });
 });
