@@ -81,7 +81,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("key must be an object");
+                    .hasMessage('key must be an object');
             });
 
             it('- `gen` function must have `key` attribute which is a validated object', function()
@@ -94,7 +94,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("key must contain at least one of string, hex");
+                    .hasMessage('key must contain at least one of string, hex');
             });
 
             it('- `gen` function must have `key` attribute with no empty `string` value', function()
@@ -107,7 +107,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("key is not allowed to be empty");
+                    .hasMessage('key is not allowed to be empty');
             });
 
             it('- `gen` function must have `key` attribute with no empty `hex` value', function()
@@ -120,7 +120,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("key is not allowed to be empty");
+                    .hasMessage('key is not allowed to be empty');
             });
 
             it('- `gen` function must have `key` attribute with conform `hex` value', function()
@@ -133,7 +133,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("key fails to match the required pattern");
+                    .hasMessage('key fails to match the required pattern');
             });
 
             it('- `gen` function must have `key` attribute with one of `string` or `hex` value', function()
@@ -146,7 +146,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("key contains a conflict between exclusive peers string, hex");
+                    .hasMessage('key contains a conflict between exclusive peers string, hex');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which is an object', function()
@@ -159,7 +159,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt must be an object");
+                    .hasMessage('opt must be an object');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which is a validated object', function()
@@ -172,7 +172,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt must contain at least one of int, hex");
+                    .hasMessage('opt must contain at least one of int, hex');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which have a number `int` value', function()
@@ -185,7 +185,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt must be a number");
+                    .hasMessage('opt must be a number');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which have a positive number `int` value', function()
@@ -198,7 +198,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt must be larger than or equal to 0");
+                    .hasMessage('opt must be larger than or equal to 0');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which have a non empty `hex` value', function()
@@ -211,7 +211,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt is not allowed to be empty");
+                    .hasMessage('opt is not allowed to be empty');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which have a conform `hex` value', function()
@@ -224,7 +224,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt fails to match the required pattern");
+                    .hasMessage('opt fails to match the required pattern');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which have one of `int` or `hex` value', function()
@@ -237,7 +237,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt contains a conflict between exclusive peers int, hex");
+                    .hasMessage('opt contains a conflict between exclusive peers int, hex');
             });
 
             it('- `gen` function must have `opt` attribute with number `codeDigits` value', function()
@@ -250,7 +250,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt must be a number");
+                    .hasMessage('opt must be a number');
             });
 
             it('- `gen` function must have `opt` attribute with `codeDigits` value larger than or equal to 1', function()
@@ -263,7 +263,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt must be larger than or equal to 1");
+                    .hasMessage('opt must be larger than or equal to 1');
             });
 
             it('- `gen` function must have `opt` attribute with `codeDigits` value less than or equal to 10', function()
@@ -276,7 +276,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt must be less than or equal to 10");
+                    .hasMessage('opt must be less than or equal to 10');
             });
 
             it('- `gen` function must have `opt` attribute with boolean `addChecksum` value', function()
@@ -289,7 +289,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt must be a boolean");
+                    .hasMessage('opt must be a boolean');
             });
 
             it('- `gen` function must have `opt` attribute with number `truncationOffset` value', function()
@@ -302,7 +302,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt must be a number");
+                    .hasMessage('opt must be a number');
             });
 
             it('- `gen` function must have `opt` attribute with `truncationOffset` value larger than or equal to 0', function()
@@ -315,7 +315,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt must be larger than or equal to 0");
+                    .hasMessage('opt must be larger than or equal to 0');
             });
 
             it('- `gen` function must have `opt` attribute with `truncationOffset` value less than or equal to 15', function()
@@ -328,7 +328,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage("opt must be less than or equal to 15");
+                    .hasMessage('opt must be less than or equal to 15');
             });
         });
 
