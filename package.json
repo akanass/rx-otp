@@ -1,6 +1,6 @@
 {
   "name": "otp-manager",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "HMAC-based (HOTP) and Time-based (TOTP) One-Time Password manager and works with Google Authenticator.",
   "main": "index.js",
   "scripts": {
