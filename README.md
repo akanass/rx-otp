@@ -4,7 +4,7 @@
 
 [![NPM](https://nodei.co/npm/otp-manager.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/otp-manager/)
 
-# One-Time Password manager
+## One-Time Password manager
 
 One Time Password manager is fully compliant with [HOTP](http://tools.ietf.org/html/rfc4226) (counter based one time passwords) and [TOTP](http://tools.ietf.org/html/rfc6238) (time based one time passwords). It can be used in conjunction with the Google Authenticator which has free apps for iOS, Android and BlackBerry.
 
@@ -17,14 +17,14 @@ All methods described in both `RFC` are implemented in [API](#api).
 * [Release History](#release-history)
 * [License](#license)
 
-# Installation
+## Installation
 
 Install module with: `npm install --save otp-manager`
 
 ```javascript
 var OTPManager = require('otp-manager');
 ```
-# Getting started
+## Getting started
 
 ```javascript
 var OTPManager = require('otp-manager');
@@ -53,20 +53,20 @@ catch(ex)
 
 To be implemented
 
-# Google Authenticator
+## Google Authenticator
 
 To be implemented
 
-# API
+## API
 
-## HOTP.gen(key, opt)
+### HOTP.gen(key, opt)
 
 Return a counter based one-time password.
 
 **key**
 > Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
 > Key is an object with 2 exclusive attributes to define the key's format: ASCII string or Hexadecimal string.
-> 
+>
 > e.g: `{string:'12345678901234567890'}` or `{hex: '3132333435363738393031323334353637383930'}`
 
 **opt**
@@ -91,26 +91,27 @@ Return a counter based one-time password.
 > Finally, `opt` object will be like this:
 >> Default value: `{counter:{int:0}, codeDigits:6, addChecksum:false, truncationOffset:-1}`
 
-## HOTP.verify(token, key, opt)
+### HOTP.verify(token, key, opt)
 
 To be implemented
 
-## TOTP.gen(key, opt)
+### TOTP.gen(key, opt)
 
 To be implemented
 
-## TOTP.verify(token, key, opt)
+### TOTP.verify(token, key, opt)
 
 To be implemented
 
-# Release History
+## Release History
 
 | Version    | Notes       |
 |:-----------|:------------|
+| 0.1.1      | Update integration tests |
 | 0.1.0      | Version with HOTP generation implementation |
 | 0.0.3      | Version Bump for publish |
 | 0.0.2      | API movement |
 | 0.0.1      | First Prototype |
 
-# License
+## License
 Copyright (c) 2014 Nicolas Jessel. Licensed under the [MIT license](https://github.com/njl07/otp-manager/blob/master/LICENSE.md).
