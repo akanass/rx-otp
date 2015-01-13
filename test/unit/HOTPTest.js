@@ -342,12 +342,12 @@ describe('- HOTPTest file', function()
 
             it('- `gen` method convert `key` hexadecimal in bytes array', function()
             {
-                HOTP.gen({hex: '0000000000000000000000000000000000000000'});
+                HOTP.gen({hex: '00'});
             });
 
             it('- `gen` method convert `counter` hexadecimal in bytes array', function()
             {
-                HOTP.gen({string: 'secret user'}, {counter:{hex: '0000000000000000'}});
+                HOTP.gen({string: 'secret user'}, {counter:{hex: '0'}});
             });
 
             it('- `gen` method take `truncationOffset` value from `opt` parameter', function()

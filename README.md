@@ -107,6 +107,7 @@ To be implemented
 
 | Version    | Notes       |
 |:-----------|:------------|
+| 0.1.3      | Update unit tests |
 | 0.1.2      | Update tests and schemas validation |
 | 0.1.1      | Update integration tests |
 | 0.1.0      | Version with HOTP generation implementation |
