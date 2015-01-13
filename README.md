@@ -66,14 +66,16 @@ Return a counter based one-time password.
 **key**
 > Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
 > Key is an object with 2 exclusive attributes to define the key's format: ASCII string or Hexadecimal string.
+> 
 > e.g: `{string:'12345678901234567890'}` or `{hex: '3132333435363738393031323334353637383930'}`
 
 **opt**
 > Object option to generate HOTP and can contain the following attributes:
 >
 > - `counter`: this should be stored by the application, must be user specific, and be incremented for each request.
-Counter is an object with 2 exclusive attributes to define the counter's format: integer or hexadecimal string.
+> Counter is an object with 2 exclusive attributes to define the counter's format: integer or hexadecimal string.
 >> e.g: `{counter:{int:0}}` or `{counter:{hex:'0000000000000000'}}`
+>>
 >> Default value is: `{counter:{int:0}}`
 >
 > - `codeDigits`: the number of digits in the OTP, not including the checksum, if any.
