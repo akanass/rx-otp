@@ -129,7 +129,7 @@ describe('- HOTPTest file', function()
                 {
                     unit.when('call `gen` and `key` object has `hex` value not conform', function ()
                     {
-                        HOTP.gen({hex: 'Z'});
+                        HOTP.gen({hex: 'A'});
                     });
                 })
                     .isInstanceOf(Error)
@@ -168,7 +168,7 @@ describe('- HOTPTest file', function()
                 {
                     unit.when('call `gen` and `opt` object has `counter` which is not a validated object', function ()
                     {
-                        HOTP.gen({hex: '0000000000000000000000000000000000000000'}, {counter: {}});
+                        HOTP.gen({hex: '31'}, {counter: {}});
                     });
                 })
                     .isInstanceOf(Error)
@@ -220,7 +220,7 @@ describe('- HOTPTest file', function()
                 {
                     unit.when('call `gen` and `opt` object has `counter` object with not conform `hex` value', function ()
                     {
-                        HOTP.gen({string: 'secret user'}, {counter: {hex: 'Z'}});
+                        HOTP.gen({string: 'secret user'}, {counter: {hex: '00000000000000000'}});
                     });
                 })
                     .isInstanceOf(Error)
