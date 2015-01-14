@@ -107,7 +107,7 @@ Return a counter based one-time password.
 > - `truncationOffset`: the offset into the MAC result to begin truncation. If this value is out of the range of `0 ... 15`, then dynamic truncation will be used. Dynamic truncation is when the last 4 bits of the last byte of the MAC are used to determine the start offset.
 >> Default value is: `{truncationOffset:-1}` for dynamic truncation
 >
-> - `algorithm`: the algorithm to create HMAC
+> - `algorithm`: the algorithm to create HMAC (sha1, sha256, sha512)
 >> Default value is: `sha1`
 >
 > Finally, `opt` object will be like this:
@@ -150,7 +150,7 @@ Returns an object `{delta: {int: #}}` or `{delta: {hex: '#'}}`, following counte
 > - `truncationOffset`: the offset into the MAC result to begin truncation. If this value is out of the range of `0 ... 15`, then dynamic truncation will be used. Dynamic truncation is when the last 4 bits of the last byte of the MAC are used to determine the start offset.
 >> Default value is: `null` for dynamic truncation
 >
-> - `algorithm`: the algorithm to create HMAC
+> - `algorithm`: the algorithm to create HMAC (sha1, sha256, sha512)
 >> Default value is: `sha1`
 >
 > Finally, `opt` object will be like this:
@@ -168,7 +168,8 @@ To be implemented
 
 | Version    | Notes       |
 |:-----------|:------------|
-| 0.3.0      | Add algorithm choice to generate and verify HOTP |
+| 0.4.0      | Version with TOTP generation implementation |
+| 0.3.0      | Add algorithm choice to generate and verify OTP (sha1, sha256, sha512) |
 | 0.2.0      | Version with HOTP verification implementation |
 | 0.1.3      | Update unit tests |
 | 0.1.2      | Update tests and schemas validation |
