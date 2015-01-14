@@ -12,8 +12,14 @@ All methods described in both `RFC` are implemented in [API](#api).
 
 * [Installation](#installation)
 * [Getting started](#getting-started)
+    * [OTP Generation](#otp-generation)
+    * [OTP Verification](#otp-verification)
 * [Google Authenticator](#google-authenticator)
 * [API](#api)
+    * [HOTP.gen(key, opt)](#hotpgenkey-opt)
+    * [HOTP.verify(token, key, opt)](#hotpverifytoken-key-opt)
+    * [TOTP.gen(key, opt)](#totpgenkey-opt)
+    * [TOTP.verify(token, key, opt)](#totpverifytoken-key-opt)
 * [Release History](#release-history)
 * [License](#license)
 
@@ -33,7 +39,7 @@ var OTPManager = require('otp-manager');
 var HOTP = OTPManager.hotp;
 ```
 
-###OTP Generation
+### OTP Generation
 
 ```javascript
 try
@@ -49,9 +55,22 @@ catch(ex)
 }
 ```
 
-###OTP Verification
+### OTP Verification
 
-To be implemented
+```javascript
+try
+{
+    // verify otp '755224' for key '12345678901234567890' in string format
+    var delta = HOTP.verify('755224', {string:'12345678901234567890'});
+
+    console.log(delta); // print delta result => {delta:{int:0}}
+}
+catch(ex)
+{
+    console.error(ex); // print error occurred during OTP verification process
+}
+```
+
 
 ## Google Authenticator
 
