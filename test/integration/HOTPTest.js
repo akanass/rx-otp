@@ -57,5 +57,35 @@ describe('- HOTPTest integration file', function()
         {
             unit.assert.equal(HOTP.gen({string: '12345678901234567890'}, {counter:{int:7}, codeDigits:10}), '0082162583');
         });
+
+        it('- call `verify` method with parameters: `token` => \'755224\', ' +
+        '`key` => {hex:\'3132333435363738393031323334353637383930\'} and options ' +
+        '=>  {window:50, counter:{hex:\'0\'}, addChecksum:false}', function()
+        {
+            unit.assert.deepEqual(HOTP.verify('755224', {hex: '3132333435363738393031323334353637383930'},
+                {counter:{hex: '0'}}), {delta:{hex:'0000000000000000'}});
+        });
+
+        it('- call `verify` method with parameters: `token` => \'755224\', ' +
+        '`key` => {string:\'12345678901234567890\'} and default options ' +
+        '=>  {window:50, counter:{int:0}, addChecksum:false}', function()
+        {
+            unit.assert.deepEqual(HOTP.verify('755224', {string: '12345678901234567890'}), {delta:{int:0}});
+        });
+
+        it('- call `verify` method with parameters: `token` => \'520489\', ' +
+        '`key` => {string:\'12345678901234567890\'} and default options ' +
+        '=>  {window:50, counter:{int:0}, addChecksum:false}', function()
+        {
+            unit.assert.deepEqual(HOTP.verify('520489', {string: '12345678901234567890'}), {delta:{int:9}});
+        });
+
+        it('- call `verify` method with parameters: `token` => \'338314\', ' +
+        '`key` => {hex:\'3132333435363738393031323334353637383930\'} and options ' +
+        '=>  {window:50, counter:{hex:\'0\'}, addChecksum:false}', function()
+        {
+            unit.assert.deepEqual(HOTP.verify('338314', {hex: '3132333435363738393031323334353637383930'},
+                {counter:{hex: '0'}}), {delta:{hex:'0000000000000004'}});
+        });
     });
 });
