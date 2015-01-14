@@ -16,10 +16,10 @@ All methods described in both `RFC` are implemented in [API](#api).
     * [OTP Verification](#otp-verification)
 * [Google Authenticator](#google-authenticator)
 * [API](#api)
-    * [HOTP.gen(key, opt)](#hotpgenkey-opt)
-    * [HOTP.verify(token, key, opt)](#hotpverifytoken-key-opt)
-    * [TOTP.gen(key, opt)](#totpgenkey-opt)
-    * [TOTP.verify(token, key, opt)](#totpverifytoken-key-opt)
+    * [HOTP.gen(key[, opt])](#hotpgenkey-opt)
+    * [HOTP.verify(token, key[, opt])](#hotpverifytoken-key-opt)
+    * [TOTP.gen(key[, opt])](#totpgenkey-opt)
+    * [TOTP.verify(token, key[, opt])](#totpverifytoken-key-opt)
 * [Release History](#release-history)
 * [License](#license)
 
@@ -78,7 +78,7 @@ To be implemented
 
 ## API
 
-### HOTP.gen(key, opt)
+### HOTP.gen(key[, opt])
 
 Return a counter based one-time password.
 
@@ -110,7 +110,7 @@ Return a counter based one-time password.
 > Finally, `opt` object will be like this:
 >> Default value: `{counter:{int:0}, codeDigits:6, addChecksum:false, truncationOffset:-1}`
 
-### HOTP.verify(token, key, opt)
+### HOTP.verify(token, key[, opt])
 
 Check a counter based one time password for validity.
 
@@ -150,11 +150,11 @@ Returns an object `{delta: {int: #}}` or `{delta: {hex: '#'}}`, following counte
 > Finally, `opt` object will be like this:
 >> Default value: `{window:50, counter:{int:0}, addChecksum:false}`
 
-### TOTP.gen(key, opt)
+### TOTP.gen(key[, opt])
 
 To be implemented
 
-### TOTP.verify(token, key, opt)
+### TOTP.verify(token, key[, opt])
 
 To be implemented
 
