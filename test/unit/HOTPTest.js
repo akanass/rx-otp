@@ -337,6 +337,32 @@ describe('- HOTPTest file', function()
                     .isInstanceOf(Error)
                     .hasMessage('opt must be less than or equal to 15');
             });
+
+            it('- `gen` function must have `opt` attribute with `algorithm` non empty value', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `gen` and `opt` object has `algorithm` empty value', function ()
+                    {
+                        HOTP.gen({string: 'secret user'}, {algorithm:''});
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('opt is not allowed to be empty');
+            });
+
+            it('- `gen` function must have `opt` attribute with `algorithm` value equal to \'sha1\', \'sha256\' or \'sha512\'', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `gen` and `opt` object has `algorithm` value different to \'sha1\', \'sha256\' or \'sha512\'', function ()
+                    {
+                        HOTP.gen({string: 'secret user'}, {algorithm:'algo'});
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('opt must be one of sha1, sha256, sha512');
+            });
         });
 
         // check if gen function works correctly
@@ -637,6 +663,32 @@ describe('- HOTPTest file', function()
                 })
                     .isInstanceOf(Error)
                     .hasMessage('opt must be less than or equal to 15');
+            });
+
+            it('- `verify` function must have `opt` attribute with `algorithm` non empty value', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `verify` and `opt` object has `algorithm` empty value', function ()
+                    {
+                        HOTP.verify('111111', {string: 'secret user'}, {algorithm:''});
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('opt is not allowed to be empty');
+            });
+
+            it('- `verify` function must have `opt` attribute with `algorithm` value equal to \'sha1\', \'sha256\' or \'sha512\'', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `verify` and `opt` object has `algorithm` value different to \'sha1\', \'sha256\' or \'sha512\'', function ()
+                    {
+                        HOTP.verify('111111', {string: 'secret user'}, {algorithm:'algo'});
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('opt must be one of sha1, sha256, sha512');
             });
         });
 
