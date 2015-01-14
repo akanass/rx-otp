@@ -61,9 +61,9 @@ catch(ex)
 try
 {
     // verify otp '755224' for key '12345678901234567890' in string format
-    var delta = HOTP.verify('755224', {string:'12345678901234567890'});
+    var result = HOTP.verify('755224', {string:'12345678901234567890'});
 
-    console.log(delta); // print delta result => {delta:{int:0}}
+    console.log(result); // print result => {delta:{int:0}}
 }
 catch(ex)
 {
