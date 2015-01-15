@@ -78,7 +78,10 @@ To be implemented
 
 ## API
 
-All examples assumes `var HOTP = require('otp-manager').HOTP;` and `var TOTP = require('otp-manager').TOTP;` as base.
+All examples assumes as base:
+
+* `var HOTP = require('otp-manager').HOTP;`
+* `var TOTP = require('otp-manager').TOTP;`
 
 ### `HOTP.gen(key, [opt])`
 
@@ -107,13 +110,13 @@ Return a counter based one-time password.
 >> Default value is: `{addChecksum:false}`
 >
 > - `truncationOffset`: the offset into the MAC result to begin truncation. If this value is out of the range of `0 ... 15`, then dynamic truncation will be used. Dynamic truncation is when the last 4 bits of the last byte of the MAC are used to determine the start offset.
->> Default value is: `{truncationOffset:-1}` for dynamic truncation
+>> Default value is: `undefined` for dynamic truncation
 >
-> - `algorithm`: the algorithm to create HMAC (sha1, sha256, sha512)
+> - `algorithm`: the algorithm to create HMAC (`sha1`, `sha256`, `sha512`)
 >> Default value is: `sha1`
 >
 > Finally, `opt` object will be like this:
->> Default value: `{counter:{int:0}, codeDigits:6, addChecksum:false, truncationOffset:-1, algorithm:'sha1'}`
+>> Default value: `{counter:{int:0}, codeDigits:6, addChecksum:false, algorithm:'sha1'}`
 
 ### `HOTP.verify(token, key, [opt])`
 
@@ -150,9 +153,9 @@ Returns an object `{delta: {int: #}}` or `{delta: {hex: '#'}}`, following counte
 >> Default value is: `{addChecksum:false}`
 >
 > - `truncationOffset`: the offset into the MAC result to begin truncation. If this value is out of the range of `0 ... 15`, then dynamic truncation will be used. Dynamic truncation is when the last 4 bits of the last byte of the MAC are used to determine the start offset.
->> Default value is: `null` for dynamic truncation
+>> Default value is: `undefined` for dynamic truncation
 >
-> - `algorithm`: the algorithm to create HMAC (sha1, sha256, sha512)
+> - `algorithm`: the algorithm to create HMAC (`sha1`, `sha256`, `sha512`)
 >> Default value is: `sha1`
 >
 > Finally, `opt` object will be like this:
@@ -185,13 +188,13 @@ Return a time based one time password
 >> Default value is: `{addChecksum:false}`
 >
 > - `truncationOffset`: the offset into the MAC result to begin truncation. If this value is out of the range of `0 ... 15`, then dynamic truncation will be used. Dynamic truncation is when the last 4 bits of the last byte of the MAC are used to determine the start offset.
->> Default value is: `{truncationOffset:-1}` for dynamic truncation
+>> Default value is: `undefined` for dynamic truncation
 >
-> - `algorithm`: the algorithm to create HMAC (sha1, sha256, sha512)
+> - `algorithm`: the algorithm to create HMAC (`sha1`, `sha256`, `sha512`)
 >> Default value is: `sha1`
 >
 > Finally, `opt` object will be like this:
->> Default value: `{time:30, timestamp:new Date().getTime(), codeDigits:6, addChecksum:false, truncationOffset:-1, algorithm:'sha1'}`
+>> Default value: `{time:30, timestamp:new Date().getTime(), codeDigits:6, addChecksum:false, algorithm:'sha1'}`
 
 ### `TOTP.verify(token, key, [opt])`
 
