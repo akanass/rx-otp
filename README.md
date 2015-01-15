@@ -206,7 +206,46 @@ Return a time based one time password
 
 ### `TOTP.verify(token, key, [opt])`
 
-To be implemented
+Check a time based one time password for validity.
+
+Returns `null` if token is not valid for given key and options.
+
+Returns an object `{delta: #}` if the token is valid. `delta` is the count skew between client and server.
+
+**token**
+> Passcode to validate
+
+**key**
+> Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
+> Key is an object with 2 exclusive attributes to define the key's format: `ASCII string` or `Hexadecimal string (>=2-digit)`.
+>
+> e.g: `{string:'12345678901234567890'}` or `{hex: '3132333435363738393031323334353637383930'}`
+
+**opt**
+> Object option to verify HOTP and can contain the following attributes:
+>
+> - `window`: The allowable margin, time steps in seconds since T0, for the counter.  The function will check 'W' codes in the past and the future against the provided passcode.  Note, it is the calling applications responsibility to keep track of 'C' and increment it for each password check, and also to adjust it accordingly in the case where the client and server become out of sync (second argument returns non zero).
+>> e.g: if `W = 5`, and `C = 100`, this function will check the passcode against all One Time Passcodes between `95` and `105`.
+>>
+>> Default value is: `6`
+>
+> - `time`: the time step of the counter in seconds. This must be the same for every request and is used to calculate C.
+>> Default value is: `{time:30}`
+>
+> - `timestamp`: OTP validity timestamp.
+>> Default value is: `{timestamp:new Date().getTime()}`
+>
+> - `addChecksum`: a flag that indicates if a checksum digit should be appended to the OTP.
+>> Default value is: `{addChecksum:false}`
+>
+> - `truncationOffset`: the offset into the MAC result to begin truncation. If this value is out of the range of `0 ... 15`, then dynamic truncation will be used. Dynamic truncation is when the last 4 bits of the last byte of the MAC are used to determine the start offset.
+>> Default value is: `undefined` for dynamic truncation
+>
+> - `algorithm`: the algorithm to create HMAC (`sha1`, `sha256`, `sha512`)
+>> Default value is: `sha1`
+>
+> Finally, `opt` object will be like this:
+>> Default value: `{window:6, time:30, timestamp:new Date().getTime(), addChecksum:false, algorithm:'sha1'}`
 
 ## Release History
 
