@@ -36,7 +36,7 @@ describe('- TOTPTest integration file', function()
         });
 
         it('- call `gen` with parameters: `key` => {hex:\'31323334353637383930313233343536373839303132333435363' +
-        '738393031323334353637383930313233343536373839303132333435363738393031323334\'}' +
+        '738393031323334353637383930313233343536373839303132333435363738393031323334\'} ' +
         'and options ' +
         '=>  {time:30, timestamp:20000000000000, codeDigits:8, addChecksum:false, algorithm:\'sha512\'}', function()
         {
