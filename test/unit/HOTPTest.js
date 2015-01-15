@@ -365,38 +365,6 @@ describe('- HOTPTest file', function()
             });
         });
 
-        // check if gen function works correctly
-        describe('- `gen` works correctly', function()
-        {
-            it('- `gen` method convert `key` string in bytes array', function()
-            {
-                HOTP.gen({string: 'secret user'});
-            });
-
-            it('- `gen` method convert `key` hexadecimal in bytes array', function()
-            {
-                HOTP.gen({hex: '00'});
-            });
-
-            it('- `gen` method convert `counter` hexadecimal in bytes array', function()
-            {
-                HOTP.gen({string: 'secret user'}, {counter:{hex: '0'}});
-            });
-
-            it('- `gen` method take `truncationOffset` value from `opt` parameter', function()
-            {
-                HOTP.gen({string: 'secret user'}, {truncationOffset:0});
-            });
-        });
-
-        describe('- call `generateOTP` method and check if works correctly', function()
-        {
-            it('- add checksum if option is setted', function()
-            {
-                HOTP.gen({string: 'secret user'}, {addChecksum:true});
-            });
-        });
-
         // check if verify property has been setted correctly
         describe('- `verify` property has been setted correctly', function()
         {
@@ -704,44 +672,110 @@ describe('- HOTPTest file', function()
                     .hasMessage('opt must be a boolean');
             });
         });
+    });
 
-        // check if verify function works correctly
-        describe('- `verify` works correctly', function()
+    describe('- HOTP Algorithm: Test Values (http://tools.ietf.org/html/rfc4226#page-32)', function()
+    {
+        it('- call `gen` with parameters: `key` => {string:\'12345678901234567890\'} and default options ' +
+        '=>  {counter:{int:0}, codeDigits:6, addChecksum:false, algorithm:\'sha1\'}', function()
         {
-            it('- `verify` method take `counter` integer value from `opt` parameter', function()
-            {
-                HOTP.verify('111111', {string: 'secret user'}, {counter:{int: 0}});
-            });
+            unit.assert.equal(HOTP.gen({string: '12345678901234567890'}), '755224');
+        });
 
-            it('- `verify` method take `counter` hexadecimal value from `opt` parameter', function()
-            {
-                HOTP.verify('111111', {string: 'secret user'}, {counter:{hex: '7DE1ED09E1AE8F1E'}});
-            });
+        it('- call `gen` with parameters: `key` => {hex:\'3132333435363738393031323334353637383930\'} and default options ' +
+        '=>  {counter:{int:0}, codeDigits:6, addChecksum:false, algorithm:\'sha1\'}', function()
+        {
+            unit.assert.equal(HOTP.gen({hex: '3132333435363738393031323334353637383930'}), '755224');
+        });
 
-            it('- `verify` method take `truncationOffset` value from `opt` parameter and set it in object to call `gen` method', function()
-            {
-                HOTP.verify('111111', {string: 'secret user'}, {truncationOffset:0});
-            });
+        it('- call `gen` with parameters: `key` => {string:\'12345678901234567890\'} and options ' +
+        '=>  {counter:{int:5}, codeDigits:6, addChecksum:false, algorithm:\'sha1\'}', function()
+        {
+            unit.assert.equal(HOTP.gen({string: '12345678901234567890'}, {counter:{int:5}}), '254676');
+        });
 
-            it('- call `verify` method with hexadecimal parameters', function()
-            {
-                HOTP.verify('755224', {hex: '3132333435363738393031323334353637383930'}, {counter:{hex: '0'}});
-            });
+        it('- call `gen` with parameters: `key` => {string:\'12345678901234567890\'} and options ' +
+        '=>  {counter:{hex:\'9\'}, codeDigits:6, addChecksum:false, algorithm:\'sha1\'}', function()
+        {
+            unit.assert.equal(HOTP.gen({string: '12345678901234567890'}, {counter:{hex:'9'}}), '520489');
+        });
 
-            it('- call `verify` method with string/integer parameters', function()
-            {
-                HOTP.verify('755224', {string: '12345678901234567890'}, {counter:{int: 0}});
-            });
+        it('- call `gen` with parameters: `key` => {string:\'12345678901234567890\'} and options ' +
+        '=>  {counter:{hex:\'2\'}, codeDigits:6, addChecksum:false, algorithm:\'sha1\'}', function()
+        {
+            unit.assert.equal(HOTP.gen({hex: '3132333435363738393031323334353637383930'}, {counter:{hex:'2'}}), '359152');
+        });
 
-            it('- call `verify` method and allow previous OTP', function()
-            {
-                HOTP.verify('755224', {string: '12345678901234567890'}, {previousOTPAllowed:true});
-            });
+        it('- call `gen` with parameters: `key` => {string:\'12345678901234567890\'} and options ' +
+        '=>  {counter:{int:7}, codeDigits:10, addChecksum:false, algorithm:\'sha1\'}', function()
+        {
+            unit.assert.equal(HOTP.gen({string: '12345678901234567890'}, {counter:{int:7}, codeDigits:10}), '0082162583');
+        });
 
-            it('- call `verify` method and allow previous OTP with counter > window', function()
-            {
-                HOTP.verify('755224', {string: '12345678901234567890'}, {counter:{int:60}, previousOTPAllowed:true});
-            });
+        it('- call `gen` with parameters: `key` => {string:\'12345678901234567890\'} and options ' +
+        '=>  {counter:{int:7}, codeDigits:6, addChecksum:true, algorithm:\'sha1\'}', function()
+        {
+            unit.assert.equal(HOTP.gen({string: '12345678901234567890'}, {counter:{int:7}, addChecksum:true}), '1625839');
+        });
+
+        it('- call `verify` method with parameters: `token` => \'755224\', ' +
+        '`key` => {hex:\'3132333435363738393031323334353637383930\'} and options ' +
+        '=>  {window:50, counter:{hex:\'0\'}, addChecksum:false, algorithm:\'sha1\', previousOTPAllowed:false}', function()
+        {
+            unit.assert.deepEqual(HOTP.verify('755224', {hex: '3132333435363738393031323334353637383930'},
+                {counter:{hex: '0'}}), {delta:{hex:'0000000000000000'}});
+        });
+
+        it('- call `verify` method with parameters: `token` => \'755224\', ' +
+        '`key` => {string:\'12345678901234567890\'} and default options ' +
+        '=>  {window:50, counter:{int:0}, addChecksum:false, algorithm:\'sha1\', previousOTPAllowed:false}', function()
+        {
+            unit.assert.deepEqual(HOTP.verify('755224', {string: '12345678901234567890'}), {delta:{int:0}});
+        });
+
+        it('- call `verify` method with parameters: `token` => \'520489\', ' +
+        '`key` => {string:\'12345678901234567890\'} and default options ' +
+        '=>  {window:50, counter:{int:0}, addChecksum:false, algorithm:\'sha1\', previousOTPAllowed:false}', function()
+        {
+            unit.assert.deepEqual(HOTP.verify('520489', {string: '12345678901234567890'}), {delta:{int:9}});
+        });
+
+        it('- call `verify` method with parameters: `token` => \'338314\', ' +
+        '`key` => {hex:\'3132333435363738393031323334353637383930\'} and options ' +
+        '=>  {window:50, counter:{hex:\'0\'}, addChecksum:false, algorithm:\'sha1\', previousOTPAllowed:false}', function()
+        {
+            unit.assert.deepEqual(HOTP.verify('338314', {hex: '3132333435363738393031323334353637383930'},
+                {counter:{hex: '0'}}), {delta:{hex:'0000000000000004'}});
+        });
+
+        it('- call `verify` method with parameters: `token` => \'755224\', ' +
+        '`key` => {string:\'12345678901234567890\'} and options ' +
+        '=>  {window:50, counter:{int:4}, addChecksum:false, algorithm:\'sha1\', previousOTPAllowed:false}', function()
+        {
+            unit.assert.equal(HOTP.verify('755224', {string: '12345678901234567890'}, {counter:{int: 4}}), null);
+        });
+
+        it('- call `verify` method with parameters: `token` => \'755224\', ' +
+        '`key` => {string:\'12345678901234567890\'} and options ' +
+        '=>  {window:50, counter:{int:9}, addChecksum:false, algorithm:\'sha1\', previousOTPAllowed:true}', function()
+        {
+            unit.assert.deepEqual(HOTP.verify('755224', {string: '12345678901234567890'}, {counter:{int: 9}, previousOTPAllowed:true}), {delta:{int:-9}});
+        });
+
+        it('- call `verify` method with parameters: `token` => \'338314\', ' +
+        '`key` => {hex:\'3132333435363738393031323334353637383930\'} and options ' +
+        '=>  {window:50, counter:{hex:\'0\'}, addChecksum:false, algorithm:\'sha1\', previousOTPAllowed:false, truncationOffset:10}', function()
+        {
+            unit.assert.notDeepEqual(HOTP.verify('338314', {hex: '3132333435363738393031323334353637383930'},
+                {counter:{hex: '0'}, truncationOffset:10}), {delta:{hex:'0000000000000004'}});
+        });
+
+        it('- call `verify` method with parameters: `token` => \'755224\', ' +
+        '`key` => {string:\'12345678901234567890\'} and options ' +
+        '=>  {window:9, counter:{int:9}, addChecksum:false, algorithm:\'sha1\', previousOTPAllowed:true}', function()
+        {
+            unit.assert.deepEqual(HOTP.verify('755224', {string: '12345678901234567890'},
+                {window:9, counter:{int: 9}, previousOTPAllowed:true}), {delta:{int:-9}});
         });
     });
 });
