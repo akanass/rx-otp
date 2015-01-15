@@ -690,6 +690,19 @@ describe('- HOTPTest file', function()
                     .isInstanceOf(Error)
                     .hasMessage('opt must be one of sha1, sha256, sha512');
             });
+
+            it('- `verify` function must have `opt` attribute with boolean `previousOTPAllowed` value', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `verify` and `opt` object has no boolean `previousOTPAllowed` value', function ()
+                    {
+                        HOTP.verify('111111', {string: 'secret user'}, {previousOTPAllowed:0});
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('opt must be a boolean');
+            });
         });
 
         // check if verify function works correctly
@@ -718,6 +731,16 @@ describe('- HOTPTest file', function()
             it('- call `verify` method with string/integer parameters', function()
             {
                 HOTP.verify('755224', {string: '12345678901234567890'}, {counter:{int: 0}});
+            });
+
+            it('- call `verify` method and allow previous OTP', function()
+            {
+                HOTP.verify('755224', {string: '12345678901234567890'}, {previousOTPAllowed:true});
+            });
+
+            it('- call `verify` method and allow previous OTP with counter > window', function()
+            {
+                HOTP.verify('755224', {string: '12345678901234567890'}, {counter:{int:60}, previousOTPAllowed:true});
             });
         });
     });

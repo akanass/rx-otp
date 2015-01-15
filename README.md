@@ -143,7 +143,8 @@ Returns an object `{delta: {int: #}}` or `{delta: {hex: '#'}}`, following counte
 >>
 >> Default value is: `50`
 >
-> - `counter`: this should be stored by the application, must be user specific, and be incremented for each request.
+> - `counter`: this should be stored by the application, must be user specific, and be incremented for each success request if `delta >= 0`.
+> Increment value will be `delta + 1`.
 > Counter is an object with 2 exclusive attributes to define the counter's format: `integer (<=2^53)` or `hexadecimal string (<=16-digit)`.
 >> e.g: `{counter:{int:0}}` or `{counter:{hex:'0'}}`
 >>
@@ -158,8 +159,15 @@ Returns an object `{delta: {int: #}}` or `{delta: {hex: '#'}}`, following counte
 > - `algorithm`: the algorithm to create HMAC (`sha1`, `sha256`, `sha512`)
 >> Default value is: `sha1`
 >
+> - `previousOTPAllowed`: a flag to allow OTP validation before current counter.
+>> e.g: if `P = true`, `W = 50`, and `C = 15`, this function will check the passcode against all One Time Passcodes between `0` and `65` because `min` value must be always `>=0`
+>>
+>> e.g: if `P = true`, `W = 50`, and `C = 150`, this function will check the passcode against all One Time Passcodes between `100` and `200`
+>>
+>> Default value is: `{previousOTPAllowed:false}`
+>
 > Finally, `opt` object will be like this:
->> Default value: `{window:50, counter:{int:0}, addChecksum:false, algorithm:'sha1'}`
+>> Default value: `{window:50, counter:{int:0}, addChecksum:false, algorithm:'sha1', previousOTPAllowed:false}`
 
 ### `TOTP.gen(key, [opt])`
 
@@ -204,6 +212,7 @@ To be implemented
 
 | Version    | Notes       |
 |:-----------|:------------|
+| 0.5.0      | Option to allow validation for OTP were generated before current counter |
 | 0.4.0      | Version with TOTP generation implementation |
 | 0.3.0      | Add algorithm choice to generate and verify OTP (sha1, sha256, sha512) |
 | 0.2.0      | Version with HOTP verification implementation |
