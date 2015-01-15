@@ -138,7 +138,7 @@ Returns an object `{delta: {int: #}}` or `{delta: {hex: '#'}}`, following counte
 **opt**
 > Object option to verify HOTP and can contain the following attributes:
 >
-> - `window`: The allowable margin for the counter.  The function will check 'W' codes in the future against the provided passcode.  Note, it is the calling applications responsibility to keep track of 'W' and increment it for each password check, and also to adjust it accordingly in the case where the client and server become out of sync (second argument returns non zero).
+> - `window`: The allowable margin for the counter.  The function will check 'W' codes in the future against the provided passcode.  Note, it is the calling applications responsibility to keep track of 'C' and increment it for each password check, and also to adjust it accordingly in the case where the client and server become out of sync (second argument returns non zero).
 >> e.g: if `W = 50`, and `C = 15`, this function will check the passcode against all One Time Passcodes between `15` and `65`.
 >>
 >> Default value is: `50`
@@ -212,6 +212,8 @@ To be implemented
 
 | Version    | Notes       |
 |:-----------|:------------|
+| 0.6.0      | Version with TOTP verification implementation |
+| 0.5.1      | Refactor tests - only unit tests |
 | 0.5.0      | Option to allow validation for OTP were generated before current counter |
 | 0.4.0      | Version with TOTP generation implementation |
 | 0.3.0      | Add algorithm choice to generate and verify OTP (sha1, sha256, sha512) |
