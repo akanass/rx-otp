@@ -78,10 +78,10 @@ To be implemented
 
 ## API
 
-All examples assumes as base:
+All examples assume as base:
 
-* `var HOTP = require('otp-manager').HOTP;`
-* `var TOTP = require('otp-manager').TOTP;`
+* ```javascript var HOTP = require('otp-manager').HOTP;```
+* ```javascript var TOTP = require('otp-manager').TOTP;```
 
 ### `HOTP.gen(key, [opt])`
 
