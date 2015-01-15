@@ -78,7 +78,9 @@ To be implemented
 
 ## API
 
-### HOTP.gen(key, [opt])
+All examples assumes `var HOTP = require('otp-manager').HOTP;` and `var TOTP = require('otp-manager').TOTP;` as base.
+
+### `HOTP.gen(key, [opt])`
 
 Return a counter based one-time password.
 
@@ -113,7 +115,7 @@ Return a counter based one-time password.
 > Finally, `opt` object will be like this:
 >> Default value: `{counter:{int:0}, codeDigits:6, addChecksum:false, truncationOffset:-1, algorithm:'sha1'}`
 
-### HOTP.verify(token, key, [opt])
+### `HOTP.verify(token, key, [opt])`
 
 Check a counter based one time password for validity.
 
@@ -156,11 +158,42 @@ Returns an object `{delta: {int: #}}` or `{delta: {hex: '#'}}`, following counte
 > Finally, `opt` object will be like this:
 >> Default value: `{window:50, counter:{int:0}, addChecksum:false, algorithm:'sha1'}`
 
-### TOTP.gen(key, [opt])
+### `TOTP.gen(key, [opt])`
 
-To be implemented
+Return a time based one time password
 
-### TOTP.verify(token, key, [opt])
+**key**
+> Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
+> Key is an object with 2 exclusive attributes to define the key's format: `ASCII string` or `Hexadecimal string (>=2-digit)`.
+>
+> e.g: `{string:'12345678901234567890'}` or `{hex: '3132333435363738393031323334353637383930'}`
+
+**opt**
+> Object option to generate TOTP and can contain the following attributes:
+>
+> - `time`: the time step of the counter in seconds. This must be the same for every request and is used to calculate C.
+>> Default value is: `{time:30}`
+>
+> - `timestamp`: OTP validity timestamp.
+>> Default value is: `{timestamp:new Date().getTime()}`
+>
+> - `codeDigits`: the number of digits in the OTP, not including the checksum, if any.
+> If you want `6 digits` and you `add checksum`, finally OTP length will be `7 digits`.
+>> Default value is: `{codeDigits:6}`
+>
+> - `addChecksum`: a flag that indicates if a checksum digit should be appended to the OTP.
+>> Default value is: `{addChecksum:false}`
+>
+> - `truncationOffset`: the offset into the MAC result to begin truncation. If this value is out of the range of `0 ... 15`, then dynamic truncation will be used. Dynamic truncation is when the last 4 bits of the last byte of the MAC are used to determine the start offset.
+>> Default value is: `{truncationOffset:-1}` for dynamic truncation
+>
+> - `algorithm`: the algorithm to create HMAC (sha1, sha256, sha512)
+>> Default value is: `sha1`
+>
+> Finally, `opt` object will be like this:
+>> Default value: `{time:30, timestamp:new Date().getTime(), codeDigits:6, addChecksum:false, truncationOffset:-1, algorithm:'sha1'}`
+
+### `TOTP.verify(token, key, [opt])`
 
 To be implemented
 
