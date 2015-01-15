@@ -80,8 +80,8 @@ To be implemented
 
 All examples assume as base:
 
-* ```javascript var HOTP = require('otp-manager').HOTP;```
-* ```javascript var TOTP = require('otp-manager').TOTP;```
+* `var HOTP = require('otp-manager').HOTP;`
+* `var TOTP = require('otp-manager').TOTP;`
 
 ### `HOTP.gen(key, [opt])`
 
