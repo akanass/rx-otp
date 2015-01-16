@@ -311,11 +311,11 @@ Returns `base32` string.
 Returns string.
 
 **base32Secret**
-> Base32 secret to decode
+> Secret, to decode, in `base32`
 
 ### `GA.secret()`
 
-Returns random 16-digit base32 encoded secret.
+Returns random `16-digit base32` encoded secret.
 
 ### `GA.keyUri(user, issuer, secret)`
 
@@ -328,11 +328,11 @@ Returns string representation of [key uri](https://code.google.com/p/google-auth
 > the provider or service managing that account
 
 **secret**
-> the secret in base32
+> the secret in `base32`
 
 ### `GA.qrCode(user, issuer, secret)`
 
-Returns string with image data - SVG format.
+Returns string with image data - `SVG` format.
 
 **user**
 > the user for this account
@@ -341,7 +341,7 @@ Returns string with image data - SVG format.
 > the provider or service managing that account
 
 **secret**
-> the secret in base32
+> the secret in `base32`
 
 ## Release History
 
