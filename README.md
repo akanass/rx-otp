@@ -404,6 +404,7 @@ Returns an object `{delta: #}` if the token is valid. `delta` is the count skew 
 
 | Version    | Notes       |
 |:-----------|:------------|
+| 1.0.1      | Update README |
 | 1.0.0      | Release Version |
 | 0.7.0      | Version with Google Authenticator implementation |
 | 0.6.0      | Version with TOTP verification implementation |
