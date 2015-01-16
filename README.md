@@ -18,17 +18,20 @@ All methods described in both `RFC` are implemented in [API](#api).
     * [Base32 Keys](#base32-keys)
     * [RFC 3548](#rfc-3548)
     * [Code Generation](#code-generation)
+    * [Code Verification](#code-verification)
     * [QRCode Generation](#qrcode-generation)
 * [API](#api)
     * [HOTP.gen(key, [opt])](#hotpgenkey-opt)
     * [HOTP.verify(token, key, [opt])](#hotpverifytoken-key-opt)
     * [TOTP.gen(key, [opt])](#totpgenkey-opt)
     * [TOTP.verify(token, key, [opt])](#totpverifytoken-key-opt)
-    * [GA.encode(secret)](#gaencode-secret)
-    * [GA.decode(base32Secret)](#gadecode-base32secret)
+    * [GA.encode(secret)](#gaencodesecret)
+    * [GA.decode(base32Secret)](#gadecodebase32secret)
     * [GA.secret()](#gasecret)
-    * [GA.keyUri(user, issuer, base32Secret)](#gakeyuri-user-issuer-base32secret)
-    * [GA.qrCode(user, issuer, base32Secret)](#gaqrcode-user-issuer-base32secret)
+    * [GA.keyUri(user, issuer, base32Secret)](#gakeyuriuser-issuer-base32secret)
+    * [GA.qrCode(user, issuer, base32Secret)](#gaqrcodeuser-issuer-base32secret)
+    * [GA.gen(secret)](#gagensecret)
+    * [GA.verify(token, secret)](#gaverifytoken-secret)
 * [Release History](#release-history)
 * [License](#license)
 
@@ -80,7 +83,6 @@ catch(ex)
 }
 ```
 
-
 ## Google Authenticator
 
 ```javascript
@@ -102,7 +104,35 @@ OTP calculation will still work should you want to use other `base32` encoding m
 
 ### Code Generation
 
-To be implemented.
+```javascript
+try
+{
+    // generate otp for base 32 encoded user secret
+    var code = GA.gen(GA.encode('base 32 encoded user secret'));
+
+    console.log(code); // print otp result => 6-digit
+}
+catch(ex)
+{
+    console.error(ex); // print error occurred during OTP generation process
+}
+```
+
+### Code Verification
+
+```javascript
+try
+{
+    // verify otp '755224' for base 32 encoded user secret
+    var result = GA.verify('755224', GA.encode('base 32 encoded user secret'));
+
+    console.log(result); // print result => {delta:{int:0}}
+}
+catch(ex)
+{
+    console.error(ex); // print error occurred during OTP verification process
+}
+```
 
 ### QRCode Generation
 
@@ -223,7 +253,7 @@ Returns an object `{delta: {int: #}}` or `{delta: {hex: '#'}}`, following counte
 
 ### `TOTP.gen(key, [opt])`
 
-Return a time based one time password
+Returns a time based one time password.
 
 **key**
 > Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
@@ -342,6 +372,27 @@ Returns string with image data - `SVG` format.
 
 **secret**
 > the secret in `base32`
+
+### `GA.gen(secret)`
+
+Returns a time based one time password.
+
+**secret**
+> the secret in `base32` to generate OTP
+
+### `GA.verify(token, secret)`
+
+Check a time based one time password for validity.
+
+Returns `null` if token is not valid for given key and options.
+
+Returns an object `{delta: #}` if the token is valid. `delta` is the count skew between client and server.
+
+**token**
+> Passcode to validate
+
+**secret**
+> the secret in `base32` to validate OTP
 
 ## Release History
 
