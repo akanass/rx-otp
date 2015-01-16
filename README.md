@@ -404,6 +404,7 @@ Returns an object `{delta: #}` if the token is valid. `delta` is the count skew 
 
 | Version    | Notes       |
 |:-----------|:------------|
+| 1.0.0      | Release Version |
 | 0.7.0      | Version with Google Authenticator implementation |
 | 0.6.0      | Version with TOTP verification implementation |
 | 0.5.1      | Refactor tests - only unit tests |
@@ -415,7 +416,6 @@ Returns an object `{delta: #}` if the token is valid. `delta` is the count skew 
 | 0.1.2      | Update tests and schemas validation |
 | 0.1.1      | Update integration tests |
 | 0.1.0      | Version with HOTP generation implementation |
-| 0.0.3      | Version Bump for publish |
 | 0.0.2      | API movement |
 | 0.0.1      | First Prototype |
 
