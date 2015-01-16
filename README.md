@@ -31,7 +31,7 @@ All methods described in both `RFC` are implemented in [API](#api).
     * [GA.keyUri(user, issuer, base32Secret)](#gakeyuriuser-issuer-base32secret)
     * [GA.qrCode(user, issuer, base32Secret)](#gaqrcodeuser-issuer-base32secret)
     * [GA.gen(secret)](#gagensecret)
-    * [GA.verify(token, secret, window)](#gaverifytoken-secret-window)
+    * [GA.verify(token, secret, [window])](#gaverifytoken-secret-window)
 * [Release History](#release-history)
 * [License](#license)
 
