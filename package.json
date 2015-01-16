@@ -1,7 +1,7 @@
 {
-  "name": "otp-manager",
-  "version": "0.6.0",
-  "description": "HMAC-based (HOTP) and Time-based (TOTP) One-Time Password manager and works with Google Authenticator.",
+  "name": "otp.js",
+  "version": "0.7.0",
+  "description": "HMAC-based (HOTP) and Time-based (TOTP) One-Time Password manager. Works with Google Authenticator.",
   "main": "index.js",
   "scripts": {
     "test": "make test",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:njl07/otp-manager.git"
+    "url": "git@github.com:njl07/otp.js.git"
   },
   "keywords": [
     "One-Time Password",
@@ -34,12 +34,12 @@
   },
   "license": {
     "type": "MIT",
-    "url": "https://github.com/njl07/otp-manager/blob/master/LICENSE.md"
+    "url": "https://github.com/njl07/otp.js/blob/master/LICENSE.md"
   },
   "bugs": {
-    "url": "https://github.com/njl07/otp-manager/issues"
+    "url": "https://github.com/njl07/otp.js/issues"
   },
-  "homepage": "https://github.com/njl07/otp-manager",
+  "homepage": "https://github.com/njl07/otp.js",
   "devDependencies": {
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.5",
@@ -54,7 +54,9 @@
     "convert-base": "^0.1.0",
     "joi": "^5.1.0",
     "pad-component": "0.0.1",
+    "qr-image": "^3.0.2",
     "thirty-two": "0.0.2",
+    "uid-safe": "^1.0.2",
     "underscore": "^1.7.0"
   },
   "engines": {

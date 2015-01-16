@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/njl07/otp-manager.svg)](https://travis-ci.org/njl07/otp-manager)
-[![Coverage Status](https://coveralls.io/repos/njl07/otp-manager/badge.png?branch=master)](https://coveralls.io/r/njl07/otp-manager?branch=master)
-[![npm version](https://badge.fury.io/js/otp-manager.png)](http://badge.fury.io/js/otp-manager)
+[![Build Status](https://travis-ci.org/njl07/otp.js.svg)](https://travis-ci.org/njl07/otp.js)
+[![Coverage Status](https://coveralls.io/repos/njl07/otp.js/badge.png?branch=master)](https://coveralls.io/r/njl07/otp.js?branch=master)
+[![npm version](https://badge.fury.io/js/otp.js.png)](http://badge.fury.io/js/otp.js)
 
-[![NPM](https://nodei.co/npm/otp-manager.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/otp-manager/)
+[![NPM](https://nodei.co/npm/otp.js.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/otp.js/)
 
 ## One-Time Password manager
 
@@ -25,18 +25,18 @@ All methods described in both `RFC` are implemented in [API](#api).
 
 ## Installation
 
-Install module with: `npm install --save otp-manager`
+Install module with: `npm install --save otp.js`
 
 ```javascript
-var OTPManager = require('otp-manager');
+var OTP = require('otp.js');
 ```
 ## Getting started
 
 ```javascript
-var OTPManager = require('otp-manager');
+var OTP = require('otp.js');
 
 // get HOTP object
-var HOTP = OTPManager.hotp;
+var HOTP = OTP.hotp;
 ```
 
 ### OTP Generation
@@ -45,9 +45,9 @@ var HOTP = OTPManager.hotp;
 try
 {
     // generate otp for key '12345678901234567890' in string format
-    var otp = HOTP.gen({string:'12345678901234567890'});
+    var code = HOTP.gen({string:'12345678901234567890'});
 
-    console.log(otp); // print otp result => 755224
+    console.log(code); // print otp result => 755224
 }
 catch(ex)
 {
@@ -74,16 +74,15 @@ catch(ex)
 
 ## Google Authenticator
 
-<div>
-<svg xmlns="http://www.w3.org/2000/svg" width="78" height="78" viewBox="0 0 39 39"><path d="M1 1h7v7h-7zM10 1h2v1h-1v1h-1v1h1v1h-2v-3h1zM14 1h1v1h-1zM16 1h2v1h-2zM19 1h2v2h1v-2h1v3h1v1h1v1h-3v-2h-1v2h-1v-4h-1zM24 1h1v1h-1zM27 1h1v3h-1v-1h-2v-1h2zM31 1h7v7h-7zM2 2v5h5v-5zM13 2h1v1h-1zM15 2h1v1h-1zM18 2h1v1h-1zM32 2v5h5v-5zM3 3h3v3h-3zM11 3h1v1h-1zM29 3h1v6h-2v1h-2v-1h1v-2h1v1h1v-2h-3v-1h3zM33 3h3v3h-3zM18 4h1v1h-1zM11 5h1v1h-1zM13 5h2v1h-2zM16 5h1v1h-1zM12 6h1v1h-1zM19 6h1v2h-1zM21 6h1v2h-1zM9 7h1v1h1v-1h1v4h-3v2h-1v-1h-1v-1h1v-1h1zM13 7h1v1h1v-1h1v3h-1v-1h-2zM17 7h1v1h-1zM23 7h1v1h-1zM25 7h1v1h-1zM20 8h1v1h-1zM1 9h1v2h-1zM7 9h1v1h-1zM19 9h1v1h-1zM22 9h2v2h-3v-1h1zM30 9h2v1h2v-1h3v2h1v7h-1v-1h-1v1h-1v1h-1v-3h-1v-1h2v1h1v-2h1v-2h-2v1h1v1h-2v-1h-1v-2h-2v-1h-1zM4 10h3v1h-3zM14 10h1v1h-1zM28 10h2v1h-1v1h-2v-1h1zM2 11h1v1h2v1h-3zM12 11h1v1h-1zM18 11h2v1h-2zM30 11h1v2h2v1h-4v-1h1zM6 12h1v1h-1zM11 12h1v1h-1zM13 12h1v3h-1v-1h-1v-1h1zM15 12h3v2h2v-2h1v2h2v1h1v1h-2v3h-1v1h-1v-1h-1v-1h2v-1h-3v-1h-2v-1h1v-2h-2zM24 12h1v1h-1zM1 13h1v2h-1zM7 13h1v1h-1zM10 13h1v1h-1zM25 13h2v1h-2zM4 14h3v1h-3zM8 14h1v1h-1zM24 14h1v1h-1zM27 14h2v2h-1v-1h-1zM7 15h1v1h-1zM12 15h1v2h-1v1h-1v1h-1v1h-3v-1h2v-2h1v-1h2zM14 15h1v1h-1zM19 15v1h2v-1zM26 15h1v1h-1zM1 16h2v1h1v1h1v1h-1v1h-2v2h1v1h-1v2h1v-2h3v2h-1v-1h-1v2h-1v1h-1v3h-1v-11h1v-2h-1zM4 16h3v1h1v1h-1v1h-1v-2h-2zM15 16h1v3h-1zM24 16h1v1h-1zM29 16h1v1h1v-1h1v2h1v1h1v1h1v1h-1v2h-1v-1h-2v1h1v2h1v-1h2v1h-1v1h-1v1h-1v1h4v-1h2v1h-1v1h-3v1h1v1h-1v1h1v1h-1v1h-2v1h-2v-1h-1v1h-2v-1h-1v-1h1v-1h2v-1h-1v-1h-3v-1h-1v-1h1v-1h-1v-2h1v1h3v-1h1v4h2v-1h-1v-1h1v-2h-2v-1h1v-2h-1v2h-1v-1h-1v-2h1v-1h-2v-1h1v-1h-2v-1h4zM17 17h1v1h-1zM23 17h1v1h-1zM13 18h1v2h2v1h3v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-2v-1h2zM28 18v1h1v-1zM30 18v2h-1v1h1v-1h1v1h1v-2h-1v-1zM36 18h1v1h-1zM5 19h1v1h-1zM16 19h1v1h-1zM18 19h1v1h-1zM22 19h3v1h-1v1h2v1h-1v1h-2v-3h-1zM35 19h1v1h-1zM37 19h1v1h-1zM10 20h1v1h-1zM21 20h1v2h-1zM36 20h1v2h-1zM4 21h1v1h-1zM7 21h1v1h-1zM11 21h2v2h2v2h-1v-1h-1v1h1v1h-1v1h-2v-2h1v-3h-1zM10 22h1v3h-1v5h3v1h-4v-1h-6v-1h1v-1h2v1h2v-1h1v-4h1zM19 22h2v1h-1v1h-1zM35 22h1v1h-1zM37 22h1v2h-2v-1h1zM7 23h1v1h-1zM21 23h2v1h-2zM26 23h1v1h-1zM17 24h1v1h4v1h1v1h-1v1h-1v-1h-1v-1h-2v1h-1v-1h-1v2h1v1h-3v-1h1v-1h-1v-1h1v-1h2zM23 24h1v1h-1zM25 24h1v1h-1zM27 24h1v1h-1zM6 25h2v1h-2zM36 25h2v1h-2zM4 26h2v1h-2zM34 26h1v1h-1zM6 27h2v1h-2zM18 27h2v1h-2zM26 27v2h2v-1h-1v-1zM12 28h1v1h-1zM20 28h1v1h-1zM17 29h2v2h-2v1h-1v-1h-1v-1h2zM23 29h1v1h-1zM20 30h3v1h-1v2h-1v2h-1v2h-1v-1h-3v-1h1v-1h-1v1h-1v-1h-1v1h1v1h-1v2h-2v-1h1v-4h2v-1h1v1h1v-1h3zM24 30h1v1h2v1h-2v3h-2v-2h1zM30 30v3h3v-3zM37 30h1v3h-1zM1 31h7v7h-7zM13 31h1v1h-1zM31 31h1v1h-1zM35 31h1v1h-1zM2 32v5h5v-5zM10 32h2v1h-2zM3 33h3v3h-3zM18 33v2h1v-1h1v-1zM35 33h2v1h-1v1h1v-1h1v4h-1v-2h-2zM10 34h1v1h-1zM11 35h1v2h-1zM21 35h2v1h-2zM29 35h1v1h-1zM32 35h1v1h-1zM15 36h1v1h2v1h-3zM23 36h1v1h-1zM27 36h2v1h-2zM30 36h2v2h-1v-1h-1zM34 36h1v1h-1zM9 37h1v1h-1zM20 37h2v1h-2zM24 37h2v1h-2zM29 37h1v1h-1zM33 37h1v1h-1zM35 37h1v1h-1z"/></svg>
-</div>
+To be implemented.
 
 ## API
 
 All examples assume as base:
 
-* `var HOTP = require('otp-manager').hotp;`
-* `var TOTP = require('otp-manager').totp;`
+* `var HOTP = require('otp.js').hotp;`
+* `var TOTP = require('otp.js').totp;`
+* `var GA = require('otp.js').googleAuthenticator;`
 
 ### `HOTP.gen(key, [opt])`
 
@@ -269,4 +268,4 @@ Returns an object `{delta: #}` if the token is valid. `delta` is the count skew 
 | 0.0.1      | First Prototype |
 
 ## License
-Copyright (c) 2014 Nicolas Jessel. Licensed under the [MIT license](https://github.com/njl07/otp-manager/blob/master/LICENSE.md).
+Copyright (c) 2014 Nicolas Jessel. Licensed under the [MIT license](https://github.com/njl07/otp.js/blob/master/LICENSE.md).
