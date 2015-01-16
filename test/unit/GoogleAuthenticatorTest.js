@@ -73,6 +73,20 @@ describe('- GoogleAuthenticatorTest file', function()
                     .hasOwnProperty('decode')
                     .isEnumerable('decode');
             });
+
+            it('- `gen` property', function()
+            {
+                unit.object(GoogleAuthenticator)
+                    .hasOwnProperty('gen')
+                    .isEnumerable('gen');
+            });
+
+            it('- `verify` property', function()
+            {
+                unit.object(GoogleAuthenticator)
+                    .hasOwnProperty('verify')
+                    .isEnumerable('verify');
+            });
         });
 
         // check if singleton property has been setted correctly
@@ -152,6 +166,19 @@ describe('- GoogleAuthenticatorTest file', function()
                     .hasMessage('secret is not allowed to be empty');
             });
 
+            it('- `keyUri` function must have `secret` with base 32 value', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `keyUri` and `secret` is not a base 32 value', function ()
+                    {
+                        GoogleAuthenticator.keyUri('test', 'test', 'base 32 encoded user secret');
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('secret fails to match the required pattern');
+            });
+
             it('- call `keyUri` to check if the result is a encoded uri string', function()
             {
                 unit.assert.equal(GoogleAuthenticator.keyUri('test@localhost', 'test', 'IFDFIUJNK5JUEQKH'),
@@ -201,12 +228,142 @@ describe('- GoogleAuthenticatorTest file', function()
                 unit.assert.equal(GoogleAuthenticator.decode('NVXW4IDTMVRXEZLU'), 'mon secret');
             });
         });
+
+        // check if gen property has been setted correctly
+        describe('- `gen` property has been setted correctly', function()
+        {
+            it('- `gen` is a function', function()
+            {
+                unit.function(GoogleAuthenticator.gen);
+            });
+
+            it('- `gen` function must have `secret` attribute setted to work', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `gen` and `secret` is not setted', function ()
+                    {
+                        GoogleAuthenticator.gen();
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('secret is not allowed to be empty');
+            });
+
+            it('- `gen` function must have `secret` with base 32 value', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `gen` and `secret` is not a base 32 value', function ()
+                    {
+                        GoogleAuthenticator.gen('base 32 encoded user secret');
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('secret fails to match the required pattern');
+            });
+
+            it('- call `gen` to check if the result is a 6-digit number', function()
+            {
+                unit.must(GoogleAuthenticator.gen(GoogleAuthenticator.encode('base 32 encoded user secret'))).match(/^[0-9]{6}$/);
+            });
+        });
+
+        // check if verify property has been setted correctly
+        describe('- `verify` property has been setted correctly', function()
+        {
+            it('- `verify` is a function', function()
+            {
+                unit.function(GoogleAuthenticator.verify);
+            });
+
+            it('- `verify` function must have `token` attribute setted to work', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `gen` and `token` is not setted', function ()
+                    {
+                        GoogleAuthenticator.verify();
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('token is not allowed to be empty');
+            });
+
+            it('- `verify` function must have `token` attribute which is a validated string', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `verify` and `token` is not a validated string', function ()
+                    {
+                        GoogleAuthenticator.verify('A');
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('token fails to match the required pattern');
+            });
+
+            it('- `verify` function must have `secret` attribute setted to work', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `gen` and `secret` is not setted', function ()
+                    {
+                        GoogleAuthenticator.verify('111111');
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('secret is not allowed to be empty');
+            });
+
+            it('- `verify` function must have `secret` with base 32 value', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `gen` and `secret` is not a base 32 value', function ()
+                    {
+                        GoogleAuthenticator.verify('111111', 'base 32 encoded user secret');
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('secret fails to match the required pattern');
+            });
+
+            it('- `verify` function can have number `window` attribute', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `verify` and has no number `window` attribute', function ()
+                    {
+                        GoogleAuthenticator.verify('111111', GoogleAuthenticator.encode('base 32 encoded user secret'), '');
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('window must be a number');
+            });
+
+            it('- `verify` function can have `window` attribute value larger than or equal to 0', function()
+            {
+                unit.exception(function ()
+                {
+                    unit.when('call `verify` and `window` attribute value is less than 0', function ()
+                    {
+                        GoogleAuthenticator.verify('111111', GoogleAuthenticator.encode('base 32 encoded user secret'), -1);
+                    });
+                })
+                    .isInstanceOf(Error)
+                    .hasMessage('window must be larger than or equal to 0');
+            });
+
+            it('- call `verify` with parameters: `token` => \'111111\', `secret` => \'MJQXGZJAGMZCAZLOMNXWIZLEEB2XGZLSEBZWKY3SMV2A\', `window` => 6', function()
+            {
+                unit.assert.equal(GoogleAuthenticator.verify('111111', 'MJQXGZJAGMZCAZLOMNXWIZLEEB2XGZLSEBZWKY3SMV2A', 6), null);
+            });
+
+            it('- call `verify` with parameters: `token` => \'111111\', `secret` => \'MJQXGZJAGMZCAZLOMNXWIZLEEB2XGZLSEBZWKY3SMV2A\'', function()
+            {
+                unit.assert.equal(GoogleAuthenticator.verify('111111', 'MJQXGZJAGMZCAZLOMNXWIZLEEB2XGZLSEBZWKY3SMV2A'), null);
+            });
+        });
     });
-
-    /*describe('- Google Authenticator Algorithm: Test Values', function()
-     {
-
-
-
-     });*/
 });

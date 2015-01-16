@@ -6,7 +6,7 @@
 
 ## One-Time Password manager
 
-One Time Password manager is fully compliant with [HOTP](http://tools.ietf.org/html/rfc4226) (counter based one time passwords) and [TOTP](http://tools.ietf.org/html/rfc6238) (time based one time passwords). It can be used in conjunction with the `Google Authenticator` which has free apps for `iOS`, `Android` and `BlackBerry`.
+One Time Password manager is fully compliant with [HOTP](http://tools.ietf.org/html/rfc4226) (counter based one time passwords) and [TOTP](http://tools.ietf.org/html/rfc6238) (time based one time passwords). It can be used in conjunction with the `Google Authenticator`, for Two-Factor Authentication, which has free apps for `iOS`, `Android` and `BlackBerry`.
 
 All methods described in both `RFC` are implemented in [API](#api).
 
@@ -31,7 +31,7 @@ All methods described in both `RFC` are implemented in [API](#api).
     * [GA.keyUri(user, issuer, base32Secret)](#gakeyuriuser-issuer-base32secret)
     * [GA.qrCode(user, issuer, base32Secret)](#gaqrcodeuser-issuer-base32secret)
     * [GA.gen(secret)](#gagensecret)
-    * [GA.verify(token, secret)](#gaverifytoken-secret)
+    * [GA.verify(token, secret, window)](#gaverifytoken-secret-window)
 * [Release History](#release-history)
 * [License](#license)
 
@@ -352,35 +352,35 @@ Returns random `16-digit base32` encoded secret.
 Returns string representation of [key uri](https://code.google.com/p/google-authenticator/wiki/KeyUriFormat): `otpauth://totp/issuer:user@host?secret=xxx&issuer=yyy`
 
 **user**
-> the user for this account
+> The user for this account.
 
 **issuer**
-> the provider or service managing that account
+> The provider or service managing that account.
 
 **secret**
-> the secret in `base32`
+> The secret in `base32`. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
 
 ### `GA.qrCode(user, issuer, secret)`
 
 Returns string with image data - `SVG` format.
 
 **user**
-> the user for this account
+> The user for this account.
 
 **issuer**
-> the provider or service managing that account
+> The provider or service managing that account.
 
 **secret**
-> the secret in `base32`
+> The secret in `base32`. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
 
 ### `GA.gen(secret)`
 
 Returns a time based one time password.
 
 **secret**
-> the secret in `base32` to generate OTP
+> The secret in `base32` to generate OTP. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
 
-### `GA.verify(token, secret)`
+### `GA.verify(token, secret, [window])`
 
 Check a time based one time password for validity.
 
@@ -392,7 +392,13 @@ Returns an object `{delta: #}` if the token is valid. `delta` is the count skew 
 > Passcode to validate
 
 **secret**
-> the secret in `base32` to validate OTP
+> The secret in `base32` to validate OTP. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
+
+**window**
+> The allowable margin, time steps in seconds since T0, for the counter.  The function will check 'W' codes in the past and the future against the provided passcode.  Note, it is the calling applications responsibility to keep track of 'C' and increment it for each password check, and also to adjust it accordingly in the case where the client and server become out of sync (second argument returns non zero).
+>> e.g: if `W = 5`, and `C = 100`, this function will check the passcode against all One Time Passcodes between `95` and `105`.
+>>
+>> Default value is: `6`
 
 ## Release History
 
