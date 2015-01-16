@@ -123,7 +123,7 @@ catch(ex)
 ```javascript
 try
 {
-    // verify otp '755224' for base 32 encoded user secret
+    // verify otp 'XXXXXX' for base 32 encoded user secret
     var result = GA.verify('XXXXXX', GA.encode('base 32 encoded user secret'));
 
     console.log(result); // print result => {delta:#}
