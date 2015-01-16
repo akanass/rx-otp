@@ -110,7 +110,7 @@ try
     // generate otp for base 32 encoded user secret
     var code = GA.gen(GA.encode('base 32 encoded user secret'));
 
-    console.log(code); // print otp result => 6-digit
+    console.log(code); // print otp result => 6-digit number
 }
 catch(ex)
 {
@@ -124,9 +124,9 @@ catch(ex)
 try
 {
     // verify otp '755224' for base 32 encoded user secret
-    var result = GA.verify('755224', GA.encode('base 32 encoded user secret'));
+    var result = GA.verify('XXXXXX', GA.encode('base 32 encoded user secret'));
 
-    console.log(result); // print result => {delta:{int:0}}
+    console.log(result); // print result => {delta:#}
 }
 catch(ex)
 {
