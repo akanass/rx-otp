@@ -30,8 +30,8 @@ All methods described in both `RFC` are implemented in [API](#api).
     * [GA.secret()](#gasecret)
     * [GA.keyUri(user, issuer, base32Secret)](#gakeyuriuser-issuer-base32secret)
     * [GA.qrCode(user, issuer, base32Secret)](#gaqrcodeuser-issuer-base32secret)
-    * [GA.gen(secret)](#gagensecret)
-    * [GA.verify(token, secret, [window])](#gaverifytoken-secret-window)
+    * [GA.gen(base32Secret)](#gagenbase32secret)
+    * [GA.verify(token, base32Secret, [window])](#gaverifytoken-base32secret-window)
 * [Release History](#release-history)
 * [License](#license)
 
@@ -347,7 +347,7 @@ Returns string.
 
 Returns random `16-digit base32` encoded secret.
 
-### `GA.keyUri(user, issuer, secret)`
+### `GA.keyUri(user, issuer, base32Secret)`
 
 Returns string representation of [key uri](https://code.google.com/p/google-authenticator/wiki/KeyUriFormat): `otpauth://totp/issuer:user@host?secret=xxx&issuer=yyy`
 
@@ -357,10 +357,10 @@ Returns string representation of [key uri](https://code.google.com/p/google-auth
 **issuer**
 > The provider or service managing that account.
 
-**secret**
+**base32Secret**
 > The secret in `base32`. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
 
-### `GA.qrCode(user, issuer, secret)`
+### `GA.qrCode(user, issuer, base32Secret)`
 
 Returns string with image data - `SVG` format.
 
@@ -370,17 +370,17 @@ Returns string with image data - `SVG` format.
 **issuer**
 > The provider or service managing that account.
 
-**secret**
+**base32Secret**
 > The secret in `base32`. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
 
-### `GA.gen(secret)`
+### `GA.gen(base32Secret)`
 
 Returns a time based one time password.
 
-**secret**
+**base32Secret**
 > The secret in `base32` to generate OTP. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
 
-### `GA.verify(token, secret, [window])`
+### `GA.verify(token, base32Secret, [window])`
 
 Check a time based one time password for validity.
 
@@ -391,7 +391,7 @@ Returns an object `{delta: #}` if the token is valid. `delta` is the count skew 
 **token**
 > Passcode to validate
 
-**secret**
+**base32Secret**
 > The secret in `base32` to validate OTP. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.
 
 **window**
