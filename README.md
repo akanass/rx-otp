@@ -15,11 +15,20 @@ All methods described in both `RFC` are implemented in [API](#api).
     * [OTP Generation](#otp-generation)
     * [OTP Verification](#otp-verification)
 * [Google Authenticator](#google-authenticator)
+    * [Base32 Keys](#base32-keys)
+    * [RFC 3548](#rfc-3548)
+    * [Code Generation](#code-generation)
+    * [QRCode Generation](#qrcode-generation)
 * [API](#api)
     * [HOTP.gen(key, [opt])](#hotpgenkey-opt)
     * [HOTP.verify(token, key, [opt])](#hotpverifytoken-key-opt)
     * [TOTP.gen(key, [opt])](#totpgenkey-opt)
     * [TOTP.verify(token, key, [opt])](#totpverifytoken-key-opt)
+    * [GA.encode(secret)](#gaencode-secret)
+    * [GA.decode(base32Secret)](#gadecode-base32secret)
+    * [GA.secret()](#gasecret)
+    * [GA.keyUri(user, issuer, base32Secret)](#gakeyuri-user-issuer-base32secret)
+    * [GA.qrCode(user, issuer, base32Secret)](#gaqrcode-user-issuer-base32secret)
 * [Release History](#release-history)
 * [License](#license)
 
@@ -74,7 +83,49 @@ catch(ex)
 
 ## Google Authenticator
 
+```javascript
+var OTP = require('otp.js');
+
+// get GoogleAuthenticator object
+var GA = OTP.googleAuthenticator;
+```
+
+### Base32 Keys
+
+`Google Authenticator` requires keys to be `base32` encoded.
+
+### RFC 3548
+
+Google Authenticator requires an [RFC 3548](http://tools.ietf.org/html/rfc3548) compliant encoder.
+
+OTP calculation will still work should you want to use other `base32` encoding methods (like Crockford's Base 32) but it will NOT be compatible with `Google Authenticator`.
+
+### Code Generation
+
 To be implemented.
+
+### QRCode Generation
+
+```javascript
+try
+{
+    // generate base32 secret
+    var secret = GA.encode('base 32 encoded user secret') || GA.secret();
+
+    // get QRCode in SVG format
+    var qrCode = GA.qrCode('akanass', 'otp.js', secret);
+
+    console.log(qrCode); // print svg => <svg xmlns="http://www.w3.org/2000/svg" width="215" height="215" viewBox="0 0 43 43">...</svg>
+}
+catch(ex)
+{
+    console.error(ex); // print error occurred during QRCode generation
+}
+```
+
+You can scan this `qrCode` with your `Google Authenticator` application to show result:
+
+![QRCode](http://www.otpjs.com/images/qrCode.svg)
 
 ## API
 
@@ -247,6 +298,50 @@ Returns an object `{delta: #}` if the token is valid. `delta` is the count skew 
 >
 > Finally, `opt` object will be like this:
 >> Default value: `{window:6, time:30, timestamp:new Date().getTime(), addChecksum:false, algorithm:'sha1'}`
+
+### `GA.encode(secret)`
+
+Returns `base32` string.
+
+**secret**
+> Secret to encode
+
+### `GA.decode(base32Secret)`
+
+Returns string.
+
+**base32Secret**
+> Base32 secret to decode
+
+### `GA.secret()`
+
+Returns random 16-digit base32 encoded secret.
+
+### `GA.keyUri(user, issuer, secret)`
+
+Returns string representation of [key uri](https://code.google.com/p/google-authenticator/wiki/KeyUriFormat): `otpauth://totp/issuer:user@host?secret=xxx&issuer=yyy`
+
+**user**
+> the user for this account
+
+**issuer**
+> the provider or service managing that account
+
+**secret**
+> the secret in base32
+
+### `GA.qrCode(user, issuer, secret)`
+
+Returns string with image data - SVG format.
+
+**user**
+> the user for this account
+
+**issuer**
+> the provider or service managing that account
+
+**secret**
+> the secret in base32
 
 ## Release History
 
