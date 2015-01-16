@@ -614,19 +614,19 @@ describe('- TOTPTest file', function()
                 {timestamp:20000000000000, codeDigits:8, algorithm:'sha512'}), '47863826');
         });
 
-        it('- call `verify` method with parameters: `key` => {string:\'12345678901234567890\'} and options ' +
+        it('- call `verify` method with parameters: `token` => \'94287082\', `key` => {string:\'12345678901234567890\'} and options ' +
         '=>  {window:6, time:30, timestamp:59000, addChecksum:false, algorithm:\'sha1\'}', function()
         {
             unit.assert.deepEqual(TOTP.verify('94287082', {string: '12345678901234567890'}, {timestamp:59000}), {delta: 0});
         });
 
-        it('- call `verify` method with parameters: `key` => {string:\'12345678901234567890\'} and options ' +
+        it('- call `verify` method with parameters: `token` => \'94287082\', `key` => {string:\'12345678901234567890\'} and options ' +
         '=>  {window:6, time:30, timestamp:59000, addChecksum:false, algorithm:\'sha1\'}', function()
         {
             unit.assert.deepEqual(TOTP.verify('94287082', {hex: '3132333435363738393031323334353637383930'}, {timestamp:59000}), {delta: 0});
         });
 
-        it('- call `verify` method with parameters: `key` => {string:\'12345678901234567890\'} and options ' +
+        it('- call `verify` method with parameters: `token` => \'94287082\', `key` => {string:\'12345678901234567890\'} and options ' +
         '=>  {window:6, time:30, timestamp:59000, addChecksum:false, truncationOffset:10, algorithm:\'sha1\'}', function()
         {
             unit.assert.notDeepEqual(TOTP.verify('94287082', {string: '12345678901234567890'}, {timestamp:59000, truncationOffset:10}), {delta: 0});
