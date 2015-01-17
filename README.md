@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/njl07/otp.js/badge.png?branch=master)](https://coveralls.io/r/njl07/otp.js?branch=master)
 [![npm version](https://badge.fury.io/js/otp.js.png)](http://badge.fury.io/js/otp.js)
 
-[![NPM](https://nodei.co/npm/otp.js.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/otp.js/)
+[![NPM](https://nodei.co/npm/otp.js.png?stars=true)](https://nodei.co/npm/otp.js/)
 
 ## One-Time Password manager
 
