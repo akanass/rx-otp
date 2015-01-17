@@ -771,11 +771,19 @@ describe('- HOTPTest file', function()
         });
 
         it('- call `verify` method with parameters: `token` => \'755224\', ' +
-        '`key` => {string:\'12345678901234567890\'} and options ' +
+        '`key` => {hex:\'3132333435363738393031323334353637383930\'} and options ' +
         '=>  {window:9, counter:{hex: \'0000000000000009\'}, addChecksum:false, algorithm:\'sha1\', previousOTPAllowed:true}', function()
         {
             unit.assert.deepEqual(HOTP.verify('755224', {hex: '3132333435363738393031323334353637383930'},
                 {window:9, counter:{hex: '0000000000000009'}, previousOTPAllowed:true}), {delta:{hex:'-0000000000000009'}});
+        });
+
+        it('- call `verify` method with parameters: `token` => \'1964319491\', ' +
+        '`key` => {hex:\'8D379B1811FCB786727DDEEDAB5DED1092EC8D60\'} and options ' +
+        '=>  {window:300, counter:{hex: \'7DE1ED09E1AE8F1E\'}, addChecksum:false, algorithm:\'sha1\', previousOTPAllowed:false}', function()
+        {
+            unit.assert.deepEqual(HOTP.verify('1964319491', {hex: '8D379B1811FCB786727DDEEDAB5DED1092EC8D60'},
+                {window:300, counter:{hex: '7DE1ED09E1AE8F1E'}}), {delta:{hex:'00000000000000F2'}});
         });
     });
 });
