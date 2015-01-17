@@ -772,10 +772,10 @@ describe('- HOTPTest file', function()
 
         it('- call `verify` method with parameters: `token` => \'755224\', ' +
         '`key` => {string:\'12345678901234567890\'} and options ' +
-        '=>  {window:9, counter:{int:9}, addChecksum:false, algorithm:\'sha1\', previousOTPAllowed:true}', function()
+        '=>  {window:9, counter:{hex: \'0000000000000009\'}, addChecksum:false, algorithm:\'sha1\', previousOTPAllowed:true}', function()
         {
-            unit.assert.deepEqual(HOTP.verify('755224', {string: '12345678901234567890'},
-                {window:9, counter:{int: 9}, previousOTPAllowed:true}), {delta:{int:-9}});
+            unit.assert.deepEqual(HOTP.verify('755224', {hex: '3132333435363738393031323334353637383930'},
+                {window:9, counter:{hex: '0000000000000009'}, previousOTPAllowed:true}), {delta:{hex:'-0000000000000009'}});
         });
     });
 });
