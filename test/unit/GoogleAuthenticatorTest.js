@@ -137,7 +137,7 @@ describe('- GoogleAuthenticatorTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('user is not allowed to be empty');
+                    .hasMessage('"user" is not allowed to be empty');
             });
 
             it('- `keyUri` function must have `issuer` attribute setted to work', function()
@@ -150,7 +150,7 @@ describe('- GoogleAuthenticatorTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('issuer is not allowed to be empty');
+                    .hasMessage('"issuer" is not allowed to be empty');
             });
 
             it('- `keyUri` function must have `secret` attribute setted to work', function()
@@ -163,7 +163,7 @@ describe('- GoogleAuthenticatorTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('secret is not allowed to be empty');
+                    .hasMessage('"secret" is not allowed to be empty');
             });
 
             it('- `keyUri` function must have `secret` with base 32 value', function()
@@ -176,7 +176,7 @@ describe('- GoogleAuthenticatorTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('secret fails to match the required pattern');
+                    .hasMessage('"secret" with value "base 32 encoded user secret" fails to match the required pattern: /^[A-Z2-7]{2,}$/');
             });
 
             it('- call `keyUri` to check if the result is a encoded uri string', function()
@@ -247,7 +247,7 @@ describe('- GoogleAuthenticatorTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('secret is not allowed to be empty');
+                    .hasMessage('"secret" is not allowed to be empty');
             });
 
             it('- `gen` function must have `secret` with base 32 value', function()
@@ -260,7 +260,7 @@ describe('- GoogleAuthenticatorTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('secret fails to match the required pattern');
+                    .hasMessage('"secret" with value "base 32 encoded user secret" fails to match the required pattern: /^[A-Z2-7]{2,}$/');
             });
 
             it('- call `gen` to check if the result is a 6-digit number', function()
@@ -287,7 +287,7 @@ describe('- GoogleAuthenticatorTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('token is not allowed to be empty');
+                    .hasMessage('"token" is not allowed to be empty');
             });
 
             it('- `verify` function must have `token` attribute which is a validated string', function()
@@ -300,7 +300,7 @@ describe('- GoogleAuthenticatorTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('token fails to match the required pattern');
+                    .hasMessage('"token" with value "A" fails to match the required pattern: /^[0-9]{6}$/');
             });
 
             it('- `verify` function must have `secret` attribute setted to work', function()
@@ -313,7 +313,7 @@ describe('- GoogleAuthenticatorTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('secret is not allowed to be empty');
+                    .hasMessage('"secret" is not allowed to be empty');
             });
 
             it('- `verify` function must have `secret` with base 32 value', function()
@@ -326,7 +326,7 @@ describe('- GoogleAuthenticatorTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('secret fails to match the required pattern');
+                    .hasMessage('"secret" with value "base 32 encoded user secret" fails to match the required pattern: /^[A-Z2-7]{2,}$/');
             });
 
             it('- `verify` function can have number `window` attribute', function()
@@ -339,7 +339,7 @@ describe('- GoogleAuthenticatorTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('window must be a number');
+                    .hasMessage('"window" must be a number');
             });
 
             it('- `verify` function can have `window` attribute value larger than or equal to 0', function()
@@ -352,7 +352,7 @@ describe('- GoogleAuthenticatorTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('window must be larger than or equal to 0');
+                    .hasMessage('"window" must be larger than or equal to 0');
             });
 
             it('- call `verify` with parameters: `token` => \'111111\', `secret` => \'MJQXGZJAGMZCAZLOMNXWIZLEEB2XGZLSEBZWKY3SMV2A\', `window` => 6', function()

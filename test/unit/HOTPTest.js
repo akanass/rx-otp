@@ -88,7 +88,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key must be an object');
+                    .hasMessage('"key" must be an object');
             });
 
             it('- `gen` function must have `key` attribute which is a validated object', function()
@@ -101,7 +101,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key must contain at least one of string, hex');
+                    .hasMessage('"key" must contain at least one of [string, hex]');
             });
 
             it('- `gen` function must have `key` attribute with no empty `string` value', function()
@@ -114,7 +114,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key is not allowed to be empty');
+                    .hasMessage('child "key" fails because ["key" is not allowed to be empty]');
             });
 
             it('- `gen` function must have `key` attribute with no empty `hex` value', function()
@@ -127,7 +127,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key is not allowed to be empty');
+                    .hasMessage('child "key" fails because ["key" is not allowed to be empty]');
             });
 
             it('- `gen` function must have `key` attribute with conform `hex` value', function()
@@ -140,7 +140,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key fails to match the required pattern');
+                    .hasMessage('child "key" fails because ["key" with value "A" fails to match the required pattern: /^[A-Fa-f0-9]{2,}$/]');
             });
 
             it('- `gen` function must have `key` attribute with one of `string` or `hex` value', function()
@@ -153,7 +153,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key contains a conflict between exclusive peers string, hex');
+                    .hasMessage('"key" contains a conflict between exclusive peers [string, hex]');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which is an object', function()
@@ -166,7 +166,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be an object');
+                    .hasMessage('child "opt" fails because ["opt" must be an object]');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which is a validated object', function()
@@ -179,7 +179,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must contain at least one of int, hex');
+                    .hasMessage('child "opt" fails because ["opt" must contain at least one of [int, hex]]');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which have a number `int` value', function()
@@ -192,7 +192,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because [child "opt" fails because ["opt" must be a number]]');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which have a positive number `int` value', function()
@@ -205,7 +205,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 0');
+                    .hasMessage('child "opt" fails because [child "opt" fails because ["opt" must be larger than or equal to 0]]');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which have a non empty `hex` value', function()
@@ -218,7 +218,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt is not allowed to be empty');
+                    .hasMessage('child "opt" fails because [child "opt" fails because ["opt" is not allowed to be empty]]');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which have a conform `hex` value', function()
@@ -231,7 +231,8 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt fails to match the required pattern');
+                    .hasMessage('child "opt" fails because [child "opt" fails because ["opt" with value "00000000000000000" '+
+                                    'fails to match the required pattern: /^[A-Fa-f0-9]{1,16}$/]]');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which have one of `int` or `hex` value', function()
@@ -244,7 +245,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt contains a conflict between exclusive peers int, hex');
+                    .hasMessage('child "opt" fails because ["opt" contains a conflict between exclusive peers [int, hex]]');
             });
 
             it('- `gen` function must have `opt` attribute with number `codeDigits` value', function()
@@ -257,7 +258,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because ["opt" must be a number]');
             });
 
             it('- `gen` function must have `opt` attribute with `codeDigits` value larger than or equal to 1', function()
@@ -270,7 +271,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 1');
+                    .hasMessage('child "opt" fails because ["opt" must be larger than or equal to 1]');
             });
 
             it('- `gen` function must have `opt` attribute with `codeDigits` value less than or equal to 10', function()
@@ -283,7 +284,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be less than or equal to 10');
+                    .hasMessage('child "opt" fails because ["opt" must be less than or equal to 10]');
             });
 
             it('- `gen` function must have `opt` attribute with boolean `addChecksum` value', function()
@@ -296,7 +297,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a boolean');
+                    .hasMessage('child "opt" fails because ["opt" must be a boolean]');
             });
 
             it('- `gen` function must have `opt` attribute with number `truncationOffset` value', function()
@@ -309,7 +310,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because ["opt" must be a number]');
             });
 
             it('- `gen` function must have `opt` attribute with `truncationOffset` value larger than or equal to 0', function()
@@ -322,7 +323,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 0');
+                    .hasMessage('child "opt" fails because ["opt" must be larger than or equal to 0]');
             });
 
             it('- `gen` function must have `opt` attribute with `truncationOffset` value less than or equal to 15', function()
@@ -335,7 +336,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be less than or equal to 15');
+                    .hasMessage('child "opt" fails because ["opt" must be less than or equal to 15]');
             });
 
             it('- `gen` function must have `opt` attribute with `algorithm` non empty value', function()
@@ -348,7 +349,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt is not allowed to be empty');
+                    .hasMessage('child "opt" fails because ["opt" is not allowed to be empty]');
             });
 
             it('- `gen` function must have `opt` attribute with `algorithm` value equal to \'sha1\', \'sha256\' or \'sha512\'', function()
@@ -361,7 +362,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be one of sha1, sha256, sha512');
+                    .hasMessage('child "opt" fails because ["opt" must be one of [sha1, sha256, sha512]]');
             });
         });
 
@@ -383,7 +384,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('token is not allowed to be empty');
+                    .hasMessage('"token" is not allowed to be empty');
             });
 
             it('- `verify` function must have `token` attribute which is a validated string', function()
@@ -396,7 +397,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('token fails to match the required pattern');
+                    .hasMessage('"token" with value "A" fails to match the required pattern: /^[0-9]{1,11}$/');
             });
 
             it('- `verify` function must have `key` attribute setted to work', function()
@@ -409,7 +410,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key must be an object');
+                    .hasMessage('"key" must be an object');
             });
 
             it('- `verify` function must have `key` attribute which is a validated object', function()
@@ -422,7 +423,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key must contain at least one of string, hex');
+                    .hasMessage('"key" must contain at least one of [string, hex]');
             });
 
             it('- `verify` function must have `key` attribute with no empty `hex` value', function()
@@ -435,7 +436,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key is not allowed to be empty');
+                    .hasMessage('child "key" fails because ["key" is not allowed to be empty]');
             });
 
             it('- `verify` function must have `key` attribute with conform `hex` value', function()
@@ -448,7 +449,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key fails to match the required pattern');
+                    .hasMessage('child "key" fails because ["key" with value "A" fails to match the required pattern: /^[A-Fa-f0-9]{2,}$/]');
             });
 
             it('- `verify` function must have `key` attribute with one of `string` or `hex` value', function()
@@ -461,7 +462,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key contains a conflict between exclusive peers string, hex');
+                    .hasMessage('"key" contains a conflict between exclusive peers [string, hex]');
             });
 
             it('- `verify` function must have `opt` attribute with `counter` value which is an object', function()
@@ -474,7 +475,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be an object');
+                    .hasMessage('child "opt" fails because ["opt" must be an object]');
             });
 
             it('- `verify` function must have `opt` attribute with `counter` value which is a validated object', function()
@@ -487,7 +488,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must contain at least one of int, hex');
+                    .hasMessage('child "opt" fails because ["opt" must contain at least one of [int, hex]]');
             });
 
             it('- `verify` function must have `opt` attribute with `counter` value which have a number `int` value', function()
@@ -500,7 +501,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because [child "opt" fails because ["opt" must be a number]]');
             });
 
             it('- `verify` function must have `opt` attribute with `counter` value which have a positive number `int` value', function()
@@ -513,7 +514,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 0');
+                    .hasMessage('child "opt" fails because [child "opt" fails because ["opt" must be larger than or equal to 0]]');
             });
 
             it('- `verify` function must have `opt` attribute with `counter` value which have a non empty `hex` value', function()
@@ -526,7 +527,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt is not allowed to be empty');
+                    .hasMessage('child "opt" fails because [child "opt" fails because ["opt" is not allowed to be empty]]');
             });
 
             it('- `verify` function must have `opt` attribute with `counter` value which have a conform `hex` value', function()
@@ -539,7 +540,8 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt fails to match the required pattern');
+                    .hasMessage('child "opt" fails because [child "opt" fails because ["opt" with value "00000000000000000" '+
+                                    'fails to match the required pattern: /^[A-Fa-f0-9]{1,16}$/]]');
             });
 
             it('- `verify` function must have `opt` attribute with `counter` value which have one of `int` or `hex` value', function()
@@ -552,7 +554,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt contains a conflict between exclusive peers int, hex');
+                    .hasMessage('child "opt" fails because ["opt" contains a conflict between exclusive peers [int, hex]]');
             });
 
             it('- `verify` function must have `opt` attribute with number `window` value', function()
@@ -565,7 +567,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because ["opt" must be a number]');
             });
 
             it('- `verify` function must have `opt` attribute with `window` value larger than or equal to 0', function()
@@ -578,7 +580,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 0');
+                    .hasMessage('child "opt" fails because ["opt" must be larger than or equal to 0]');
             });
 
             it('- `verify` function must have `opt` attribute with boolean `addChecksum` value', function()
@@ -591,7 +593,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a boolean');
+                    .hasMessage('child "opt" fails because ["opt" must be a boolean]');
             });
 
             it('- `verify` function must have `opt` attribute with number `truncationOffset` value', function()
@@ -604,7 +606,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because ["opt" must be a number]');
             });
 
             it('- `verify` function must have `opt` attribute with `truncationOffset` value larger than or equal to 0', function()
@@ -617,7 +619,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 0');
+                    .hasMessage('child "opt" fails because ["opt" must be larger than or equal to 0]');
             });
 
             it('- `verify` function must have `opt` attribute with `truncationOffset` value less than or equal to 15', function()
@@ -630,7 +632,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be less than or equal to 15');
+                    .hasMessage('child "opt" fails because ["opt" must be less than or equal to 15]');
             });
 
             it('- `verify` function must have `opt` attribute with `algorithm` non empty value', function()
@@ -643,7 +645,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt is not allowed to be empty');
+                    .hasMessage('child "opt" fails because ["opt" is not allowed to be empty]');
             });
 
             it('- `verify` function must have `opt` attribute with `algorithm` value equal to \'sha1\', \'sha256\' or \'sha512\'', function()
@@ -656,7 +658,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be one of sha1, sha256, sha512');
+                    .hasMessage('child "opt" fails because ["opt" must be one of [sha1, sha256, sha512]]');
             });
 
             it('- `verify` function must have `opt` attribute with boolean `previousOTPAllowed` value', function()
@@ -669,7 +671,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a boolean');
+                    .hasMessage('child "opt" fails because ["opt" must be a boolean]');
             });
         });
     });

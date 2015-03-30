@@ -88,7 +88,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key must be an object');
+                    .hasMessage('"key" must be an object');
             });
 
             it('- `gen` function must have `key` attribute which is a validated object', function()
@@ -101,7 +101,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key must contain at least one of string, hex');
+                    .hasMessage('"key" must contain at least one of [string, hex]');
             });
 
             it('- `gen` function must have `key` attribute with no empty `string` value', function()
@@ -114,7 +114,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key is not allowed to be empty');
+                    .hasMessage('child "key" fails because ["key" is not allowed to be empty]');
             });
 
             it('- `gen` function must have `key` attribute with no empty `hex` value', function()
@@ -127,7 +127,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key is not allowed to be empty');
+                    .hasMessage('child "key" fails because ["key" is not allowed to be empty]');
             });
 
             it('- `gen` function must have `key` attribute with conform `hex` value', function()
@@ -140,7 +140,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key fails to match the required pattern');
+                    .hasMessage('child "key" fails because ["key" with value "A" fails to match the required pattern: /^[A-Fa-f0-9]{2,}$/]');
             });
 
             it('- `gen` function must have `key` attribute with one of `string` or `hex` value', function()
@@ -153,7 +153,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key contains a conflict between exclusive peers string, hex');
+                    .hasMessage('"key" contains a conflict between exclusive peers [string, hex]');
             });
 
             it('- `gen` function must have `opt` attribute with number `time` value', function()
@@ -166,7 +166,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because ["opt" must be a number]');
             });
 
             it('- `gen` function must have `opt` attribute with `time` value larger than or equal to 1', function()
@@ -179,7 +179,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 1');
+                    .hasMessage('child "opt" fails because ["opt" must be larger than or equal to 1]');
             });
 
             it('- `gen` function must have `opt` attribute with number `timestamp` value', function()
@@ -192,7 +192,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because ["opt" must be a number]');
             });
 
             it('- `gen` function must have `opt` attribute with `timestamp` value larger than or equal to 0', function()
@@ -205,7 +205,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 0');
+                    .hasMessage('child "opt" fails because ["opt" must be larger than or equal to 0]');
             });
 
             it('- `gen` function must have `opt` attribute with `codeDigits` value larger than or equal to 1', function()
@@ -218,7 +218,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 1');
+                    .hasMessage('child "opt" fails because ["opt" must be larger than or equal to 1]');
             });
 
             it('- `gen` function must have `opt` attribute with `codeDigits` value less than or equal to 10', function()
@@ -231,7 +231,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be less than or equal to 10');
+                    .hasMessage('child "opt" fails because ["opt" must be less than or equal to 10]');
             });
 
             it('- `gen` function must have `opt` attribute with boolean `addChecksum` value', function()
@@ -244,7 +244,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a boolean');
+                    .hasMessage('child "opt" fails because ["opt" must be a boolean]');
             });
 
             it('- `gen` function must have `opt` attribute with number `truncationOffset` value', function()
@@ -257,7 +257,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because ["opt" must be a number]');
             });
 
             it('- `gen` function must have `opt` attribute with `truncationOffset` value larger than or equal to 0', function()
@@ -270,7 +270,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 0');
+                    .hasMessage('child "opt" fails because ["opt" must be larger than or equal to 0]');
             });
 
             it('- `gen` function must have `opt` attribute with `truncationOffset` value less than or equal to 15', function()
@@ -283,7 +283,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be less than or equal to 15');
+                    .hasMessage('child "opt" fails because ["opt" must be less than or equal to 15]');
             });
 
             it('- `gen` function must have `opt` attribute with `algorithm` non empty value', function()
@@ -296,7 +296,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt is not allowed to be empty');
+                    .hasMessage('child "opt" fails because ["opt" is not allowed to be empty]');
             });
 
             it('- `gen` function must have `opt` attribute with `algorithm` value equal to \'sha1\', \'sha256\' or \'sha512\'', function()
@@ -309,7 +309,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be one of sha1, sha256, sha512');
+                    .hasMessage('child "opt" fails because ["opt" must be one of [sha1, sha256, sha512]]');
             });
         });
 
@@ -350,7 +350,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('token is not allowed to be empty');
+                    .hasMessage('"token" is not allowed to be empty');
             });
 
             it('- `verify` function must have `token` attribute which is a validated string', function()
@@ -363,7 +363,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('token fails to match the required pattern');
+                    .hasMessage('"token" with value "A" fails to match the required pattern: /^[0-9]{1,11}$/');
             });
 
             it('- `verify` function must have `key` attribute setted to work', function()
@@ -376,7 +376,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key must be an object');
+                    .hasMessage('"key" must be an object');
             });
 
             it('- `verify` function must have `key` attribute which is a validated object', function()
@@ -389,7 +389,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key must contain at least one of string, hex');
+                    .hasMessage('"key" must contain at least one of [string, hex]');
             });
 
             it('- `verify` function must have `key` attribute with no empty `hex` value', function()
@@ -402,7 +402,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key is not allowed to be empty');
+                    .hasMessage('child "key" fails because ["key" is not allowed to be empty]');
             });
 
             it('- `verify` function must have `key` attribute with conform `hex` value', function()
@@ -415,7 +415,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key fails to match the required pattern');
+                    .hasMessage('child "key" fails because ["key" with value "A" fails to match the required pattern: /^[A-Fa-f0-9]{2,}$/]');
             });
 
             it('- `verify` function must have `key` attribute with one of `string` or `hex` value', function()
@@ -428,7 +428,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('key contains a conflict between exclusive peers string, hex');
+                    .hasMessage('"key" contains a conflict between exclusive peers [string, hex]');
             });
 
             it('- `verify` function must have `opt` attribute with number `window` value', function()
@@ -441,7 +441,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because ["opt" must be a number]');
             });
 
             it('- `verify` function must have `opt` attribute with `window` value larger than or equal to 0', function()
@@ -454,7 +454,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 0');
+                    .hasMessage('child "opt" fails because ["opt" must be larger than or equal to 0]');
             });
 
             it('- `verify` function must have `opt` attribute with number `time` value', function()
@@ -467,7 +467,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because ["opt" must be a number]');
             });
 
             it('- `verify` function must have `opt` attribute with `time` value larger than or equal to 1', function()
@@ -480,7 +480,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 1');
+                    .hasMessage('child "opt" fails because ["opt" must be larger than or equal to 1]');
             });
 
             it('- `verify` function must have `opt` attribute with number `timestamp` value', function()
@@ -493,7 +493,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because ["opt" must be a number]');
             });
 
             it('- `verify` function must have `opt` attribute with `timestamp` value larger than or equal to 0', function()
@@ -506,7 +506,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 0');
+                    .hasMessage('child "opt" fails because ["opt" must be larger than or equal to 0]');
             });
 
             it('- `verify` function must have `opt` attribute with boolean `addChecksum` value', function()
@@ -519,7 +519,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a boolean');
+                    .hasMessage('child "opt" fails because ["opt" must be a boolean]');
             });
 
             it('- `verify` function must have `opt` attribute with number `truncationOffset` value', function()
@@ -532,7 +532,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be a number');
+                    .hasMessage('child "opt" fails because ["opt" must be a number]');
             });
 
             it('- `verify` function must have `opt` attribute with `truncationOffset` value larger than or equal to 0', function()
@@ -545,7 +545,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be larger than or equal to 0');
+                    .hasMessage('child "opt" fails because ["opt" must be larger than or equal to 0]');
             });
 
             it('- `verify` function must have `opt` attribute with `truncationOffset` value less than or equal to 15', function()
@@ -558,7 +558,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be less than or equal to 15');
+                    .hasMessage('child "opt" fails because ["opt" must be less than or equal to 15]');
             });
 
             it('- `verify` function must have `opt` attribute with `algorithm` non empty value', function()
@@ -571,7 +571,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt is not allowed to be empty');
+                    .hasMessage('child "opt" fails because ["opt" is not allowed to be empty]');
             });
 
             it('- `verify` function must have `opt` attribute with `algorithm` value equal to \'sha1\', \'sha256\' or \'sha512\'', function()
@@ -584,7 +584,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('opt must be one of sha1, sha256, sha512');
+                    .hasMessage('child "opt" fails because ["opt" must be one of [sha1, sha256, sha512]]');
             });
         });
     });
