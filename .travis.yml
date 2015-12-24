@@ -1,6 +1,9 @@
 language: node_js
 node_js:
   - "0.10"
+  - "0.12"
+  - "4.x"
+  - "5.x"
 script:
   - npm run-script pretest
   - npm run-script test-on-travis

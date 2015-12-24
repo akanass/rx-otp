@@ -153,7 +153,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('"key" contains a conflict between exclusive peers [string, hex]');
+                    .hasMessage('child "key" fails because ["key" is not allowed to be empty]');
             });
 
             it('- `gen` function must have `opt` attribute with number `time` value', function()
@@ -428,7 +428,7 @@ describe('- TOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('"key" contains a conflict between exclusive peers [string, hex]');
+                    .hasMessage('child "key" fails because ["key" is not allowed to be empty]');
             });
 
             it('- `verify` function must have `opt` attribute with number `window` value', function()

@@ -404,6 +404,7 @@ Returns an object `{delta: #}` if the token is valid. `delta` is the count skew 
 
 | Version    | Notes       |
 |:-----------|:------------|
+| 1.1.0      | Update dependencies & Update unit tests to be conform with joi@7.0.1 & travis config for latest node versions |
 | 1.0.4      | Fix issue #1 & Update unit tests to be conform with joi@6.0.8 |
 | 1.0.3      | Bug fixes with hexadecimal delta result |
 | 1.0.2      | Bug fixes in verify methods results with hexadecimal format for negative value |

@@ -153,7 +153,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('"key" contains a conflict between exclusive peers [string, hex]');
+                    .hasMessage('child "key" fails because ["key" is not allowed to be empty]');
             });
 
             it('- `gen` function must have `opt` attribute with `counter` value which is an object', function()
@@ -245,7 +245,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('child "opt" fails because ["opt" contains a conflict between exclusive peers [int, hex]]');
+                    .hasMessage('child "opt" fails because [child "opt" fails because ["opt" is not allowed to be empty]]');
             });
 
             it('- `gen` function must have `opt` attribute with number `codeDigits` value', function()
@@ -462,7 +462,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('"key" contains a conflict between exclusive peers [string, hex]');
+                    .hasMessage('child "key" fails because ["key" is not allowed to be empty]');
             });
 
             it('- `verify` function must have `opt` attribute with `counter` value which is an object', function()
@@ -554,7 +554,7 @@ describe('- HOTPTest file', function()
                     });
                 })
                     .isInstanceOf(Error)
-                    .hasMessage('child "opt" fails because ["opt" contains a conflict between exclusive peers [int, hex]]');
+                    .hasMessage('child "opt" fails because [child "opt" fails because ["opt" is not allowed to be empty]]');
             });
 
             it('- `verify` function must have `opt` attribute with number `window` value', function()
