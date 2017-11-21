@@ -223,9 +223,14 @@ describe('- GoogleAuthenticatorTest file', function()
                 unit.function(GoogleAuthenticator.decode);
             });
 
-            it('- call `decode` to check if the result is a string', function()
+            it('- call `decode` to check if the result is a hex string', function()
             {
-                unit.assert.equal(GoogleAuthenticator.decode('NVXW4IDTMVRXEZLU'), 'mon secret');
+                unit.assert.equal(GoogleAuthenticator.decode('NVXW4IDTMVRXEZLU'), Buffer.from('mon secret').toString('hex'));
+            });
+
+            it('- call `decode` to check for properly decoded binary secrets', function()
+            {
+                unit.assert.equal(GoogleAuthenticator.decode('JBSWY3DPEHPK3PXP'), '48656c6c6f21deadbeef');
             });
         });
 
