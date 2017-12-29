@@ -1,14 +1,39 @@
-[![Build Status](https://travis-ci.org/njl07/otp.js.svg)](https://travis-ci.org/njl07/otp.js)
-[![Coverage Status](https://coveralls.io/repos/njl07/otp.js/badge.png?branch=master)](https://coveralls.io/r/njl07/otp.js?branch=master)
-[![npm version](https://badge.fury.io/js/otp.js.png)](http://badge.fury.io/js/otp.js)
+<div style="overflow:hidden;margin-bottom:20px;">
+<div style="float:left;line-height:60px">
+    <a href="https://travis-ci.org/njl07/otp.js.svg?branch=master">
+        <img src="https://travis-ci.org/njl07/otp.js.svg?branch=master" alt="build" />
+    </a>
+    <a href="https://coveralls.io/github/njl07/otp.js?branch=master">
+        <img src="https://coveralls.io/repos/github/njl07/otp.js/badge.svg?branch=master" alt="coveralls" />
+    </a>
+    <a href="https://david-dm.org/njl07/otp.js">
+        <img src="https://david-dm.org/njl07/otp.js.svg" alt="dependencies" />
+    </a>
+    <a href="https://david-dm.org/njl07/otp.js?type=dev">
+        <img src="https://david-dm.org/njl07/otp.js/dev-status.svg" alt="devDependencies" />
+    </a>
+</div>
+<div style="float:right;">
+    <a href="https://www.typescriptlang.org/docs/tutorial.html">
+        <img src="https://cdn-images-1.medium.com/max/800/1*8lKzkDJVWuVbqumysxMRYw.png"
+             align="right" alt="Typescript logo" width="50" height="50"/>
+    </a>
+    <a href="http://reactivex.io/rxjs">
+        <img src="http://reactivex.io/assets/Rx_Logo_S.png"
+             align="right" alt="ReactiveX logo" width="50" height="50"/>
+    </a>
+</div>
+</div>
 
-[![NPM](https://nodei.co/npm/otp.js.png?stars=true)](https://nodei.co/npm/otp.js/)
-
-## One-Time Password manager
+# One-Time Password manager
 
 One Time Password manager is fully compliant with [HOTP](http://tools.ietf.org/html/rfc4226) (counter based one time passwords) and [TOTP](http://tools.ietf.org/html/rfc6238) (time based one time passwords). It can be used in conjunction with the `Google Authenticator`, for Two-Factor Authentication, which has free apps for `iOS`, `Android` and `BlackBerry`.
 
 All methods described in both `RFC` are implemented in [API](#api).
+
+Now [RxJS](http://reactivex.io/rxjs) compliant, wrote in full [Typescript](https://www.typescriptlang.org/docs/tutorial.html) | [ES6](https://babeljs.io/docs/learn-es2015/) for client and server side.
+
+## Table of contents
 
 * [Installation](#installation)
 * [Getting started](#getting-started)

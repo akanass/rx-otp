@@ -1,0 +1,20 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./dist/commonjs",
+        "rootDir": "./src",
+        "declarationDir": "./dist",
+        "types": [
+            "node",
+            "joi",
+            "qr-image",
+            "uid-safe"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "dist",
+        "test",
+        "tools"
+    ]
+}

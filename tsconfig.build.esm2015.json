@@ -1,0 +1,21 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "module": "es2015",
+        "outDir": "./dist/esm2015",
+        "rootDir": "./src",
+        "declaration": false,
+        "types": [
+            "node",
+            "joi",
+            "qr-image",
+            "uid-safe"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "dist",
+        "test",
+        "tools"
+    ]
+}
