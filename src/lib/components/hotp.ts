@@ -13,7 +13,9 @@ import * as Joi from 'joi';
 import { ObjectSchema } from 'joi';
 import * as ConvertBase from 'convert-base';
 
-import { HOTP_KEY, HOTP_GENERATION_OPTIONS } from '../schemas';
+import { HOTP_KEY, HOTP_GENERATE_OPTIONS } from '../schemas';
+
+const converter = new ConvertBase();
 
 /**
  * HOTP key interface
@@ -182,26 +184,25 @@ export class HOTP {
      */
     static generate(key: HOTPKey, options: HOTPGenerationOptions = {}): Observable<string> {
         return mergeStatic(
-            HOTP._validateHOTPKey(key, HOTP_KEY, { language: { label: 'key' } }),
-            HOTP._validateHOTPGenerationOptions(options, HOTP_GENERATION_OPTIONS, {language: {label: 'options'}})
+            HOTP._validateHOTPKey(key, HOTP_KEY, { language: { key: '"key" ' } }),
+            HOTP._validateHOTPGenerationOptions(options, HOTP_GENERATE_OPTIONS, { language: { key: '"options" ' } })
         )
             .pipe(
                 toArray(),
-                map(_ => ({ keyObj: _.shift() as HOTPKey, opt: _.pop() as HOTPGenerationOptions, converter: new ConvertBase() })),
+                map(_ => ({ keyObj: _.shift() as HOTPKey, opt: _.pop() as HOTPGenerationOptions })),
                 map((_: any) =>
                     ({
                         key: _.keyObj.string ?
                             conv(_.keyObj.string, { in: 'binary', out: 'bytes' }) :
                             conv(_.keyObj.hex, { in: 'hex', out: 'bytes' }),
-                        opt: _.opt as HOTPGenerationOptions,
-                        converter: _.converter
+                        opt: _.opt as HOTPGenerationOptions
                     })
                 ),
                 map((_: any) =>
                     ({
                         key: _.key,
                         counter: (_.opt.counter.int !== null && _.opt.counter.int !== undefined) ?
-                            conv(pad.left(_.converter.convert(_.opt.counter.int, 10, 16), 16, '0'), { in: 'hex', out: 'bytes' }) :
+                            conv(pad.left(converter.convert(_.opt.counter.int, 10, 16), 16, '0'), { in: 'hex', out: 'bytes' }) :
                             conv(pad.left(_.opt.counter.hex, 16, '0'), { in: 'hex', out: 'bytes' }),
                         codeDigits: _.opt.codeDigits,
                         addChecksum: _.opt.addChecksum,

@@ -8,14 +8,14 @@ import * as Joi from 'joi';
 export const HOTP_KEY = Joi.object().keys({
     string: Joi.string(),
     hex: Joi.string().regex(/^[A-Fa-f0-9]{2,}$/)
-}).xor('string', 'hex');
+}).xor('string', 'hex').required();
 
 /**
  * HOTP generation options schema
  *
  * @type {ObjectSchema}
  */
-export const HOTP_GENERATION_OPTIONS = Joi.object().keys({
+export const HOTP_GENERATE_OPTIONS = Joi.object().keys({
     counter: Joi.object().keys({
         int: Joi.number().integer().min(0),
         hex: Joi.string().regex(/^[A-Fa-f0-9]{1,16}$/)
