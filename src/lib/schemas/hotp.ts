@@ -53,14 +53,15 @@ export const HOTP_GENERATE_SCHEMA = {
             'default': false
         },
         'truncation_offset': {
-            '$ref': 'definitions.json#/definitions/truncation_offset'
+            '$ref': 'definitions.json#/definitions/truncation_offset',
+            'default': -1
         },
         'algorithm': {
             '$ref': 'definitions.json#/definitions/algorithm',
-            'default': 'sha256'
+            'default': 'sha512'
         }
     },
-    'required': ['key', 'counter', 'code_digits', 'add_checksum', 'algorithm'],
+    'required': ['key', 'counter', 'code_digits', 'add_checksum', 'truncation_offset', 'algorithm'],
     'dependencies': {
         'key': ['key_format'],
         'counter': ['counter_format']

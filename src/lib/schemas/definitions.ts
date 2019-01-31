@@ -25,7 +25,7 @@ export const DEFINITIONS_SCHEMA = {
         'truncation_offset': {
             'description': 'Truncation offset format for OTP generation and validation',
             'type': 'number',
-            'minimum': 0,
+            'minimum': -1,
             'maximum': 15
         },
         'key_hex': {

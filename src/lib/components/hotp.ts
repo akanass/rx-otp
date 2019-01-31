@@ -188,9 +188,7 @@ export class HOTP {
                             Buffer.from(pad.left(_.counter, 16, '0'), 'hex'),
                         code_digits: _.code_digits,
                         add_checksum: _.add_checksum,
-                        truncation_offset: (_.truncation_offset !== null && _.truncation_offset !== undefined) ?
-                            _.truncation_offset :
-                            -1,
+                        truncation_offset: _.truncation_offset,
                         algorithm: _.algorithm
                     })
                 ),
