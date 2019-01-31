@@ -1,3 +1,4 @@
+/*
 import { suite, test } from 'mocha-typescript';
 import * as unit from 'unit.js';
 
@@ -5,9 +6,9 @@ import { HOTP } from '../../src';
 
 @suite('- HOTP Algorithm: Test Values (http://tools.ietf.org/html/rfc4226#page-32)')
 export class HOTPTest {
-    /**
+    /!**
      * Test if HOTP.generate() returns good value with good parameters
-     */
+     *!/
     @test('- `HOTP.generate()` - `key` => {string:\'12345678901234567890\'} and default options => ' +
         '{counter:{int:0}, codeDigits:6, addChecksum:false, algorithm:\'sha1\'}')
     testGenerateFunctionValue1() {
@@ -56,3 +57,4 @@ export class HOTPTest {
         }).subscribe(_ => unit.assert.equal(_, '1625839'))
     }
 }
+*/

@@ -7,7 +7,6 @@
         "declaration": false,
         "types": [
             "node",
-            "joi",
             "qr-image",
             "uid-safe"
         ]

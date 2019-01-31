@@ -6,7 +6,6 @@
         "declarationDir": "./dist",
         "types": [
             "node",
-            "joi",
             "qr-image",
             "uid-safe"
         ]

@@ -16,10 +16,10 @@
         "typeRoots": ["./node_modules/@types"],
         "types": [
             "node",
-            "joi",
             "qr-image",
             "uid-safe",
-            "fs-extra"
+            "fs-extra",
+            "jest"
         ],
         "lib": [
             "dom",
