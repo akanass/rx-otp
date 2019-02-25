@@ -1,6 +1,6 @@
 export const DEFINITIONS_SCHEMA = {
     '$schema': 'http://json-schema.org/draft-07/schema#',
-    '$id': '/otp.js/schemas/definitions.json#',
+    '$id': '/rx-otp/schemas/definitions.json#',
     'definitions': {
         'str': {
             'description': 'ASCII string format for OTP generation and validation',
@@ -49,6 +49,11 @@ export const DEFINITIONS_SCHEMA = {
         'algorithm': {
             'description': 'Algorithms allowed for OTP generation and validation',
             'enum': ['sha1', 'sha256', 'sha512'],
+        },
+        'token': {
+            'description': 'Token format for OTP generation and validation',
+            'type': 'string',
+            'pattern': '^[0-9]{1,11}$'
         }
     }
 };

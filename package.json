@@ -61,11 +61,11 @@
     },
     "homepage": "https://github.com/njl07/rx-otp#readme",
     "dependencies": {
-        "@types/node": "^10.12.19",
+        "@types/node": "^11.9.5",
         "@types/qr-image": "^3.2.1",
         "@types/uid-safe": "^2.1.2",
-        "ajv": "^6.7.0",
-        "big-integer": "^1.6.41",
+        "ajv": "^6.9.2",
+        "big-integer": "^1.6.42",
         "convert-base": "^0.1.0",
         "pad-component": "^0.0.1",
         "qr-image": "^3.2.0",
@@ -73,19 +73,19 @@
         "uid-safe": "^2.1.5"
     },
     "devDependencies": {
-        "@types/fs-extra": "^5.0.4",
-        "@types/jest": "^23.3.13",
+        "@types/fs-extra": "^5.0.5",
+        "@types/jest": "^24.0.6",
         "browserify": "^16.2.3",
-        "coveralls": "^3.0.2",
+        "coveralls": "^3.0.3",
         "exorcist": "^1.0.1",
         "fs-extra": "^7.0.1",
-        "jest": "~23.6.0",
+        "jest": "^24.1.0",
         "rimraf": "^2.6.3",
         "rxjs": "^6.4.0",
-        "ts-jest": "^23.10.5",
+        "ts-jest": "^24.0.0",
         "ts-node": "^8.0.2",
-        "tslint": "^5.12.1",
-        "typescript": "^3.2.4"
+        "tslint": "^5.13.0",
+        "typescript": "^3.3.3333"
     },
     "peerDependencies": {
         "rxjs": "^6.4.0"

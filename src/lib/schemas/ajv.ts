@@ -2,7 +2,7 @@
 import * as Ajv from 'ajv';
 // Import all schemas
 import { DEFINITIONS_SCHEMA } from './definitions';
-import { HOTP_GENERATE_SCHEMA } from './hotp';
+import { HOTP_GENERATE_SCHEMA, HOTP_VERIFY_SCHEMA } from './hotp';
 
 // New instance of AJV with all schemas
 export const ajv = new Ajv({
@@ -10,9 +10,7 @@ export const ajv = new Ajv({
     $data: true,
     schemas: [
         HOTP_GENERATE_SCHEMA,
+        HOTP_VERIFY_SCHEMA,
         DEFINITIONS_SCHEMA
     ]
 });
-
-// Export HOTP generation validator
-export const hotpGenerateValidator = ajv.getSchema('/otp.js/schemas/hotp-generate.json');

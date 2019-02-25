@@ -1,34 +1,9 @@
-
-/**
- * HOTP verify options schema
- *
- * @type {ObjectSchema}
- */
-/*export const HOTP_VERIFY_OPTIONS = Joi.object().keys({
-    window: Joi.number().integer().min(0).default(50),
-    counter: Joi.object().keys({
-        int: Joi.number().integer().min(0),
-        hex: Joi.string().regex(/^[A-Fa-f0-9]{1,16}$/)
-    }).xor('int', 'hex').default({ int: 0 }),
-    addChecksum: Joi.boolean().default(false),
-    truncationOffset: Joi.number().integer().min(0).max(15),
-    algorithm: Joi.string().valid('sha1', 'sha256', 'sha512').default('sha1'),
-    previousOTPAllowed: Joi.boolean().default(false)
-});*/
-
-/**
- * HOTP token schema
- *
- * @type {StringSchema}
- */
-/*export const HOTP_TOKEN = Joi.string().regex(/^[0-9]{1,11}$/).required();*/
-
 /**
  * HOTP generate schema
  */
 export const HOTP_GENERATE_SCHEMA = {
     '$schema': 'http://json-schema.org/draft-07/schema#',
-    '$id': '/otp.js/schemas/hotp-generate.json#',
+    '$id': '/rx-otp/schemas/hotp-generate.json#',
     'title': 'Schema for HOTP generation',
     'type': 'object',
     'properties': {
@@ -62,6 +37,107 @@ export const HOTP_GENERATE_SCHEMA = {
         }
     },
     'required': ['key', 'counter', 'code_digits', 'add_checksum', 'truncation_offset', 'algorithm'],
+    'dependencies': {
+        'key': ['key_format'],
+        'counter': ['counter_format']
+    },
+    'additionalProperties': false,
+    'allOf': [
+        {
+            'if': {
+                'properties': {
+                    'key_format': {
+                        'const': 'str'
+                    }
+                }
+            },
+            'then': {
+                'properties': {
+                    'key': {
+                        '$ref': 'definitions.json#/definitions/str'
+                    }
+                }
+            },
+            'else': {
+                'properties': {
+                    'key': {
+                        '$ref': 'definitions.json#/definitions/key_hex'
+                    }
+                }
+            }
+        },
+        {
+            'if': {
+                'properties': {
+                    'counter_format': {
+                        'const': 'int'
+                    }
+                }
+            },
+            'then': {
+                'properties': {
+                    'counter': {
+                        '$ref': 'definitions.json#/definitions/int'
+                    }
+                }
+            },
+            'else': {
+                'properties': {
+                    'counter': {
+                        '$ref': 'definitions.json#/definitions/counter_hex'
+                    }
+                }
+            }
+        }
+    ]
+};
+
+/**
+ * HOTP verify schema
+ */
+export const HOTP_VERIFY_SCHEMA = {
+    '$schema': 'http://json-schema.org/draft-07/schema#',
+    '$id': '/rx-otp/schemas/hotp-verify.json#',
+    'title': 'Schema for HOTP verification',
+    'type': 'object',
+    'properties': {
+        'token': {
+            '$ref': 'definitions.json#/definitions/token'
+        },
+        'key': {},
+        'key_format': {
+            '$ref': 'definitions.json#/definitions/key_format',
+            'default': 'str'
+        },
+        'window': {
+            '$ref': 'definitions.json#/definitions/int',
+            'default': 50
+        },
+        'counter': {
+            'default': 0
+        },
+        'counter_format': {
+            '$ref': 'definitions.json#/definitions/counter_format',
+            'default': 'int'
+        },
+        'add_checksum': {
+            '$ref': 'definitions.json#/definitions/bool',
+            'default': false
+        },
+        'truncation_offset': {
+            '$ref': 'definitions.json#/definitions/truncation_offset',
+            'default': -1
+        },
+        'algorithm': {
+            '$ref': 'definitions.json#/definitions/algorithm',
+            'default': 'sha512'
+        },
+        'previous_otp_allowed': {
+            '$ref': 'definitions.json#/definitions/bool',
+            'default': false
+        }
+    },
+    'required': ['token', 'key', 'window', 'counter', 'add_checksum', 'truncation_offset', 'algorithm', 'previous_otp_allowed'],
     'dependencies': {
         'key': ['key_format'],
         'counter': ['counter_format']

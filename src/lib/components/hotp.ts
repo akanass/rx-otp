@@ -1,13 +1,14 @@
-import * as crypto from 'crypto';
+import * as bigInt from 'big-integer';
 import { Buffer } from 'buffer';
-
-import { Observable, of, throwError } from 'rxjs';
-import { map, flatMap, filter, defaultIfEmpty } from 'rxjs/operators';
+import * as ConvertBase from 'convert-base';
+import * as crypto from 'crypto';
 
 import * as pad from 'pad-component';
-import * as ConvertBase from 'convert-base';
 
-import { ajv, hotpGenerateValidator } from '../schemas';
+import { from, Observable, of, throwError } from 'rxjs';
+import { defaultIfEmpty, filter, flatMap, map, take } from 'rxjs/operators';
+
+import { ajv } from '../schemas';
 
 const converter = new ConvertBase();
 
@@ -35,29 +36,36 @@ export interface HOTPGenerateValidatedData extends HOTPGenerateOptions {
  */
 export interface HOTPVerifyResult {
     delta: number | string;
-    delta_format?: 'int' | 'hex';
+    delta_format: 'int' | 'hex';
 }
 
 /**
  * HOTP verification options interface
  */
-/*export interface HOTPVerifyOptions {
+export interface HOTPVerifyOptions {
+    key_format?: 'str' | 'hex';
     window?: number;
-    counter?: HOTPCounter;
-    addChecksum?: boolean;
-    truncationOffset?: number;
+    counter?: number | string;
+    counter_format?: 'int' | 'hex';
+    add_checksum?: boolean;
+    truncation_offset?: number;
     algorithm?: 'sha1' | 'sha256' | 'sha512';
-    previousOTPAllowed?: boolean;
-}*/
+    previous_otp_allowed?: boolean;
+}
+
+export interface HOTPVerifyValidatedData extends HOTPVerifyOptions {
+    token: string;
+    key: string;
+}
 
 /**
  * HOTP class definition
  */
 export class HOTP {
     //                                       0  1   2    3     4      5       6        7         8          9           10
-    private static DIGITS_POWER: number[] = [1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 10000000000];
+    private static DIGITS_POWER: number[] = [ 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 10000000000 ];
     // These are used to calculate the check-sum digits.
-    private static DOUBLE_DIGITS: number[] = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
+    private static DOUBLE_DIGITS: number[] = [ 0, 2, 4, 6, 8, 1, 3, 5, 7, 9 ];
 
     /**
      * Calculates the checksum using the credit card algorithm.
@@ -79,7 +87,7 @@ export class HOTP {
             let digit = parseInt(`${num % 10}`);
             num /= 10;
             if (doubleDigit) {
-                digit = HOTP.DOUBLE_DIGITS[digit];
+                digit = HOTP.DOUBLE_DIGITS[ digit ];
             }
             total += digit;
             doubleDigit = !doubleDigit;
@@ -108,7 +116,7 @@ export class HOTP {
      * @param {number} truncation_offset - the offset into the MAC result to
      *                     begin truncation.
      *
-     * @param {string} algorithm - the algorithm to create HMAC - default 'sha1'
+     * @param {string} algorithm - the algorithm to create HMAC - default 'sha512'
      *
      * @return A numeric string in base 10 includes code_digits plus the optional checksum digit if requested.
      *
@@ -130,16 +138,16 @@ export class HOTP {
                         hash,
                         offset: ((0 <= truncation_offset) && (truncation_offset < (hash.length - 4))) ?
                             truncation_offset :
-                            (hash[hash.length - 1] & 0xf)
+                            (hash[ hash.length - 1 ] & 0xf)
                     })
                 ),
                 map((_: any) =>
-                    ((_.hash[_.offset] & 0x7f) << 24) |
-                    ((_.hash[_.offset + 1] & 0xff) << 16) |
-                    ((_.hash[_.offset + 2] & 0xff) << 8) |
-                    (_.hash[_.offset + 3] & 0xff)
+                    ((_.hash[ _.offset ] & 0x7f) << 24) |
+                    ((_.hash[ _.offset + 1 ] & 0xff) << 16) |
+                    ((_.hash[ _.offset + 2 ] & 0xff) << 8) |
+                    (_.hash[ _.offset + 3 ] & 0xff)
                 ),
-                map(binary => binary % HOTP.DIGITS_POWER[code_digits]),
+                map(binary => binary % HOTP.DIGITS_POWER[ code_digits ]),
                 map(otp => add_checksum ? ((otp * 10) + HOTP._calcChecksum(otp, code_digits)) : otp),
                 map(otp => ({ result: otp.toString(), digits: add_checksum ? (code_digits + 1) : code_digits })),
                 map((_: any) => pad.left(_.result, _.digits, '0'))
@@ -147,36 +155,134 @@ export class HOTP {
     }
 
     /**
-     * Validates parameters passed in HOTP.generate() function
+     * Validates parameters passed in HOTP.generate() and HOTP.verify() functions
      *
-     * @param {HOTPGenerateValidatedData} data
+     * @param {string} keyRef - JSON schema key reference
+     * @param {HOTPGenerateValidatedData | HOTPVerifyValidatedData} data - data to be validated
      *
      * @private
      */
-    private static _validateGenerateData(data: HOTPGenerateValidatedData): Observable<HOTPGenerateValidatedData> {
-        return of(hotpGenerateValidator(data))
+    private static _validateData(keyRef: string,
+                                 data: HOTPGenerateValidatedData | HOTPVerifyValidatedData):
+        Observable<HOTPGenerateValidatedData | HOTPVerifyValidatedData> {
+        return of(ajv.getSchema(keyRef))
             .pipe(
-                filter(_ => !_),
-                flatMap(_ => throwError(new Error(ajv.errorsText(hotpGenerateValidator.errors)))),
-                defaultIfEmpty(data)
+                flatMap(validator =>
+                    of(validator(data))
+                        .pipe(
+                            filter(_ => !_),
+                            flatMap(() => throwError(new Error(ajv.errorsText(validator.errors)))),
+                            defaultIfEmpty(data)
+                        )
+                )
+            );
+    }
+
+    /**
+     * Iterates and validates token for given parameters
+     *
+     * @param data - All parameters and iterator to verify the token
+     *
+     * @private
+     */
+    private static _verifyWithIteration(data: any): Observable<HOTPVerifyResult | {}> {
+        return from(data.iterator)
+            .pipe(
+                flatMap((i: any) =>
+                    of({
+                        key: data.key,
+                        counter: data.counter_format === 'int' ?
+                            Buffer.from(pad.left(converter.convert(parseInt(i.toString()), 10, 16), 16, '0'), 'hex') :
+                            Buffer.from(pad.left(i.toString(16).toUpperCase(), 16, '0'), 'hex'),
+                        code_digits: data.code_digits,
+                        add_checksum: data.add_checksum,
+                        truncation_offset: data.truncation_offset,
+                        algorithm: data.algorithm
+                    })
+                        .pipe(
+                            flatMap((params: any) =>
+                                HOTP._generateOTP(
+                                    params.key,
+                                    params.counter,
+                                    params.code_digits,
+                                    params.add_checksum,
+                                    params.truncation_offset,
+                                    params.algorithm
+                                )
+                            ),
+                            map(_ => ({ token: _, it: i }))
+                        )
+                ),
+                // We have found a matching code, trigger callback and pass offset
+                filter(_ => _.token === data.token),
+                take(1),
+                map(_ => _.it),
+                // get delta
+                map(_ => _.subtract(data.counter)),
+                flatMap((delta: any) =>
+                    of(data.counter_format)
+                        .pipe(
+                            // delta in hexadecimal
+                            filter(_ => _ === 'hex'),
+                            map(() =>
+                                ({
+                                    // check if value < 0 to add good pad left
+                                    delta: delta.isNegative() ?
+                                        `-${pad.left(delta.toString(16).toUpperCase().substr(1), 16, '0')}` :
+                                        pad.left(delta.toString(16).toUpperCase(), 16, '0'),
+                                    delta_format: 'hex'
+                                })
+                            ),
+                            // delta in integer
+                            defaultIfEmpty({
+                                delta: parseInt(delta.toString()),
+                                delta_format: 'int'
+                            } as HOTPVerifyResult)
+                        )
+                ),
+                defaultIfEmpty(),
+                // If we are here then no codes have matched, throw error
+                flatMap(_ =>
+                    !!_ ?
+                        of(_) :
+                        throwError(new Error(`The token '${data.token}' doesn't match for the given paramaters`))
+                )
             );
     }
 
     /**
      * Generates HOTP
      *
-     * @param {string} key - secret key in ASCII or HEX format
-     * @param {HOTPGenerateOptions} options
+     * @param {string} key - Key for the one time password. This should be unique and secret for every user as this is the seed
+     *          that is used to calculate the HMAC. Format can be ASCII or HEX.
+     * @param {HOTPGenerateOptions} options - Object options could contain:
      *
-     * @return {Observable<string>}
+     *          - {@code key_format} - The format of the key which can be `str` for an ASCII string
+     *          or `hex` for a hexadecimal string - default `str`
+     *
+     *          - {@code counter} - counter value.  This should be stored by the application, must
+     *          be user specific, and be incremented for each request - default `0`
+     *
+     *          - {@code counter_format} - The format of the counter which can be `int` for a number
+     *          or `hex` for a hexadecimal string - default `int`
+     *
+     *          - {@code code_digits} - The number of digits in the OTP, not including the checksum, if any - default `6`
+     *
+     *          - {@code add_checksum} - A flag indicates if a checksum digit should be appended to the OTP - default `false`
+     *
+     *          - {@code truncation_offset} - the offset into the MAC result to begin truncation - default `-1`
+     *
+     *          - {@code algorithm} - The algorithm to create HMAC: 'sha1' | 'sha256' | 'sha512' - default 'sha512'
+     *
+     * @return {Observable<string>} - A numeric string in base 10 includes code_digits plus the optional checksum digit if requested.
      */
     static generate(key: string, options: HOTPGenerateOptions = {}): Observable<string> {
         return of(
-            Object.assign({}, options, {key: key})
+            Object.assign({}, options, { key: key })
         )
             .pipe(
                 flatMap((data: HOTPGenerateValidatedData) =>
-                    HOTP._validateGenerateData(data)
+                    HOTP._validateData('/rx-otp/schemas/hotp-generate.json', data)
                 ),
                 map((_: HOTPGenerateValidatedData) =>
                     ({
@@ -199,40 +305,110 @@ export class HOTP {
     }
 
     /**
-     * Function to verify OTP
+     * Verifies OTP
      *
      * @param {string} token - Passcode to validate
-     * @param {HOTPKey} key - Key for the one time password. This should be unique and secret for every user as this is the seed
-     *          that is used to calculate the HMAC. {string: 'secret user'} or {hex:'7365637265742075736572'}
+     * @param {string} key - Key for the one time password. This should be unique and secret for every user as this is the seed
+     *          that is used to calculate the HMAC. Format can be ASCII or HEX.
      * @param {HOTPVerifyOptions} options - Object options could contain:
+     *
+     *           - {@code key_format} - The format of the key which can be `str` for an ASCII string
+     *          or `hex` for a hexadecimal string - default `str`
      *
      *          - {@code window} - The allowable margin for the counter.  The function will check
      *          'W' codes in the future against the provided passcode.  Note,
      *          it is the calling applications responsibility to keep track of
      *          'C' and increment it for each password check, and also to adjust
      *          it accordingly in the case where the client and server become
-     *          out of sync (second argument returns non zero).
+     *          out of sync (second argument returns non zero) - default `50`
      *          E.g. if W = 100, and C = 5, this function will check the passcode
      *          against all One Time Passcodes between 5 and 105.
      *
-     *          - {@code counter} - counter object value.  This should be stored by the application, must
-     *          be user specific, and be incremented for each request.
-     *          {int: 0} or {hex:'0'}
+     *          - {@code counter} - counter value.  This should be stored by the application, must
+     *          be user specific, and be incremented for each request - default `0`
      *
-     *          - {@code addChecksum} - a flag that indicates if a checksum digit should be appended to the OTP.
+     *          - {@code counter_format} - The format of the counter which can be `int` for a number
+     *          or `hex` for a hexadecimal string - default `int`
      *
-     *          - {@code truncationOffset} - the offset into the MAC result to begin truncation.  If this value is out of
-     *          the range of 0 ... 15, then dynamic truncation  will be used. Dynamic truncation is when the last 4
-     *          bits of the last byte of the MAC are used to determine the start offset.
+     *          - {@code add_checksum} - A flag indicates if a checksum digit should be appended to the OTP - default `false`
      *
-     *          - {@code algorithm} - the algorithm to create HMAC - default 'sha1'
+     *          - {@code truncation_offset} - the offset into the MAC result to begin truncation - default `-1`
      *
-     *          - {@code previousOTPAllowed} - a flag to allow OTP validation before current counter.
+     *          - {@code algorithm} - The algorithm to create HMAC: 'sha1' | 'sha256' | 'sha512' - default 'sha512'
      *
-     * @return {Observable<HOTPVerifyResult>} - an object {@code {delta: {int: #}}} or {@code {delta: {hex: '#'}}},
-     *          following counter format, if the token is valid else {@code null}
+     *          - {@code previous_otp_allowed}  - A flag to allow OTP validation before current counter - default `false`
+     *
+     * @return {Observable<HOTPVerifyResult>} - an object {@code {delta: #, delta_format: 'int' | 'hex'},
+     *          following counter format, if the token is valid else throw an exception
      */
-    /*static verify(token: string, key: HOTPKey, options: HOTPVerifyOptions = {}): Observable<HOTPVerifyResult> {
-
-    }*/
+    static verify(token: string, key: string, options: HOTPVerifyOptions = {}): Observable<HOTPVerifyResult | {}> {
+        return of(
+            Object.assign({}, options, { token: token, key: key })
+        )
+            .pipe(
+                flatMap((data: HOTPVerifyValidatedData) =>
+                    HOTP._validateData('/rx-otp/schemas/hotp-verify.json', data)
+                ),
+                map((_: HOTPVerifyValidatedData) =>
+                    ({
+                        token: _.token,
+                        key: _.key_format === 'str' ?
+                            Buffer.from(_.key) :
+                            Buffer.from(_.key, 'hex'),
+                        window: bigInt(_.window),
+                        counter: _.counter_format === 'int' ?
+                            bigInt(_.counter as number) :
+                            bigInt(_.counter as string, 16),
+                        counter_format: _.counter_format,
+                        code_digits: _.token.length,
+                        add_checksum: _.add_checksum,
+                        truncation_offset: _.truncation_offset,
+                        algorithm: _.algorithm,
+                        previous_otp_allowed: _.previous_otp_allowed
+                    })
+                ),
+                map((_: any) =>
+                    // Now loop through from C to C + W to determine if there is a correct code
+                    Object.assign({}, _, { min: _.counter, max: _.counter.add(_.window) })
+                ),
+                flatMap((_: any) =>
+                    of(_)
+                        .pipe(
+                            filter(__ =>
+                                // check if previous_otp_allowed
+                                !!__.previous_otp_allowed
+                            ),
+                            map(__ =>
+                                // Now loop through from C - W to C + W to determine if there is a correct code
+                                Object.assign({}, __, { min: __.min.subtract(__.window) })
+                            ),
+                            map(__ =>
+                                // check if min < 0
+                                !!__.min.isNegative() ?
+                                    // Now loop through from 0 to C + W to determine if there is a correct code
+                                    Object.assign({}, __, { min: bigInt() }) :
+                                    __
+                            ),
+                            defaultIfEmpty(_)
+                        )
+                ),
+                flatMap((_: any) =>
+                    new Observable(subscriber => {
+                        let iterator = [];
+                        for (let i = _.min; i.lesserOrEquals(_.max); i = i.next()) {
+                            iterator = iterator.concat(i);
+                        }
+                        const data = Object.assign({}, _, { iterator: iterator });
+                        delete data.window;
+                        delete data.min;
+                        delete data.max;
+                        subscriber.next(data);
+                        subscriber.complete();
+                    })
+                ),
+                flatMap((_: any) =>
+                    HOTP._verifyWithIteration(_)
+                )
+            );
+    }
 }
