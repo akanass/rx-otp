@@ -8,55 +8,18 @@ import * as pad from 'pad-component';
 import { from, Observable, of, throwError } from 'rxjs';
 import { defaultIfEmpty, filter, flatMap, map, take } from 'rxjs/operators';
 
-import { ajv } from '../schemas';
+import {
+    HOTPGenerateOptions,
+    HOTPGenerateValidatedData,
+    HOTPVerifyOptions,
+    OTPVerifyResult,
+    HOTPVerifyValidatedData,
+    Validator
+} from '../schemas';
 
 const converter = new ConvertBase();
 
 declare const Object;
-
-/**
- * HOTP generation options interface
- */
-export interface HOTPGenerateOptions {
-    key_format?: 'str' | 'hex';
-    counter?: number | string;
-    counter_format?: 'int' | 'hex';
-    code_digits?: number;
-    add_checksum?: boolean;
-    truncation_offset?: number;
-    algorithm?: 'sha1' | 'sha256' | 'sha512';
-}
-
-export interface HOTPGenerateValidatedData extends HOTPGenerateOptions {
-    key: string;
-}
-
-/**
- * HOTP verify result interface
- */
-export interface HOTPVerifyResult {
-    delta: number | string;
-    delta_format: 'int' | 'hex';
-}
-
-/**
- * HOTP verification options interface
- */
-export interface HOTPVerifyOptions {
-    key_format?: 'str' | 'hex';
-    window?: number;
-    counter?: number | string;
-    counter_format?: 'int' | 'hex';
-    add_checksum?: boolean;
-    truncation_offset?: number;
-    algorithm?: 'sha1' | 'sha256' | 'sha512';
-    previous_otp_allowed?: boolean;
-}
-
-export interface HOTPVerifyValidatedData extends HOTPVerifyOptions {
-    token: string;
-    key: string;
-}
 
 /**
  * HOTP class definition
@@ -155,37 +118,13 @@ export class HOTP {
     }
 
     /**
-     * Validates parameters passed in HOTP.generate() and HOTP.verify() functions
-     *
-     * @param {string} keyRef - JSON schema key reference
-     * @param {HOTPGenerateValidatedData | HOTPVerifyValidatedData} data - data to be validated
-     *
-     * @private
-     */
-    private static _validateData(keyRef: string,
-                                 data: HOTPGenerateValidatedData | HOTPVerifyValidatedData):
-        Observable<HOTPGenerateValidatedData | HOTPVerifyValidatedData> {
-        return of(ajv.getSchema(keyRef))
-            .pipe(
-                flatMap(validator =>
-                    of(validator(data))
-                        .pipe(
-                            filter(_ => !_),
-                            flatMap(() => throwError(new Error(ajv.errorsText(validator.errors)))),
-                            defaultIfEmpty(data)
-                        )
-                )
-            );
-    }
-
-    /**
      * Iterates and validates token for given parameters
      *
      * @param data - All parameters and iterator to verify the token
      *
      * @private
      */
-    private static _verifyWithIteration(data: any): Observable<HOTPVerifyResult | {}> {
+    private static _verifyWithIteration(data: any): Observable<OTPVerifyResult | {}> {
         return from(data.iterator)
             .pipe(
                 flatMap((i: any) =>
@@ -237,7 +176,7 @@ export class HOTP {
                             defaultIfEmpty({
                                 delta: parseInt(delta.toString()),
                                 delta_format: 'int'
-                            } as HOTPVerifyResult)
+                            } as OTPVerifyResult)
                         )
                 ),
                 defaultIfEmpty(),
@@ -282,7 +221,7 @@ export class HOTP {
         )
             .pipe(
                 flatMap((data: HOTPGenerateValidatedData) =>
-                    HOTP._validateData('/rx-otp/schemas/hotp-generate.json', data)
+                    Validator.validateDataWithSchemaReference('/rx-otp/schemas/hotp-generate.json', data)
                 ),
                 map((_: HOTPGenerateValidatedData) =>
                     ({
@@ -338,16 +277,16 @@ export class HOTP {
      *
      *          - {@code previous_otp_allowed}  - A flag to allow OTP validation before current counter - default `false`
      *
-     * @return {Observable<HOTPVerifyResult>} - an object {@code {delta: #, delta_format: 'int' | 'hex'},
+     * @return {Observable<OTPVerifyResult>} - an object {@code {delta: #, delta_format: 'int' | 'hex'},
      *          following counter format, if the token is valid else throw an exception
      */
-    static verify(token: string, key: string, options: HOTPVerifyOptions = {}): Observable<HOTPVerifyResult | {}> {
+    static verify(token: string, key: string, options: HOTPVerifyOptions = {}): Observable<OTPVerifyResult | {}> {
         return of(
             Object.assign({}, options, { token: token, key: key })
         )
             .pipe(
                 flatMap((data: HOTPVerifyValidatedData) =>
-                    HOTP._validateData('/rx-otp/schemas/hotp-verify.json', data)
+                    Validator.validateDataWithSchemaReference('/rx-otp/schemas/hotp-verify.json', data)
                 ),
                 map((_: HOTPVerifyValidatedData) =>
                     ({

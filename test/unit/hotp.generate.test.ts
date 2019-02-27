@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs';
-import { HOTP } from '../../src';
+import { HOTP, } from '../../src';
+import { HOTPGenerateValidatedData, Validator } from '../../src/lib/schemas';
 
 describe('- Unit hotp.generate.test.ts file', () => {
     /**
@@ -206,11 +207,11 @@ describe('- Unit hotp.generate.test.ts file', () => {
     });
 
     /**
-     * Test if HOTP._validateData() function returns all default values
+     * Test if Validator.validateDataWithSchemaReference() function returns all default values
      */
-    test('- `HOTP._validateData()` must return all default values', (done) => {
-        HOTP[ '_validateData' ]('/rx-otp/schemas/hotp-generate.json', { key: 'secret key' })
-            .subscribe(_ => {
+    test('- `Validator.validateDataWithSchemaReference()` must return all default values', (done) => {
+        Validator.validateDataWithSchemaReference('/rx-otp/schemas/hotp-generate.json', { key: 'secret key' })
+            .subscribe((_: HOTPGenerateValidatedData) => {
                     expect(_).toEqual({
                         key: 'secret key',
                         key_format: 'str',
@@ -227,17 +228,17 @@ describe('- Unit hotp.generate.test.ts file', () => {
     });
 
     /**
-     * Test if HOTP._validateData() function returns updated values
+     * Test if Validator.validateDataWithSchemaReference() function returns updated values
      */
-    test('- `HOTP._validateData()` must return updated values', (done) => {
-        HOTP[ '_validateData' ]('/rx-otp/schemas/hotp-generate.json', {
+    test('- `Validator.validateDataWithSchemaReference()` must return updated values', (done) => {
+        Validator.validateDataWithSchemaReference('/rx-otp/schemas/hotp-generate.json', {
             key: '00000000',
             key_format: 'hex',
             counter: 1,
             code_digits: 10,
             algorithm: 'sha256'
         })
-            .subscribe(_ => {
+            .subscribe((_: HOTPGenerateValidatedData) => {
                     expect(_).toEqual({
                         key: '00000000',
                         key_format: 'hex',

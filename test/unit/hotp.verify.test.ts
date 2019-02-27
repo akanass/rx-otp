@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs';
 import { HOTP } from '../../src';
+import { HOTPGenerateValidatedData, Validator } from '../../src/lib/schemas';
 
 describe('- Unit hotp.verify.test.ts file', () => {
     /**
@@ -237,11 +238,14 @@ describe('- Unit hotp.verify.test.ts file', () => {
     });
 
     /**
-     * Test if HOTP._validateVerifyData() function returns all default values
+     * Test if Validator.validateDataWithSchemaReference() function returns all default values
      */
-    test('- `HOTP._validateVerifyData()` must return all default values', (done) => {
-        HOTP[ '_validateData' ]('/rx-otp/schemas/hotp-verify.json', { token: '123456', key: 'secret key' })
-            .subscribe(_ => {
+    test('- `Validator.validateDataWithSchemaReference()` must return all default values', (done) => {
+        Validator.validateDataWithSchemaReference('/rx-otp/schemas/hotp-verify.json', {
+            token: '123456',
+            key: 'secret key'
+        })
+            .subscribe((_: HOTPGenerateValidatedData) => {
                     expect(_).toEqual({
                         token: '123456',
                         key: 'secret key',
@@ -260,10 +264,10 @@ describe('- Unit hotp.verify.test.ts file', () => {
     });
 
     /**
-     * Test if HOTP._validateVerifyData() function returns updated values
+     * Test if Validator.validateDataWithSchemaReference() function returns updated values
      */
-    test('- `HOTP._validateVerifyData()` must return updated values', (done) => {
-        HOTP[ '_validateData' ]('/rx-otp/schemas/hotp-verify.json', {
+    test('- `Validator.validateDataWithSchemaReference()` must return updated values', (done) => {
+        Validator.validateDataWithSchemaReference('/rx-otp/schemas/hotp-verify.json', {
             token: '123456',
             key: '00000000',
             key_format: 'hex',
@@ -272,7 +276,7 @@ describe('- Unit hotp.verify.test.ts file', () => {
             algorithm: 'sha256',
             previous_otp_allowed: true
         })
-            .subscribe(_ => {
+            .subscribe((_: HOTPGenerateValidatedData) => {
                     expect(_).toEqual({
                         token: '123456',
                         key: '00000000',
