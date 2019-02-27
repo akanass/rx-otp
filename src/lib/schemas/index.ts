@@ -1,1 +1,2 @@
-export * from './ajv';
+export * from './validator';
+export * from './interfaces';

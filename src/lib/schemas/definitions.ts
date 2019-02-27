@@ -12,6 +12,11 @@ export const DEFINITIONS_SCHEMA = {
             'type': 'number',
             'minimum': 0
         },
+        'time_sec': {
+            'description': 'Time in seconds format for OTP generation and validation',
+            'type': 'number',
+            'minimum': 1
+        },
         'bool': {
             'description': 'Boolean format for OTP generation and validation',
             'type': 'boolean'

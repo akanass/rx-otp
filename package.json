@@ -65,6 +65,7 @@
         "@types/qr-image": "^3.2.1",
         "@types/uid-safe": "^2.1.2",
         "ajv": "^6.9.2",
+        "ajv-keywords": "^3.4.0",
         "big-integer": "^1.6.42",
         "convert-base": "^0.1.0",
         "pad-component": "^0.0.1",
@@ -74,7 +75,7 @@
     },
     "devDependencies": {
         "@types/fs-extra": "^5.0.5",
-        "@types/jest": "^24.0.6",
+        "@types/jest": "^24.0.9",
         "browserify": "^16.2.3",
         "coveralls": "^3.0.3",
         "exorcist": "^1.0.1",
