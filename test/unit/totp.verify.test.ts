@@ -225,7 +225,7 @@ describe('- Unit totp.verify.test.ts file', () => {
                     expect(_.token).toEqual('123456');
                     expect(_.key).toEqual('secret key');
                     expect(_.key_format).toEqual('str');
-                    expect(_.window).toEqual(6);
+                    expect(_.window).toEqual(1);
                     expect(_.time).toEqual(30);
                     expect(typeof _.timestamp).toEqual('number');
                     expect(_.add_checksum).toEqual(false);

@@ -102,7 +102,7 @@ export const TOTP_VERIFY_SCHEMA = {
         },
         'window': {
             '$ref': 'definitions.json#/definitions/int',
-            'default': 6
+            'default': 1
         },
         'time': {
             '$ref': 'definitions.json#/definitions/time_sec',

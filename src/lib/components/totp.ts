@@ -82,13 +82,9 @@ export class TOTP {
      *          or `hex` for a hexadecimal string - default `str`
      *
      *          - {@code window} - The allowable margin, time steps in seconds since T0, for the counter. The function will check
-     *          'W' codes in the future against the provided passcode.  Note,
-     *          it is the calling applications responsibility to keep track of
-     *          'C' and increment it for each password check, and also to adjust
-     *          it accordingly in the case where the client and server become
-     *          out of sync (second argument returns non zero) - default `6`
-     *          E.g. if W = 5, and C = 100, this function will check the passcode
-     *          against all One Time Passcodes between 95 and 105.
+     *          'W' codes in the future against the provided passcode. - default `1`
+     *          E.g. if W = 1, and T = 30, this function will check the passcode
+     *          against all One Time Passcodes between -30s and +30s.
      *
      *          - {@code time} - The time step of the counter.  This must be the same for
      *          every request and is used to calculate C. - default `30`
