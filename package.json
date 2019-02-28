@@ -70,8 +70,7 @@
         "convert-base": "^0.1.0",
         "pad-component": "^0.0.1",
         "qr-image": "^3.2.0",
-        "thirty-two": "^1.0.2",
-        "uid-safe": "^2.1.5"
+        "thirty-two": "^1.0.2"
     },
     "devDependencies": {
         "@types/fs-extra": "^5.0.5",
