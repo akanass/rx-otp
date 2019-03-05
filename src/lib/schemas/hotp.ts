@@ -33,7 +33,7 @@ export const HOTP_GENERATE_SCHEMA = {
         },
         'algorithm': {
             '$ref': 'definitions.json#/definitions/algorithm',
-            'default': 'sha512'
+            'default': 'SHA512'
         }
     },
     'required': ['key', 'counter', 'code_digits', 'add_checksum', 'truncation_offset', 'algorithm'],
@@ -130,7 +130,7 @@ export const HOTP_VERIFY_SCHEMA = {
         },
         'algorithm': {
             '$ref': 'definitions.json#/definitions/algorithm',
-            'default': 'sha512'
+            'default': 'SHA512'
         },
         'previous_otp_allowed': {
             '$ref': 'definitions.json#/definitions/bool',

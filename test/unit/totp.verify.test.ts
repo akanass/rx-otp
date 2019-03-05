@@ -230,7 +230,7 @@ describe('- Unit totp.verify.test.ts file', () => {
                     expect(typeof _.timestamp).toEqual('number');
                     expect(_.add_checksum).toEqual(false);
                     expect(_.truncation_offset).toEqual(-1);
-                    expect(_.algorithm).toEqual('sha512');
+                    expect(_.algorithm).toEqual('SHA512');
                     done();
                 });
         }
@@ -248,7 +248,7 @@ describe('- Unit totp.verify.test.ts file', () => {
                     window: 50,
                     time: 1,
                     timestamp: 1551278559229,
-                    algorithm: 'sha256'
+                    algorithm: 'SHA256'
                 })
                 .subscribe((_: TOTPVerifyValidatedData) => {
                     expect(_).toEqual({
@@ -260,7 +260,7 @@ describe('- Unit totp.verify.test.ts file', () => {
                         timestamp: 1551278559229,
                         add_checksum: false,
                         truncation_offset: -1,
-                        algorithm: 'sha256'
+                        algorithm: 'SHA256'
                     });
                     done();
                 });

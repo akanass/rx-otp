@@ -53,12 +53,30 @@ export const DEFINITIONS_SCHEMA = {
         },
         'algorithm': {
             'description': 'Algorithms allowed for OTP generation and validation',
-            'enum': ['sha1', 'sha256', 'sha512'],
+            'enum': ['SHA1', 'SHA256', 'SHA512'],
         },
         'token': {
             'description': 'Token format for OTP generation and validation',
             'type': 'string',
             'pattern': '^[0-9]{1,11}$'
+        },
+        'base32': {
+            'description': 'Base32 format for OTP generation and validation',
+            'type': 'string',
+            'pattern': '^[A-Z2-7]{2,}$'
+        },
+        'ec_level': {
+            'description': 'Error correction level for QR code generation',
+            'enum': ['L', 'M', 'Q', 'H']
+        },
+        'qr_type': {
+            'description': 'QR code image type',
+            'enum': ['png', 'svg']
+        },
+        'qr_size': {
+            'description': 'Size format for QR code generation',
+            'type': 'number',
+            'minimum': 1
         }
     }
 };

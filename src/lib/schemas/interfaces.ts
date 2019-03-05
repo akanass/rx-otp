@@ -8,7 +8,7 @@ export interface HOTPGenerateOptions {
     code_digits?: number;
     add_checksum?: boolean;
     truncation_offset?: number;
-    algorithm?: 'sha1' | 'sha256' | 'sha512';
+    algorithm?: 'SHA1' | 'SHA256' | 'SHA512';
 }
 
 export interface HOTPGenerateValidatedData extends HOTPGenerateOptions {
@@ -33,7 +33,7 @@ export interface HOTPVerifyOptions {
     counter_format?: 'int' | 'hex';
     add_checksum?: boolean;
     truncation_offset?: number;
-    algorithm?: 'sha1' | 'sha256' | 'sha512';
+    algorithm?: 'SHA1' | 'SHA256' | 'SHA512';
     previous_otp_allowed?: boolean;
 }
 
@@ -52,7 +52,7 @@ export interface TOTPGenerateOptions {
     code_digits?: number;
     add_checksum?: boolean;
     truncation_offset?: number;
-    algorithm?: 'sha1' | 'sha256' | 'sha512';
+    algorithm?: 'SHA1' | 'SHA256' | 'SHA512';
 }
 
 export interface TOTPGenerateValidatedData extends TOTPGenerateOptions {
@@ -60,7 +60,7 @@ export interface TOTPGenerateValidatedData extends TOTPGenerateOptions {
 }
 
 /**
- * HOTP verification options interface
+ * TOTP verification options interface
  */
 export interface TOTPVerifyOptions {
     key_format?: 'str' | 'hex';
@@ -69,10 +69,71 @@ export interface TOTPVerifyOptions {
     timestamp?: number;
     add_checksum?: boolean;
     truncation_offset?: number;
-    algorithm?: 'sha1' | 'sha256' | 'sha512';
+    algorithm?: 'SHA1' | 'SHA256' | 'SHA512';
 }
 
 export interface TOTPVerifyValidatedData extends TOTPVerifyOptions {
     token: string;
     key: string;
+}
+
+/**
+ * U2F uri options interface
+ */
+export interface U2FUriOptions {
+    time?: number;
+    code_digits?: number;
+    algorithm?: 'SHA1' | 'SHA256' | 'SHA512';
+}
+
+export interface U2FUriValidatedData extends U2FUriOptions {
+    secret: string;
+    account_name: string;
+    issuer: string;
+}
+
+/**
+ * U2F generation options interface
+ */
+export interface U2FGenerateOptions {
+    time?: number;
+    timestamp?: number;
+    code_digits?: number;
+    add_checksum?: boolean;
+    truncation_offset?: number;
+    algorithm?: 'SHA1' | 'SHA256' | 'SHA512';
+}
+
+export interface U2FGenerateValidatedData extends U2FGenerateOptions {
+    key: string;
+}
+
+/**
+ * U2F verification options interface
+ */
+export interface U2FVerifyOptions {
+    window?: number;
+    time?: number;
+    timestamp?: number;
+    add_checksum?: boolean;
+    truncation_offset?: number;
+    algorithm?: 'SHA1' | 'SHA256' | 'SHA512';
+}
+
+export interface U2FVerifyValidatedData extends U2FVerifyOptions {
+    token: string;
+    key: string;
+}
+
+/**
+ * QR code generation options interface
+ */
+export interface QrCodeGenerateOptions {
+    ec_level?: string;
+    type?: string;
+    size?: number;
+}
+
+export interface QrCodeGenerateValidatedOptions extends QrCodeGenerateOptions {
+    text: string;
 }

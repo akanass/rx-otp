@@ -3,9 +3,12 @@ import { defaultIfEmpty, filter, flatMap } from 'rxjs/operators';
 import { ajv } from './ajv';
 import {
     HOTPGenerateValidatedData,
-    HOTPVerifyValidatedData,
+    HOTPVerifyValidatedData, QrCodeGenerateValidatedOptions,
     TOTPGenerateValidatedData,
-    TOTPVerifyValidatedData
+    TOTPVerifyValidatedData,
+    U2FGenerateValidatedData,
+    U2FUriValidatedData,
+    U2FVerifyValidatedData
 } from './interfaces';
 
 export class Validator {
@@ -24,8 +27,19 @@ export class Validator {
                                            data: HOTPGenerateValidatedData |
                                                HOTPVerifyValidatedData |
                                                TOTPGenerateValidatedData |
-                                               TOTPVerifyValidatedData):
-        Observable<HOTPGenerateValidatedData | HOTPVerifyValidatedData | TOTPGenerateValidatedData | TOTPVerifyValidatedData> {
+                                               TOTPVerifyValidatedData |
+                                               U2FUriValidatedData |
+                                               U2FGenerateValidatedData |
+                                               U2FVerifyValidatedData |
+                                               QrCodeGenerateValidatedOptions):
+        Observable<HOTPGenerateValidatedData |
+            HOTPVerifyValidatedData |
+            TOTPGenerateValidatedData |
+            TOTPVerifyValidatedData |
+            U2FUriValidatedData |
+            U2FGenerateValidatedData |
+            U2FVerifyValidatedData |
+            QrCodeGenerateValidatedOptions> {
         return of(ajv.getSchema(keyRef))
             .pipe(
                 flatMap(validator =>

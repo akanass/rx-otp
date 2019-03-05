@@ -255,7 +255,7 @@ describe('- Unit hotp.verify.test.ts file', () => {
                         counter_format: 'int',
                         add_checksum: false,
                         truncation_offset: -1,
-                        algorithm: 'sha512',
+                        algorithm: 'SHA512',
                         previous_otp_allowed: false
                     });
                     done();
@@ -273,7 +273,7 @@ describe('- Unit hotp.verify.test.ts file', () => {
             key_format: 'hex',
             window: 5,
             counter: 1,
-            algorithm: 'sha256',
+            algorithm: 'SHA256',
             previous_otp_allowed: true
         })
             .subscribe((_: HOTPGenerateValidatedData) => {
@@ -286,7 +286,7 @@ describe('- Unit hotp.verify.test.ts file', () => {
                         counter_format: 'int',
                         add_checksum: false,
                         truncation_offset: -1,
-                        algorithm: 'sha256',
+                        algorithm: 'SHA256',
                         previous_otp_allowed: true
                     });
                     done();

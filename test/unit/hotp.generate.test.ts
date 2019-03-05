@@ -220,7 +220,7 @@ describe('- Unit hotp.generate.test.ts file', () => {
                         code_digits: 6,
                         add_checksum: false,
                         truncation_offset: -1,
-                        algorithm: 'sha512'
+                        algorithm: 'SHA512'
                     });
                     done();
                 }
@@ -236,7 +236,7 @@ describe('- Unit hotp.generate.test.ts file', () => {
             key_format: 'hex',
             counter: 1,
             code_digits: 10,
-            algorithm: 'sha256'
+            algorithm: 'SHA256'
         })
             .subscribe((_: HOTPGenerateValidatedData) => {
                     expect(_).toEqual({
@@ -247,7 +247,7 @@ describe('- Unit hotp.generate.test.ts file', () => {
                         code_digits: 10,
                         add_checksum: false,
                         truncation_offset: -1,
-                        algorithm: 'sha256'
+                        algorithm: 'SHA256'
                     });
                     done();
                 }

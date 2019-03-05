@@ -38,9 +38,9 @@ export class TOTP {
      *
      *          - {@code truncation_offset} - the offset into the MAC result to begin truncation - default `-1`
      *
-     *          - {@code algorithm} - The algorithm to create HMAC: 'sha1' | 'sha256' | 'sha512' - default 'sha512'
+     *          - {@code algorithm} - The algorithm to create HMAC: 'SHA1' | 'SHA256' | 'SHA512' - default 'SHA512'
      *
-     * @return {Observable<string>} - A numeric string in base 10 includes code_digits plus the optional checksum digit if requested.
+     * @returns {Observable<string>} - A numeric string in base 10 includes code_digits plus the optional checksum digit if requested.
      */
     static generate(key: string, options: TOTPGenerateOptions = {}): Observable<string> {
         return of(
@@ -95,10 +95,10 @@ export class TOTP {
      *
      *          - {@code truncation_offset} - the offset into the MAC result to begin truncation - default `-1`
      *
-     *          - {@code algorithm} - The algorithm to create HMAC: 'sha1' | 'sha256' | 'sha512' - default 'sha512'
+     *          - {@code algorithm} - The algorithm to create HMAC: 'SHA1' | 'SHA256' | 'SHA512' - default 'SHA512'
      *
-     * @return {Observable<OTPVerifyResult>} - an object {@code {delta: #, delta_format: 'int' | 'hex'},
-     *          following counter format, if the token is valid else throw an exception
+     * @returns {Observable<OTPVerifyResult>} - an object {@code {delta: #, delta_format: 'int'} if the token is valid
+     *              else throw an exception
      */
     static verify(token: string, key: string, options: TOTPVerifyOptions = {}): Observable<OTPVerifyResult | {}> {
         return of(

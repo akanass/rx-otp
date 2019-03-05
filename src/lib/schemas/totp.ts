@@ -1,15 +1,3 @@
-/*
-    optVerify: joi.object().keys({
-        window: joi.number().integer().min(0).default(6),
-        time: joi.number().integer().min(1).unit('seconds').default(30),
-        timestamp: joi.number().integer().min(0).unit('milliseconds'),
-        addChecksum: joi.boolean().default(false),
-        truncationOffset: joi.number().integer().min(0).max(15),
-        algorithm: joi.string().valid('sha1', 'sha256', 'sha512').default('sha1')
-    }),
-    token: joi.string().regex(/^[0-9]{1,11}$/)
-* */
-
 /**
  * TOTP generate schema
  */
@@ -45,7 +33,7 @@ export const TOTP_GENERATE_SCHEMA = {
         },
         'algorithm': {
             '$ref': 'definitions.json#/definitions/algorithm',
-            'default': 'sha512'
+            'default': 'SHA512'
         }
     },
     'dynamicDefaults': {
@@ -121,7 +109,7 @@ export const TOTP_VERIFY_SCHEMA = {
         },
         'algorithm': {
             '$ref': 'definitions.json#/definitions/algorithm',
-            'default': 'sha512'
+            'default': 'SHA512'
         }
     },
     'dynamicDefaults': {

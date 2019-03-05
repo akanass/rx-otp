@@ -39,7 +39,7 @@ export class HOTP {
      * @param num the number to calculate the checksum for
      * @param digits number of significant places in the number
      *
-     * @return the checksum of num
+     * @returns the checksum of num
      */
     private static _calcChecksum(num, digits): number {
         // initialize variables
@@ -79,9 +79,9 @@ export class HOTP {
      * @param {number} truncation_offset - the offset into the MAC result to
      *                     begin truncation.
      *
-     * @param {string} algorithm - the algorithm to create HMAC - default 'sha512'
+     * @param {string} algorithm - the algorithm to create HMAC - default 'SHA512'
      *
-     * @return A numeric string in base 10 includes code_digits plus the optional checksum digit if requested.
+     * @returns A numeric string in base 10 includes code_digits plus the optional checksum digit if requested.
      *
      * @private
      */
@@ -90,7 +90,7 @@ export class HOTP {
                                 code_digits: number,
                                 add_checksum: boolean,
                                 truncation_offset: number,
-                                algorithm: 'sha1' | 'sha256' | 'sha512'): Observable<string> {
+                                algorithm: 'SHA1' | 'SHA256' | 'SHA512'): Observable<string> {
         return of(
             crypto.createHmac(algorithm, key)
         )
@@ -211,9 +211,9 @@ export class HOTP {
      *
      *          - {@code truncation_offset} - the offset into the MAC result to begin truncation - default `-1`
      *
-     *          - {@code algorithm} - The algorithm to create HMAC: 'sha1' | 'sha256' | 'sha512' - default 'sha512'
+     *          - {@code algorithm} - The algorithm to create HMAC: 'SHA1' | 'SHA256' | 'SHA512' - default 'SHA512'
      *
-     * @return {Observable<string>} - A numeric string in base 10 includes code_digits plus the optional checksum digit if requested.
+     * @returns {Observable<string>} - A numeric string in base 10 includes code_digits plus the optional checksum digit if requested.
      */
     static generate(key: string, options: HOTPGenerateOptions = {}): Observable<string> {
         return of(
@@ -273,11 +273,11 @@ export class HOTP {
      *
      *          - {@code truncation_offset} - the offset into the MAC result to begin truncation - default `-1`
      *
-     *          - {@code algorithm} - The algorithm to create HMAC: 'sha1' | 'sha256' | 'sha512' - default 'sha512'
+     *          - {@code algorithm} - The algorithm to create HMAC: 'SHA1' | 'SHA256' | 'SHA512' - default 'SHA512'
      *
      *          - {@code previous_otp_allowed}  - A flag to allow OTP validation before current counter - default `false`
      *
-     * @return {Observable<OTPVerifyResult>} - an object {@code {delta: #, delta_format: 'int' | 'hex'},
+     * @returns {Observable<OTPVerifyResult>} - an object {@code {delta: #, delta_format: 'int' | 'hex'},
      *          following counter format, if the token is valid else throw an exception
      */
     static verify(token: string, key: string, options: HOTPVerifyOptions = {}): Observable<OTPVerifyResult | {}> {
