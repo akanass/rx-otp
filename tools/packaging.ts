@@ -1,7 +1,6 @@
 // import libraries
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/mergeMap';
+import { Observable, forkJoin } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
 import * as fs from 'fs-extra';
 
 /**
@@ -18,9 +17,9 @@ class Packaging {
     // private property to store files list
     private _files: FileObject[];
     // private property to store src path
-    private _srcPath: string;
+    private readonly _srcPath: string;
     // private property to store dest path
-    private _destPath: string;
+    private readonly _destPath: string;
 
     /**
      * Class constructor
@@ -82,49 +81,48 @@ class Packaging {
      */
     private _copyAndCleanupPackageJson(file: string): Observable<any> {
         // function to read JSON
-        const readJson = (src: string): Observable<any> => {
-            return <Observable<any>> Observable.create((observer) => {
-                fs.readJson(src, (error, packageObj) => {
-                    if (error) {
-                        return observer.error(error);
-                    }
+        const readJson = (src: string): Observable<any> => Observable.create((observer) => {
+            fs.readJson(src, (error, packageObj) => {
+                if (error) {
+                    return observer.error(error);
+                }
 
-                    observer.next(packageObj);
-                    observer.complete();
-                });
+                observer.next(packageObj);
+                observer.complete();
             });
-        };
+        });
 
         // function to write JSON
-        const writeJson = (dest: string, data: any): Observable<any> => {
-            return <Observable<any>> Observable.create((observer) => {
-                fs.outputJson(dest, data, (error) => {
-                    if (error) {
-                        return observer.error(error);
-                    }
+        const writeJson = (dest: string, data: any): Observable<any> => Observable.create((observer) => {
+            fs.outputJson(dest, data, (error) => {
+                if (error) {
+                    return observer.error(error);
+                }
 
-                    observer.next();
-                    observer.complete();
-                });
+                observer.next();
+                observer.complete();
             });
-        };
+        });
 
         // read package.json
-        return readJson(`${this._srcPath}${file}`).flatMap(packageObj => {
-            // delete obsolete data in package.json
-            delete packageObj.scripts;
-            delete packageObj.devDependencies;
+        return readJson(`${this._srcPath}${file}`)
+            .pipe(
+                flatMap(packageObj => {
+                    // delete obsolete data in package.json
+                    delete packageObj.scripts;
+                    delete packageObj.devDependencies;
 
-            // write new package.json
-            return writeJson(`${this._destPath}${file}`, packageObj);
-        });
+                    // write new package.json
+                    return writeJson(`${this._destPath}${file}`, packageObj);
+                })
+            );
     }
 
     /**
      * Function that _copy all files in dist directory
      */
     process() {
-        Observable.forkJoin(
+        forkJoin(
             this._files.map(
                 (fileObject: FileObject) => this._copy(fileObject.name)
             )

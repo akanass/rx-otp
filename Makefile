@@ -15,6 +15,6 @@ clean:
 packaging:
 	@node ./node_modules/.bin/ts-node ./tools/packaging.ts
 browserify:
-	@node ./node_modules/.bin/ts-node ./tools/init-browser-dir.ts && ./node_modules/.bin/browserify --debug -e ./dist/esm5/index.js -s otp | ./node_modules/.bin/exorcist ./dist/browser/index.js.map  > ./dist/browser/index.js
+	@node ./node_modules/.bin/ts-node ./tools/init-browser-dir.ts && ./node_modules/.bin/browserify --debug -e ./dist/esm5/index.js -s ro | ./node_modules/.bin/exorcist ./dist/browser/index.js.map  > ./dist/browser/index.js
 
 .PHONY: pretest test coveralls commonjs esm2015 esm5 clean packaging browserify
