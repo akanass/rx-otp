@@ -99,3 +99,13 @@ HOTP.verify('125165', '12345678901234567890').subscribe(
 ### *OTPVerifyResult*
 > - ***{number | string} delta*** *(required): The `delta` with the `counter` during the `validation`.*
 > - ***{enum} delta_format*** *(required): The `delta format` which can be `'int'` for a `number` or `'hex'` for a `hexadecimal string`. This value is the same than `counter_format` in `HOTPVerifyOptions`.*
+
+[Back to top](#table-of-contents)
+
+## Change History
+
+* Implementation of all methods (2019-03-08)
+    * [.generate(key[, options])](#generatekey-options)
+    * [.verify(token, key[, options])](#generatetoken-key-options)
+
+[Back to top](#table-of-contents)
