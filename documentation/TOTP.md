@@ -63,7 +63,7 @@ Verifies `TOTP` token with given `key`.
 > - ***{TOTPVerifyOptions} options*** *(optional): object contains `key_format`, `window`, `time`, `timestamp`, `add_checksum`, `truncation_offset` and `algorithm`. (default: `empty object`).*
 
 **Response:**
-*{[Observable](https://github.com/ReactiveX/rxjs/blob/master/src/internal/Observable.ts)} - `OTPVerifyResult` with `delta` and `delta_format`, following `counter_format`, if the `token` is `valid` else `throw` an exception*
+*{[Observable](https://github.com/ReactiveX/rxjs/blob/master/src/internal/Observable.ts)} - `OTPVerifyResult` with `delta` and `delta_format: 'int'` if the `token` is `valid` else `throw` an exception*
 
 **Example:**
 ```typescript
