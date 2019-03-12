@@ -23,7 +23,7 @@ import { HOTP } from '@akanass/rx-otp';
 
 * [API in Detail](#api-in-detail)
     * [.generate(key[, options])](#generatekey-options)
-    * [.verify(token, key[, options])](#generatetoken-key-options)
+    * [.verify(token, key[, options])](#verifytoken-key-options)
 * [Parameters types in detail](#parameters-types-in-detail)
     * [HOTPGenerateOptions](#hotpgenerateoptions)
     * [HOTPVerifyOptions](#hotpverifyoptions)
@@ -37,7 +37,7 @@ import { HOTP } from '@akanass/rx-otp';
 Generates `HOTP` token for given `key`.
 
 **Parameters:**
-> - ***{string} key*** *: Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC. Format can be `ASCII` or `HEX`.*
+> - ***{string} key*** *(required): Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC. Format can be `ASCII` or `HEX`.*
 > - ***{HOTPGenerateOptions} options*** *(optional): object contains `key_format`, `counter`, `counter_format`, `code_digits`, `add_checksum`, `truncation_offset` and `algorithm`. (default: `empty object`).*
 
 **Response:**
@@ -58,8 +58,8 @@ HOTP.generate('12345678901234567890').subscribe(
 Verifies `HOTP` token with given `key`.
 
 **Parameters:**
-> - ***{string} token*** *: Passcode to validate.*
-> - ***{string} key*** *: Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC. Format can be `ASCII` or `HEX`.*
+> - ***{string} token*** *(required): Passcode to validate.*
+> - ***{string} key*** *(required): Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC. Format can be `ASCII` or `HEX`.*
 > - ***{HOTPVerifyOptions} options*** *(optional): object contains `key_format`, `window`, `counter`, `counter_format`, `add_checksum`, `truncation_offset` , `algorithm` and `previous_otp_allowed`. (default: `empty object`).*
 
 **Response:**

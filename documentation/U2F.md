@@ -22,13 +22,13 @@ import { U2F } from '@akanass/rx-otp';
 ## Table of contents
 
 * [API in Detail](#api-in-detail)
-    * [.generateAuthToken(base32_key[, options])](#generatebase32key-options)
-    * [.verifyAuthToken(token, base32_key[, options])](#generatetoken-base32key-options)
-    * [.generateTOTPUri(secret, account_name, issuer[, options])](#generatetotpurisecret-accountname-issuer-options)
+    * [.generateAuthToken(base32_key[, options])](#generatebase32_key-options)
+    * [.verifyAuthToken(token, base32_key[, options])](#generatetoken-base32_key-options)
+    * [.generateTOTPUri(secret, account_name, issuer[, options])](#generatetotpurisecret-account_name-issuer-options)
     * [.generateAuthKey()](#generateauthkey)
     * [.generateOTPKey([asBuffer])](#generateotpkeyasbuffer)
     * [.encodeAuthKey(buffer)](#encodeauthkeybuffer)
-    * [.decodeAuthKey(base32_key)](#decodeauthkeybase32key)
+    * [.decodeAuthKey(base32_key)](#decodeauthkeybase32_key)
     * [.qrCode(text[, options])](#qrcodetest-options)
 * [Parameters types in detail](#parameters-types-in-detail)
     * [U2FGenerateOptions](#hotpgenerateoptions)
@@ -44,7 +44,7 @@ import { U2F } from '@akanass/rx-otp';
 Generates an `authenticator` token for given `base32` key.
 
 **Parameters:**
-> - ***{string} base32_key*** *: The secret in `base32`. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.*
+> - ***{string} base32_key*** *(required): The secret in `base32`. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.*
 > - ***{U2FGenerateOptions} options*** *(optional): object contains `time`, `timestamp`, `code_digits`, `add_checksum`, `truncation_offset` and `algorithm`. (default: `empty object`).*
 
 **Response:**
@@ -65,8 +65,8 @@ U2F.generateAuthToken('RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5', { timestamp: 59
 Verifies `authenticator` token with given `base32` key.
 
 **Parameters:**
-> - ***{string} token*** *: Passcode to validate.*
-> - ***{string} base32_key*** *: The secret in `base32`. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.*
+> - ***{string} token*** *(required): Passcode to validate.*
+> - ***{string} base32_key*** *(required): The secret in `base32`. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.*
 > - ***{U2FVerifyOptions} options*** *(optional): object contains `window`, `time`, `timestamp`, `add_checksum`, `truncation_offset` and `algorithm`. (default: `empty object`).*
 
 **Response:**
@@ -87,9 +87,9 @@ U2F.verifyAuthToken('766122', 'RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5', { times
 Full `OTPAUTH URI` spec as explained in [google-authenticator](https://github.com/google/google-authenticator/wiki/Key-Uri-Format) documentation.
 
 **Parameters:**
-> - ***{string} secret*** *: The secret in `base32`. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.*
-> - ***{string} account_name*** *: The user for this account.*
-> - ***{string} issuer*** *: The provider or service managing that account.*
+> - ***{string} secret*** *(required): The secret in `base32`. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC.*
+> - ***{string} account_name*** *(required): The user for this account.*
+> - ***{string} issuer*** *(required): The provider or service managing that account.*
 > - ***{U2FUriOptions} options*** *(optional): object contains `time`, `code_digits`, `algorithm`. (default: `empty object`).*
 
 **Response:**
@@ -147,7 +147,7 @@ U2F.generateOTPKey().subscribe(
 Text-encode the key in the `Buffer` as `base32` (in the style of Google Authenticator - same as Facebook, Microsoft, etc).
 
 **Parameters:**
-> - ***{Buffer} buffer*** *: `Secret key` in `Buffer` format.*
+> - ***{Buffer} buffer*** *(required): `Secret key` in `Buffer` format.*
 
 **Response:**
 *{[Observable](https://github.com/ReactiveX/rxjs/blob/master/src/internal/Observable.ts)} - `Secret key` as `base32`. Key has `39 chars` length including `spaces`.*
@@ -167,7 +167,7 @@ U2F.encodeAuthKey(Buffer.from('secret key')).subscribe(
 Decodes `base32 key` (Google Authenticator, FB, M$, etc).
 
 **Parameters:**
-> - ***{string} base32_key*** *: The `key` from `base32`.*
+> - ***{string} base32_key*** *(required): The `key` from `base32`.*
 
 **Response:**
 *{[Observable](https://github.com/ReactiveX/rxjs/blob/master/src/internal/Observable.ts)} - Binary-decode the key from base32.*
@@ -187,7 +187,7 @@ U2F.decodeAuthKey('ONSW G4TF OQQG WZLZ').subscribe(
 Generates `QR code`.
 
 **Parameters:**
-> - ***{string} text*** *: Text to encode.*
+> - ***{string} text*** *(required): Text to encode.*
 > - ***{QrCodeGenerateOptions} options*** *(optional): object contains `ec_level`, `type`, `size`. (default: `empty object`).*
 
 **Response:**
@@ -205,7 +205,7 @@ U2F.generateTOTPUri('RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5', 'akanass', 'rx-ot
 );
 ```
 
-You can scan this `qrCode` with your `Google Authenticator` application to show result:
+You can scan this `QR code` with your `Google Authenticator` application to show the result:
 
 <div style='margin:20px 0;'>
     <image src='https://bit.ly/2SZYD3R' width='115' height='115' alt='qr-code' style='border:none;' />
@@ -242,18 +242,23 @@ You can scan this `qrCode` with your `Google Authenticator` application to show 
 > - ***{number | string} delta*** *(required): The `delta` with the `counter` during the `validation`.*
 > - ***{enum} delta_format*** *(required): The `delta format` which can be `'int'` for a `number` or `'hex'` for a `hexadecimal string`. This value is the same than `counter_format` in `U2FVerifyOptions`.*
 
+### *QrCodeGenerateOptions*
+> - ***{enum} ec_level*** *(optional): Error correction level. One of `'L'`, `'M'`, `'Q'`, `'H'`. (default `'M'`).*
+> - ***{enum} type*** *(optional): Image type. Possible values `'png'` or `'svg'`. (default `'svg'`).*
+> - ***{number} size*** *(optional): Size of one module in pixels. (default `5` for `png `and `undefined` for `svg`).*
+
 [Back to top](#table-of-contents)
 
 ## Change History
 
 * Implementation of all methods (2019-03-08)
-    * [.generateAuthToken(base32_key[, options])](#generatebase32key-options)
-    * [.verifyAuthToken(token, base32_key[, options])](#generatetoken-base32key-options)
-    * [.generateTOTPUri(secret, account_name, issuer[, options])](#generatetotpurisecret-accountname-issuer-options)
+    * [.generateAuthToken(base32_key[, options])](#generatebase32_key-options)
+    * [.verifyAuthToken(token, base32_key[, options])](#generatetoken-base32_key-options)
+    * [.generateTOTPUri(secret, account_name, issuer[, options])](#generatetotpurisecret-account_name-issuer-options)
     * [.generateAuthKey()](#generateauthkey)
     * [.generateOTPKey([asBuffer])](#generateotpkeyasbuffer)
     * [.encodeAuthKey(buffer)](#encodeauthkeybuffer)
-    * [.decodeAuthKey(base32_key)](#decodeauthkeybase32key)
+    * [.decodeAuthKey(base32_key)](#decodeauthkeybase32_key)
     * [.qrCode(text[, options])](#qrcodetest-options)
 
 [Back to top](#table-of-contents)

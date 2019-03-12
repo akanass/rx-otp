@@ -23,7 +23,7 @@ import { TOTP } from '@akanass/rx-otp';
 
 * [API in Detail](#api-in-detail)
     * [.generate(key[, options])](#generatekey-options)
-    * [.verify(token, key[, options])](#generatetoken-key-options)
+    * [.verify(token, key[, options])](#verifytoken-key-options)
 * [Parameters types in detail](#parameters-types-in-detail)
     * [TOTPGenerateOptions](#hotpgenerateoptions)
     * [TOTPVerifyOptions](#hotpverifyoptions)
@@ -37,7 +37,7 @@ import { TOTP } from '@akanass/rx-otp';
 Generates `TOTP` token for given `key`.
 
 **Parameters:**
-> - ***{string} key*** *: Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC. Format can be `ASCII` or `HEX`.*
+> - ***{string} key*** *(required): Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC. Format can be `ASCII` or `HEX`.*
 > - ***{TOTPGenerateOptions} options*** *(optional): object contains `key_format`, `time`, `timestamp`, `code_digits`, `add_checksum`, `truncation_offset` and `algorithm`. (default: `empty object`).*
 
 **Response:**
@@ -58,8 +58,8 @@ TOTP.generate('12345678901234567890', { timestamp: 59000, code_digits: 8, algori
 Verifies `TOTP` token with given `key`.
 
 **Parameters:**
-> - ***{string} token*** *: Passcode to validate.*
-> - ***{string} key*** *: Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC. Format can be `ASCII` or `HEX`.*
+> - ***{string} token*** *(required): Passcode to validate.*
+> - ***{string} key*** *(required): Key for the one time password. This should be unique and secret for every user as this is the seed that is used to calculate the HMAC. Format can be `ASCII` or `HEX`.*
 > - ***{TOTPVerifyOptions} options*** *(optional): object contains `key_format`, `window`, `time`, `timestamp`, `add_checksum`, `truncation_offset` and `algorithm`. (default: `empty object`).*
 
 **Response:**
