@@ -35,6 +35,7 @@ import { U2F } from '@akanass/rx-otp';
     * [U2FVerifyOptions](#hotpverifyoptions)
     * [U2FUriOptions](#u2furioptions)
     * [OTPVerifyResult](#otpverifyresult)
+    * [QrCodeGenerateOptions](#qrcodegenerateoptions)
 * [Change History](#change-history)
 
 ## API in Detail
