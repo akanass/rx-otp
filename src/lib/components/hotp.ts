@@ -56,6 +56,7 @@ export class HOTP {
             doubleDigit = !doubleDigit;
         }
         let result = total % 10;
+        /* istanbul ignore else */
         if (result > 0) {
             result = 10 - result;
         }

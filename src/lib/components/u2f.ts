@@ -265,6 +265,16 @@ export class U2F {
                         }
                     })
                 ),
+                map(_ =>
+                    !!_.options.size ?
+                        _ :
+                        ({
+                            text: _.text,
+                            options: {
+                                ec_level: _.options.ec_level,
+                                type: _.options.type,
+                            }
+                        })),
                 map((_: any) => qr.imageSync(_.text, _.options))
             );
     }

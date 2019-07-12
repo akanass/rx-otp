@@ -148,4 +148,11 @@ describe('- Integration u2f.test.ts file', () => {
             done();
         });
     });
+
+    test('- `U2F.qrCode()` must return a png in Buffer format with specific size', (done) => {
+        U2F.qrCode('text', { type: 'png', size: 3 }).subscribe(_ => {
+            expect(Buffer.isBuffer(_)).toBeTruthy();
+            done();
+        });
+    });
 });

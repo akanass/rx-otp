@@ -1,16 +1,16 @@
 <div style="overflow:hidden;margin-bottom:20px;">
 <div style="float:left;line-height:60px">
-    <a href="https://travis-ci.org/njl07/rx-otp.svg?branch=master">
-        <img src="https://travis-ci.org/njl07/rx-otp.svg?branch=master" alt="build" />
+    <a href="https://travis-ci.org/akanass/rx-otp.svg?branch=master">
+        <img src="https://travis-ci.org/akanass/rx-otp.svg?branch=master" alt="build" />
     </a>
-    <a href="https://coveralls.io/github/njl07/rx-otp?branch=master">
-        <img src="https://coveralls.io/repos/github/njl07/rx-otp/badge.svg?branch=master" alt="coveralls" />
+    <a href="https://coveralls.io/github/akanass/rx-otp?branch=master">
+        <img src="https://coveralls.io/repos/github/akanass/rx-otp/badge.svg?branch=master" alt="coveralls" />
     </a>
-    <a href="https://david-dm.org/njl07/rx-otp">
-        <img src="https://david-dm.org/njl07/rx-otp.svg" alt="dependencies" />
+    <a href="https://david-dm.org/akanass/rx-otp">
+        <img src="https://david-dm.org/akanass/rx-otp.svg" alt="dependencies" />
     </a>
-    <a href="https://david-dm.org/njl07/rx-otp?type=dev">
-        <img src="https://david-dm.org/njl07/rx-otp/dev-status.svg" alt="devDependencies" />
+    <a href="https://david-dm.org/akanass/rx-otp?type=dev">
+        <img src="https://david-dm.org/akanass/rx-otp/dev-status.svg" alt="devDependencies" />
     </a>
 </div>
 <div style="float:right;">
@@ -130,9 +130,9 @@ For a `server` application, `target` will be `node`, `node` block in configurati
 
 We implemented some functions and to see their details go to documentation folder:
 
-* [./documentation/HOTP.md](https://github.com/njl07/rx-otp/blob/master/documentation/HOTP.md)
-* [./documentation/TOTP.md](https://github.com/njl07/rx-otp/blob/master/documentation/TOTP.md)
-* [./documentation/U2F.md](https://github.com/njl07/rx-otp/blob/master/documentation/U2F.md)
+* [./documentation/HOTP.md](https://github.com/akanass/rx-otp/blob/master/documentation/HOTP.md)
+* [./documentation/TOTP.md](https://github.com/akanass/rx-otp/blob/master/documentation/TOTP.md)
+* [./documentation/U2F.md](https://github.com/akanass/rx-otp/blob/master/documentation/U2F.md)
 
 [Back to top](#table-of-contents)
 
@@ -151,6 +151,11 @@ To set up your development environment:
 
 ## Change History
 
+* v1.1.0 (2019-07-12)
+    * Change repository owner name
+    * Latest packages' versions
+    * Fix tests
+    * Documentation
 * v1.0.0 (2019-03-08)
     * Add **scope** to library and move to **`@akanass/rx-otp`**
     * Rewritten all **library and test files in `Typescript`**
@@ -161,6 +166,6 @@ To set up your development environment:
 [Back to top](#table-of-contents)
 
 ## License
-Copyright (c) 2019 **Nicolas Jessel**. Licensed under the [MIT license](https://github.com/njl07/rx-otp/blob/master/LICENSE.md).
+Copyright (c) 2019 **Nicolas Jessel**. Licensed under the [MIT license](https://github.com/akanass/rx-otp/blob/master/LICENSE.md).
 
 [Back to top](#table-of-contents)

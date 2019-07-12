@@ -1,6 +1,6 @@
 {
     "name": "@akanass/rx-otp",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "HMAC-based (HOTP) and Time-based (TOTP) One-Time Password manager. Works with Google Authenticator for Two-Factor Authentication.",
     "main": "commonjs/index.js",
     "module": "esm5/index.js",
@@ -20,7 +20,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:njl07/rx-otp.git"
+        "url": "git@github.com:akanass/rx-otp.git"
     },
     "keywords": [
         "One-Time Password",
@@ -53,42 +53,42 @@
     "author": {
         "name": "Nicolas Jessel",
         "email": "akanass@icloud.com",
-        "url": "https://github.com/njl07"
+        "url": "https://github.com/akanass"
     },
-    "license": "SEE LICENSE IN https://github.com/njl07/rx-otp/blob/master/LICENSE.md",
+    "license": "SEE LICENSE IN https://github.com/akanass/rx-otp/blob/master/LICENSE.md",
     "bugs": {
-        "url": "https://github.com/njl07/rx-otp/issues"
+        "url": "https://github.com/akanass/rx-otp/issues"
     },
-    "homepage": "https://github.com/njl07/rx-otp#readme",
+    "homepage": "https://github.com/akanass/rx-otp#readme",
     "dependencies": {
-        "@types/node": "^11.11.1",
+        "@types/node": "^12.6.2",
         "@types/qr-image": "^3.2.1",
         "@types/uid-safe": "^2.1.2",
-        "ajv": "^6.10.0",
-        "ajv-keywords": "^3.4.0",
-        "big-integer": "^1.6.42",
+        "ajv": "^6.10.1",
+        "ajv-keywords": "^3.4.1",
+        "big-integer": "^1.6.44",
         "convert-base": "^0.1.0",
         "pad-component": "^0.0.1",
         "qr-image": "^3.2.0",
         "thirty-two": "^1.0.2"
     },
     "devDependencies": {
-        "@types/fs-extra": "^5.0.5",
-        "@types/jest": "^24.0.11",
-        "browserify": "^16.2.3",
-        "coveralls": "^3.0.3",
+        "@types/fs-extra": "^8.0.0",
+        "@types/jest": "^24.0.15",
+        "browserify": "^16.3.0",
+        "coveralls": "^3.0.5",
         "exorcist": "^1.0.1",
-        "fs-extra": "^7.0.1",
-        "jest": "^24.4.0",
+        "fs-extra": "^8.1.0",
+        "jest": "^24.8.0",
         "rimraf": "^2.6.3",
-        "rxjs": "^6.4.0",
-        "ts-jest": "^24.0.0",
-        "ts-node": "^8.0.3",
-        "tslint": "^5.13.1",
-        "typescript": "^3.3.3333"
+        "rxjs": "^6.5.2",
+        "ts-jest": "^24.0.2",
+        "ts-node": "^8.3.0",
+        "tslint": "^5.18.0",
+        "typescript": "^3.5.3"
     },
     "peerDependencies": {
-        "rxjs": "^6.4.0"
+        "rxjs": "^6.5.2"
     },
     "engines": {
         "node": ">=7.0.0"
