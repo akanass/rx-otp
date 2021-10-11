@@ -73,7 +73,7 @@ describe('- Integration hotp.verify.test.ts file (http://tools.ietf.org/html/rfc
             counter: 4,
             algorithm: 'SHA1'
         }).subscribe(() => undefined, error => {
-            expect(error.message).toBe('The token \'755224\' doesn\'t match for the given paramaters');
+            expect(error.message).toBe('The token \'755224\' doesn\'t match for the given parameters');
             done();
         });
     });
@@ -104,7 +104,7 @@ describe('- Integration hotp.verify.test.ts file (http://tools.ietf.org/html/rfc
             algorithm: 'SHA1',
             truncation_offset: 10
         }).subscribe(() => undefined, error => {
-            expect(error.message).toBe('The token \'338314\' doesn\'t match for the given paramaters');
+            expect(error.message).toBe('The token \'338314\' doesn\'t match for the given parameters');
             done();
         });
     });

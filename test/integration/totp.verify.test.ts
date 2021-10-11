@@ -43,7 +43,7 @@ describe('- Integration totp.verify.test.ts file (http://tools.ietf.org/html/rfc
             truncation_offset: 10,
             algorithm: 'SHA1'
         }).subscribe(_ => undefined, error => {
-            expect(error.message).toBe('The token \'94287082\' doesn\'t match for the given paramaters');
+            expect(error.message).toBe('The token \'94287082\' doesn\'t match for the given parameters');
             done();
         });
     });

@@ -1,36 +1,40 @@
 {
-    "compilerOptions": {
-        "target": "es2015",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "declaration": true,
-        "noImplicitAny": false,
-        "sourceMap": true,
-        "inlineSources": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "noUnusedLocals": true,
-        "outDir": "./tmp",
-        "rootDir": ".",
-        "skipLibCheck": true,
-        "typeRoots": ["./node_modules/@types"],
-        "types": [
-            "node",
-            "qr-image",
-            "uid-safe",
-            "fs-extra",
-            "jest"
-        ],
-        "lib": [
-            "dom",
-            "es2015"
-        ]
-    },
-    "compileOnSave": false,
-    "buildOnSave": false,
-    "exclude": [
-        "node_modules",
-        "dist",
-        "tmp"
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "declaration": true,
+    "noImplicitAny": false,
+    "sourceMap": false,
+    "inlineSources": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noUnusedLocals": true,
+    "outDir": "./tmp",
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "stripInternal": true,
+    "removeComments": true,
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "types": [
+      "node",
+      "qr-image",
+      "uid-safe",
+      "fs-extra",
+      "jest"
+    ],
+    "lib": [
+      "dom",
+      "es2015"
     ]
+  },
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tmp"
+  ]
 }

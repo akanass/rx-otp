@@ -1,30 +1,3 @@
-<div style="overflow:hidden;margin-bottom:20px;">
-<div style="float:left;line-height:60px">
-    <a href="https://travis-ci.org/akanass/rx-otp.svg?branch=master">
-        <img src="https://travis-ci.org/akanass/rx-otp.svg?branch=master" alt="build" />
-    </a>
-    <a href="https://coveralls.io/github/akanass/rx-otp?branch=master">
-        <img src="https://coveralls.io/repos/github/akanass/rx-otp/badge.svg?branch=master" alt="coveralls" />
-    </a>
-    <a href="https://david-dm.org/akanass/rx-otp">
-        <img src="https://david-dm.org/akanass/rx-otp.svg" alt="dependencies" />
-    </a>
-    <a href="https://david-dm.org/akanass/rx-otp?type=dev">
-        <img src="https://david-dm.org/akanass/rx-otp/dev-status.svg" alt="devDependencies" />
-    </a>
-</div>
-<div style="float:right;">
-    <a href="https://www.typescriptlang.org/docs/tutorial.html">
-        <img src="https://cdn-images-1.medium.com/max/800/1*8lKzkDJVWuVbqumysxMRYw.png"
-             align="right" alt="Typescript logo" width="50" height="50"/>
-    </a>
-    <a href="http://reactivex.io/rxjs">
-        <img src="http://reactivex.io/assets/Rx_Logo_S.png"
-             align="right" alt="ReactiveX logo" width="50" height="50"/>
-    </a>
-</div>
-</div>
-
 # One-Time Password manager
 
 One Time Password manager is fully compliant with [HOTP](http://tools.ietf.org/html/rfc4226) (counter based one time passwords) and [TOTP](http://tools.ietf.org/html/rfc6238) (time based one time passwords). It can be used in conjunction with the `Google Authenticator`, for Two-Factor Authentication, which has free apps for `iOS`, `Android` and `BlackBerry`.
@@ -37,7 +10,6 @@ Now [RxJS](http://reactivex.io/rxjs) compliant, wrote in full [Typescript](https
 
 * [Installation](#installation)
 * [Super simple to use](#super-simple-to-use)
-* [Browser compatibility](#browser-compatibility)
 * [Build your project with Webpack](#build-your-project-with-webpack)
 * [API in Detail](#api-in-detail)
 * [Contributing](#contributing)
@@ -78,32 +50,6 @@ HOTP.generate('12345678901234567890').subscribe(
     err => console.error(err) // show error in console
 );
 ```
-
-[Back to top](#table-of-contents)
-
-## Browser compatibility
-
-**RX-OTP** can be used in your favorite browser to have all features in your own front application.
-
-Just import `browser/index.js` script and enjoy:
-
-```javascript
-<script src="node_modules/@akanass/rx-otp/browser/index.js" type="application/javascript"></script>
-<script type="application/javascript">
-    const HOTP = ro.HOTP;
-    
-    HOTP.generate('12345678901234567890').subscribe(
-        function(token){
-            console.log(token); // display 125165 in the console
-        },
-        function(err){
-            console.error(err); // show error in console
-        }
-    );
-</script>
-```
-
-Browser version is a **standalone** version so you just need to `copy/paste` file from `node_modules/@akanass/rx-otp/browser/index.js` when you want to create your bundle and change path to it.
 
 [Back to top](#table-of-contents)
 
@@ -151,6 +97,12 @@ To set up your development environment:
 
 ## Change History
 
+* v2.0.0 (2021-10-11)
+    * Upgrade all packages' versions to move on `rxjs:7.4.0` and delete incompatible packages
+    * Delete browser single version due to incompatibility
+    * Delete `es5` version and now module is only on `es2015` and if you want an older support, your bundle system should transpile it to `es5`
+    * Fix tests
+    * Documentation
 * v1.1.0 (2019-07-12)
     * Change repository owner name
     * Latest packages' versions
@@ -166,6 +118,6 @@ To set up your development environment:
 [Back to top](#table-of-contents)
 
 ## License
-Copyright (c) 2019 **Nicolas Jessel**. Licensed under the [MIT license](https://github.com/akanass/rx-otp/blob/master/LICENSE.md).
+Copyright (c) 2021 **Nicolas Jessel**. Licensed under the [MIT license](https://github.com/akanass/rx-otp/blob/master/LICENSE.md).
 
 [Back to top](#table-of-contents)
