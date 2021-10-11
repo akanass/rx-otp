@@ -1,16 +1,3 @@
-<div style='margin-bottom:20px;'>
-<div>
-    <a href='https://www.typescriptlang.org/docs/tutorial.html'>
-        <img src='https://cdn-images-1.medium.com/max/800/1*8lKzkDJVWuVbqumysxMRYw.png'
-             align='right' alt='Typescript logo' width='50' height='50' style='border:none;' />
-    </a>
-    <a href='http://reactivex.io/rxjs'>
-        <img src='http://reactivex.io/assets/Rx_Logo_S.png'
-             align='right' alt='ReactiveX logo' width='50' height='50' style='border:none;' />
-    </a>
-</div>
-</div>
-
 # U2F
 
 After imported `U2F` in your file, you can access to all its methods.
@@ -53,10 +40,10 @@ Generates an `authenticator` token for given `base32` key.
 
 **Example:**
 ```typescript
-U2F.generateAuthToken('RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5', { timestamp: 59000 }).subscribe(
-    token => console.log(token), // display 766122 in the console
-    err => console.error(err) // show error in console
-);
+U2F.generateAuthToken('RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5', { timestamp: 59000 }).subscribe({
+    next: token => console.log(token), // display 766122 in the console
+    error: err => console.error(err) // show error in console
+});
 ```
 
 [Back to top](#table-of-contents)
@@ -75,10 +62,10 @@ Verifies `authenticator` token with given `base32` key.
 
 **Example:**
 ```typescript
-U2F.verifyAuthToken('766122', 'RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5', { timestamp: 59000 }).subscribe(
-    data => console.log(data), // display {delta: 0, delta_format: 'int'} in the console
-    err => console.error(err) // show error in console
-);
+U2F.verifyAuthToken('766122', 'RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5', { timestamp: 59000 }).subscribe({
+    next: data => console.log(data), // display {delta: 0, delta_format: 'int'} in the console
+    error: err => console.error(err) // show error in console
+});
 ```
 
 [Back to top](#table-of-contents)
@@ -98,10 +85,10 @@ Full `OTPAUTH URI` spec as explained in [google-authenticator](https://github.co
 
 **Example:**
 ```typescript
-U2F.generateTOTPUri('RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5', 'akanass', 'rx-otp').subscribe(
-    uri => console.log(uri), // display 'otpauth://totp/rx-otp:akanass?secret=RHCQ3M3YP5KYU4VS7KGT2IUHR7M4TEC5&issuer=rx-otp&algorithm=SHA512&digits=6&period=30' in the console
-    err => console.error(err) // show error in console
-);
+U2F.generateTOTPUri('RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5', 'akanass', 'rx-otp').subscribe({
+    next: uri => console.log(uri), // display 'otpauth://totp/rx-otp:akanass?secret=RHCQ3M3YP5KYU4VS7KGT2IUHR7M4TEC5&issuer=rx-otp&algorithm=SHA512&digits=6&period=30' in the console
+    error: err => console.error(err) // show error in console
+});
 ```
 
 [Back to top](#table-of-contents)
@@ -115,10 +102,10 @@ Generates `OTP key` in `base32` format (in the style of Google Authenticator - s
 
 **Example:**
 ```typescript
-U2F.generateAuthKey().subscribe(
-    key => console.log(key), // display key like 'RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5' in the console
-    err => console.error(err) // show error in console
-);
+U2F.generateAuthKey().subscribe({
+    next: key => console.log(key), // display key like 'RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5' in the console
+    error: err => console.error(err) // show error in console
+});
 ```
 
 [Back to top](#table-of-contents)
@@ -135,10 +122,10 @@ Generates random `20 bytes` `OTP key`.
 
 **Example:**
 ```typescript
-U2F.generateOTPKey().subscribe(
-    key => console.log(key), // display key like 'bf233f4af8f70ff321996ddb41433b1a2f7ff3ce' in the console
-    err => console.error(err) // show error in console
-);
+U2F.generateOTPKey().subscribe({
+    next: key => console.log(key), // display key like 'bf233f4af8f70ff321996ddb41433b1a2f7ff3ce' in the console
+    error: err => console.error(err) // show error in console
+});
 ```
 
 [Back to top](#table-of-contents)
@@ -155,10 +142,10 @@ Text-encode the key in the `Buffer` as `base32` (in the style of Google Authenti
 
 **Example:**
 ```typescript
-U2F.encodeAuthKey(Buffer.from('secret key')).subscribe(
-    key => console.log(key), // display 'ONSW G4TF OQQG WZLZ' in the console
-    err => console.error(err) // show error in console
-);
+U2F.encodeAuthKey(Buffer.from('secret key')).subscribe({
+    next: key => console.log(key), // display 'ONSW G4TF OQQG WZLZ' in the console
+    error: err => console.error(err) // show error in console
+});
 ```
 
 [Back to top](#table-of-contents)
@@ -175,10 +162,10 @@ Decodes `base32 key` (Google Authenticator, FB, M$, etc).
 
 **Example:**
 ```typescript
-U2F.decodeAuthKey('ONSW G4TF OQQG WZLZ').subscribe(
-    buffer => console.log(buffer), // display Buffer.from('secret key') in the console
-    err => console.error(err) // show error in console
-);
+U2F.decodeAuthKey('ONSW G4TF OQQG WZLZ').subscribe({
+    next: buffer => console.log(buffer), // display Buffer.from('secret key') in the console
+    error: err => console.error(err) // show error in console
+});
 ```
 
 [Back to top](#table-of-contents)
@@ -200,10 +187,10 @@ U2F.generateTOTPUri('RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5', 'akanass', 'rx-ot
     .pipe(
         flatMap(_ => U2F.qrCode(_))
     )
-.subscribe(
-    svg => console.log(svg), // display '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47 47">...</svg>' in the console
-    err => console.error(err) // show error in console
-);
+.subscribe({
+    next: svg => console.log(svg), // display '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47 47">...</svg>' in the console
+    error: err => console.error(err) // show error in console
+});
 ```
 
 You can scan this `QR code` with your `Google Authenticator` application to show the result:

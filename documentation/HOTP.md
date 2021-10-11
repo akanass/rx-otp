@@ -1,16 +1,3 @@
-<div style='margin-bottom:20px;'>
-<div>
-    <a href='https://www.typescriptlang.org/docs/tutorial.html'>
-        <img src='https://cdn-images-1.medium.com/max/800/1*8lKzkDJVWuVbqumysxMRYw.png'
-             align='right' alt='Typescript logo' width='50' height='50' style='border:none;' />
-    </a>
-    <a href='http://reactivex.io/rxjs'>
-        <img src='http://reactivex.io/assets/Rx_Logo_S.png'
-             align='right' alt='ReactiveX logo' width='50' height='50' style='border:none;' />
-    </a>
-</div>
-</div>
-
 # HOTP
 
 After imported `HOTP` in your file, you can access to all its methods.
@@ -45,10 +32,10 @@ Generates `HOTP` token for given `key`.
 
 **Example:**
 ```typescript
-HOTP.generate('12345678901234567890').subscribe(
-    token => console.log(token), // display 125165 in the console
-    err => console.error(err) // show error in console
-);
+HOTP.generate('12345678901234567890').subscribe({
+    next: token => console.log(token), // display 125165 in the console
+    error: err => console.error(err) // show error in console
+});
 ```
 
 [Back to top](#table-of-contents)
@@ -67,10 +54,10 @@ Verifies `HOTP` token with given `key`.
 
 **Example:**
 ```typescript
-HOTP.verify('125165', '12345678901234567890').subscribe(
-    data => console.log(data), // display {delta: 0, delta_format: 'int'} in the console
-    err => console.error(err) // show error in console
-);
+HOTP.verify('125165', '12345678901234567890').subscribe({
+    next: data => console.log(data), // display {delta: 0, delta_format: 'int'} in the console
+    error: err => console.error(err) // show error in console
+});
 ```
 
 [Back to top](#table-of-contents)
