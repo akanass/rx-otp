@@ -30,7 +30,7 @@ $ yarn add @akanass/rx-otp rxjs
 
 **RX-OTP** is designed to be the simplest way possible to generate and verify OTP.
 
-It's fully `Typescript` | `ES6` wrotten so you can import it :
+It's fully `Typescript` | `ES6` written, so you can import it :
 
 ```typescript
 import {HOTP} from "@akanass/rx-otp";
