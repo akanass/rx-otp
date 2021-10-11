@@ -45,10 +45,10 @@ const HOTP = require('@akanass/rx-otp').HOTP;
 Now, it's easy to perform a generation of `HOTP`:
 
 ```typescript
-HOTP.generate('12345678901234567890').subscribe(
-    token => console.log(token), // display 125165 in the console
-    err => console.error(err) // show error in console
-);
+HOTP.generate('12345678901234567890').subscribe({
+    next: token => console.log(token), // display 125165 in the console
+    error: err => console.error(err) // show error in console
+});
 ```
 
 [Back to top](#table-of-contents)
