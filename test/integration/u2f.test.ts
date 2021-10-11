@@ -1,6 +1,6 @@
 import { Buffer } from 'buffer';
-import { flatMap } from 'rxjs/operators';
 import { U2F } from '../../src';
+import { mergeMap } from 'rxjs';
 
 describe('- Integration u2f.test.ts file', () => {
     /**
@@ -9,7 +9,7 @@ describe('- Integration u2f.test.ts file', () => {
     test('- `U2F.decodeAuthKey()` must return the same value than initial value in base32', (done) => {
         U2F.encodeAuthKey(Buffer.from('secret key'))
             .pipe(
-                flatMap(_ => U2F.decodeAuthKey(_))
+                mergeMap(_ => U2F.decodeAuthKey(_))
             ).subscribe(_ => {
             expect(_.toString('hex')).toBe(Buffer.from('secret key').toString('hex'));
             done();
@@ -93,7 +93,7 @@ describe('- Integration u2f.test.ts file', () => {
     test('- `U2F.qrCode()` must return a svg', (done) => {
         U2F.generateTOTPUri('RHCQ 3M3Y P5KY U4VS 7KGT 2IUH R7M4 TEC5', 'akanass', 'rx-otp')
             .pipe(
-                flatMap(_ => U2F.qrCode(_))
+                mergeMap(_ => U2F.qrCode(_))
             )
             .subscribe(_ => {
                 expect(_).toEqual('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47 47">' +

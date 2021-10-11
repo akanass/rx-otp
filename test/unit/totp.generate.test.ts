@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { TOTP } from '../../src';
-import { TOTPGenerateValidatedData, Validator } from '../../src/lib/schemas';
+import { TOTP, TOTPGenerateValidatedData } from '../../src';
+import { Validator } from '../../src/lib/schemas/validator';
 
 describe('- Unit totp.generate.test.ts file', () => {
   /**

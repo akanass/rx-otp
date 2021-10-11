@@ -6,9 +6,9 @@ import {
   TOTPGenerateValidatedData,
   TOTPVerifyOptions,
   TOTPVerifyValidatedData,
-  Validator
-} from '../schemas';
+} from '../schemas/interfaces';
 import { HOTP } from './hotp';
+import { Validator } from '../schemas/validator';
 
 /**
  * TOTP class definition

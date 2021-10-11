@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { HOTP, } from '../../src';
-import { HOTPGenerateValidatedData, Validator } from '../../src/lib/schemas';
+import { HOTP, HOTPGenerateValidatedData } from '../../src';
+import { Validator } from '../../src/lib/schemas/validator';
 
 describe('- Unit hotp.generate.test.ts file', () => {
   /**

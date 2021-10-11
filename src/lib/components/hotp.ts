@@ -14,8 +14,8 @@ import {
   HOTPVerifyOptions,
   HOTPVerifyValidatedData,
   OTPVerifyResult,
-  Validator
-} from '../schemas';
+} from '../schemas/interfaces';
+import { Validator } from '../schemas/validator';
 
 const converter = new ConvertBase();
 
@@ -289,8 +289,8 @@ export class HOTP {
    * @private
    * @internal
    */
-  private static _verifyWithIteration(data: any): Observable<OTPVerifyResult | {}> {
-    return from(data.iterator)
+  private static _verifyWithIteration = (data: any): Observable<OTPVerifyResult | {}> =>
+    from(data.iterator)
       .pipe(
         mergeMap((i: any) =>
           of({
@@ -352,5 +352,4 @@ export class HOTP {
             throwError(() => new Error(`The token '${data.token}' doesn't match for the given parameters`))
         )
       );
-  }
 }

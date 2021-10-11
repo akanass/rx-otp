@@ -14,9 +14,9 @@ import {
   U2FUriValidatedData,
   U2FVerifyOptions,
   U2FVerifyValidatedData,
-  Validator
-} from '../schemas';
+} from '../schemas/interfaces';
 import { TOTP } from './totp';
+import { Validator } from '../schemas/validator';
 
 /**
  * U2F class definition
